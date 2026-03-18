@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07090d;--s1:#0d1117;--s2:#111620;--s3:#161c28;--s4:#1c2438;
+  --bg:#07090d;--s1:#0d1117;--s2:#111620;
   --gold:#c9a84c;--gold2:#e8c97a;--gold3:#f5e0a0;
   --gd:rgba(201,168,76,0.12);--gb:rgba(201,168,76,0.22);
   --green:#2dd4a0;--gbg:rgba(45,212,160,0.08);--gbr:rgba(45,212,160,0.22);
@@ -16,33 +16,31 @@
   --blue:#4da8f0;--bbg:rgba(77,168,240,0.08);
   --amber:#f0b84d;--abg:rgba(240,184,77,0.08);
   --txt:#e8eaf0;--txt2:#7a8aa8;--txt3:#3d4d68;
-  --bdr:rgba(201,168,76,0.1);--bdr2:rgba(201,168,76,0.22);--bdr3:rgba(255,255,255,0.05);
+  --bdr:rgba(201,168,76,0.1);--bdr2:rgba(201,168,76,0.22);
   --f:'Outfit',sans-serif;--fs:'Cormorant Garamond',serif;--fm:'JetBrains Mono',monospace;
   --sc:0 8px 32px rgba(0,0,0,0.6),0 2px 8px rgba(0,0,0,0.4);
   --si:inset 0 1px 0 rgba(255,255,255,0.04);
   --r:10px;--r2:14px;--r3:18px;
 }
-html,body{min-height:100vh;background:var(--bg);color:var(--txt);font-family:var(--f);font-size:14px}
-body{overflow-x:hidden;position:relative}
+html,body{min-height:100vh;background:var(--bg);color:var(--txt);font-family:var(--f);font-size:14px;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(201,168,76,0.04) 0%,transparent 60%),
-  radial-gradient(ellipse 40% 60% at 80% 80%,rgba(77,168,240,0.03) 0%,transparent 60%)}
+  background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(201,168,76,0.04),transparent 60%),
+  radial-gradient(ellipse 40% 60% at 80% 80%,rgba(77,168,240,0.03),transparent 60%)}
 body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(201,168,76,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.012) 1px,transparent 1px);
   background-size:60px 60px}
 .app{display:flex;min-height:100vh;position:relative;z-index:1}
-/* SIDEBAR */
-.sb{width:252px;min-height:100vh;background:linear-gradient(180deg,var(--s1),var(--bg));border-right:1px solid var(--bdr);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100;box-shadow:4px 0 40px rgba(0,0,0,0.8),inset -1px 0 0 rgba(201,168,76,0.05)}
+
+/* ── SIDEBAR ── */
+.sb{width:252px;min-height:100vh;background:linear-gradient(180deg,var(--s1),var(--bg));border-right:1px solid var(--bdr);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100;box-shadow:4px 0 40px rgba(0,0,0,0.8)}
 .mn{margin-left:252px;flex:1;padding:30px 34px;min-height:100vh}
-.sb-logo{padding:24px 20px 20px;border-bottom:1px solid var(--bdr);background:linear-gradient(135deg,rgba(201,168,76,0.05),transparent);position:relative;overflow:hidden}
+.sb-logo{padding:22px 20px 18px;border-bottom:1px solid var(--bdr);background:linear-gradient(135deg,rgba(201,168,76,0.05),transparent);position:relative;overflow:hidden}
 .sb-logo::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(201,168,76,0.1),transparent 70%)}
 .sb-gem{width:40px;height:40px;background:linear-gradient(135deg,#c9a84c,#e8c97a,#c9a84c);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 4px 20px rgba(201,168,76,0.4),inset 0 1px 0 rgba(255,255,255,0.3);transform:perspective(100px) rotateX(5deg) rotateY(-5deg);transition:transform .3s}
 .sb-gem:hover{transform:perspective(100px) rotateX(-2deg) rotateY(2deg) scale(1.06)}
-.sb-lname{font-family:var(--fs);font-size:17px;font-weight:700;color:var(--gold2);letter-spacing:.02em;line-height:1}
-.sb-ltag{font-size:9px;color:var(--txt3);margin-top:3px;letter-spacing:.12em;text-transform:uppercase}
-.sb-nav{padding:14px 10px;flex:1;overflow-y:auto}
-.sb-lbl{font-size:9px;font-weight:600;color:var(--txt3);letter-spacing:.15em;text-transform:uppercase;padding:10px 10px 5px}
-.nb{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--txt2);transition:all .2s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:var(--f);position:relative;overflow:hidden}
+.sb-nav{padding:12px 10px;flex:1;overflow-y:auto}
+.sblbl{font-size:9px;font-weight:600;color:var(--txt3);letter-spacing:.15em;text-transform:uppercase;padding:10px 10px 5px}
+.nb{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--txt2);transition:all .2s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:var(--f);position:relative}
 .nb::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:0 2px 2px 0;background:var(--gold);opacity:0;transition:opacity .2s}
 .nb:hover{background:rgba(255,255,255,0.03);color:var(--txt)}
 .nb.on{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.04));color:var(--gold2);font-weight:600;border:1px solid rgba(201,168,76,0.14);box-shadow:0 2px 12px rgba(201,168,76,0.08),var(--si)}
@@ -55,101 +53,110 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .vn{font-size:30px;font-weight:700;font-family:var(--fm);color:var(--gold2);letter-spacing:-.02em;line-height:1;text-shadow:0 0 20px rgba(201,168,76,0.3)}
 .vs{font-size:10px;color:var(--txt3);margin-top:4px}
 .si-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
-.save-ind{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:9px;font-weight:600;letter-spacing:.06em;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.14);color:var(--gold);opacity:0;transition:opacity .3s}
-.save-ind.on{opacity:1}
-/* PAGES */
+.sind{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:9px;font-weight:600;letter-spacing:.06em;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.14);color:var(--gold);opacity:0;transition:opacity .3s}
+.sind.on{opacity:1}
+
+/* ── PAGES ── */
 .pg{display:none}
 .pg.on{display:block;animation:fi .3s cubic-bezier(.23,1,.32,1)}
 @keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:26px;gap:16px}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px}
 .pg-eye{font-size:9px;font-weight:600;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
 .pg-title{font-family:var(--fs);font-size:30px;font-weight:700;color:var(--txt);letter-spacing:-.01em;line-height:1}
 .pg-sub{font-size:12px;color:var(--txt2);margin-top:5px}
 .tbr{display:flex;gap:9px;align-items:center;flex-shrink:0;padding-top:4px}
-/* LIVE */
-.live{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;background:linear-gradient(135deg,rgba(45,212,160,0.1),rgba(45,212,160,0.04));border:1px solid rgba(45,212,160,0.2);border-radius:20px;font-size:11px;font-weight:600;color:var(--green);box-shadow:0 2px 12px rgba(45,212,160,0.08);letter-spacing:.04em}
+
+/* ── LIVE ── */
+.live{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;background:linear-gradient(135deg,rgba(45,212,160,0.1),rgba(45,212,160,0.04));border:1px solid rgba(45,212,160,0.2);border-radius:20px;font-size:11px;font-weight:600;color:var(--green)}
 .ld{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;box-shadow:0 0 6px var(--green)}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-/* STAT CARDS */
+
+/* ── STAT CARDS ── */
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
-.sg3{grid-template-columns:repeat(3,1fr)}
-.sc{background:linear-gradient(145deg,var(--s2),var(--s1));border-radius:var(--r3);padding:20px 20px 16px;position:relative;overflow:hidden;box-shadow:var(--sc),var(--si);transform:perspective(800px) rotateX(2deg);transition:transform .3s cubic-bezier(.23,1,.32,1),box-shadow .3s;cursor:default}
+.sg3{grid-template-columns:repeat(3,1fr)!important}
+.sc{background:linear-gradient(145deg,var(--s2),var(--s1));border-radius:var(--r3);padding:20px 20px 16px;position:relative;overflow:hidden;box-shadow:var(--sc),var(--si);transform:perspective(800px) rotateX(2deg);transition:transform .3s,box-shadow .3s;cursor:default}
 .sc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent)}
-.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;top:0;border-radius:var(--r3);border:1px solid rgba(255,255,255,0.04);pointer-events:none}
 .sc:hover{transform:perspective(800px) rotateX(0deg) translateY(-3px) scale(1.01);box-shadow:0 16px 48px rgba(0,0,0,0.7),0 4px 12px rgba(0,0,0,0.4),var(--si)}
 .sc-line{position:absolute;top:0;left:18px;right:18px;height:2px;border-radius:0 0 2px 2px}
 .sc-glow{position:absolute;bottom:-20px;right:-20px;width:90px;height:90px;border-radius:50%;opacity:.06;pointer-events:none}
-.sg .s-gold .sc-line{background:linear-gradient(90deg,transparent,var(--gold),transparent)} .sg .s-gold .sc-glow{background:var(--gold)} .sg .s-gold .sc-val{color:var(--gold2);text-shadow:0 0 28px rgba(201,168,76,0.4)} .sg .s-gold .sc-lbl{color:var(--gold)}
-.sg .s-green .sc-line{background:linear-gradient(90deg,transparent,var(--green),transparent)} .sg .s-green .sc-glow{background:var(--green)} .sg .s-green .sc-val{color:var(--green);text-shadow:0 0 28px rgba(45,212,160,0.3)} .sg .s-green .sc-lbl{color:var(--green)}
-.sg .s-red .sc-line{background:linear-gradient(90deg,transparent,var(--red),transparent)} .sg .s-red .sc-glow{background:var(--red)} .sg .s-red .sc-val{color:var(--red);text-shadow:0 0 28px rgba(240,90,90,0.3)} .sg .s-red .sc-lbl{color:var(--red)}
-.sg .s-blue .sc-line{background:linear-gradient(90deg,transparent,var(--blue),transparent)} .sg .s-blue .sc-glow{background:var(--blue)} .sg .s-blue .sc-val{color:var(--blue);text-shadow:0 0 28px rgba(77,168,240,0.3)} .sg .s-blue .sc-lbl{color:var(--blue)}
-.sc-ico{font-size:22px;margin-bottom:10px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.s-gold .sc-line{background:linear-gradient(90deg,transparent,var(--gold),transparent)} .s-gold .sc-glow{background:var(--gold)} .s-gold .sc-val{color:var(--gold2);text-shadow:0 0 28px rgba(201,168,76,0.4)} .s-gold .sc-lbl{color:var(--gold)}
+.s-green .sc-line{background:linear-gradient(90deg,transparent,var(--green),transparent)} .s-green .sc-glow{background:var(--green)} .s-green .sc-val{color:var(--green);text-shadow:0 0 28px rgba(45,212,160,0.3)} .s-green .sc-lbl{color:var(--green)}
+.s-red .sc-line{background:linear-gradient(90deg,transparent,var(--red),transparent)} .s-red .sc-glow{background:var(--red)} .s-red .sc-val{color:var(--red);text-shadow:0 0 28px rgba(240,90,90,0.3)} .s-red .sc-lbl{color:var(--red)}
+.s-blue .sc-line{background:linear-gradient(90deg,transparent,var(--blue),transparent)} .s-blue .sc-glow{background:var(--blue)} .s-blue .sc-val{color:var(--blue);text-shadow:0 0 28px rgba(77,168,240,0.3)} .s-blue .sc-lbl{color:var(--blue)}
+.sc-ico{font-size:22px;margin-bottom:10px;display:block}
 .sc-lbl{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
 .sc-val{font-size:33px;font-weight:700;font-family:var(--fm);line-height:1;letter-spacing:-.03em}
 .sc-meta{font-size:11px;color:var(--txt3);margin-top:8px;display:flex;align-items:center;gap:6px}
 .pct{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:600;font-family:var(--fm)}
-.pg-b{background:var(--gbg);color:var(--green);border:1px solid var(--gbr)}
-.pr-b{background:var(--rbg);color:var(--red);border:1px solid var(--rbr)}
-/* GLASS CARD */
+.pctg{background:var(--gbg);color:var(--green);border:1px solid var(--gbr)}
+.pctr{background:var(--rbg);color:var(--red);border:1px solid var(--rbr)}
+
+/* ── GLASS CARD ── */
 .gc{background:linear-gradient(145deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border:1px solid var(--bdr);border-radius:var(--r3);box-shadow:var(--sc),var(--si);position:relative;overflow:hidden}
 .gc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.14),transparent);pointer-events:none}
 .ch{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--bdr)}
-.ct{font-size:13px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:7px;letter-spacing:.01em}
+.ct{font-size:13px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:7px}
 .ctg{font-family:var(--fs);font-size:15px;color:var(--gold2);font-weight:600}
 .cb{padding:18px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
 .mb{margin-bottom:20px}
-/* BANK DIST */
+
+/* ── BANK DIST ── */
 .brow{display:flex;align-items:center;gap:10px;margin-bottom:9px}
 .brow:last-child{margin-bottom:0}
-.blbl{width:66px;flex-shrink:0;font-size:10px}
-.bbg{flex:1;height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.5)}
+.blbl{width:68px;flex-shrink:0}
+.bbg{flex:1;height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden}
 .bb{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold3));box-shadow:0 0 8px rgba(201,168,76,.4);transition:width .8s cubic-bezier(.23,1,.32,1)}
 .bcnt{font-size:10px;color:var(--txt3);min-width:24px;text-align:right;font-family:var(--fm)}
-/* QUICK ACTIONS */
+
+/* ── QUICK ACTIONS ── */
 .qa{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.qb{display:flex;align-items:center;gap:8px;padding:11px 13px;border-radius:var(--r);border:1px solid var(--bdr);background:rgba(255,255,255,0.02);cursor:pointer;font-family:var(--f);font-size:12px;font-weight:500;color:var(--txt2);transition:all .2s;text-align:left;box-shadow:var(--si)}
-.qb:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.06);color:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.4),var(--si)}
+.qb{display:flex;align-items:center;gap:8px;padding:11px 13px;border-radius:var(--r);border:1px solid var(--bdr);background:rgba(255,255,255,0.02);cursor:pointer;font-family:var(--f);font-size:12px;font-weight:500;color:var(--txt2);transition:all .2s;text-align:left}
+.qb:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.06);color:var(--gold2);transform:translateY(-1px)}
 .qb.qg{background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(201,168,76,.04));border-color:var(--bdr2);color:var(--gold2)}
-.qb.qg:hover{background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.08));box-shadow:0 4px 18px rgba(201,168,76,.2)}
+.qb.qg:hover{background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.08))}
 .qb.qe{background:linear-gradient(135deg,rgba(45,212,160,.1),rgba(45,212,160,.03));border-color:var(--gbr);color:var(--green)}
-.qb.qe:hover{background:linear-gradient(135deg,rgba(45,212,160,.18),rgba(45,212,160,.07));box-shadow:0 4px 18px rgba(45,212,160,.12)}
+.qb.qe:hover{background:linear-gradient(135deg,rgba(45,212,160,.18),rgba(45,212,160,.07))}
 .qi{font-size:17px;flex-shrink:0}
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid transparent;font-family:var(--f);line-height:1;position:relative;overflow:hidden}
-.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06),transparent);pointer-events:none}
-.btn-go{background:linear-gradient(135deg,#c9a84c,#a8873a);color:#08090d;border-color:rgba(201,168,76,.3);box-shadow:0 4px 14px rgba(201,168,76,.28),var(--si);font-weight:700}
-.btn-go:hover{background:linear-gradient(135deg,#e8c97a,#c9a84c);box-shadow:0 6px 22px rgba(201,168,76,.42),var(--si);transform:translateY(-1px)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid transparent;font-family:var(--f);line-height:1}
+.btn-go{background:linear-gradient(135deg,#c9a84c,#a8873a);color:#08090d;border-color:rgba(201,168,76,.3);box-shadow:0 4px 14px rgba(201,168,76,.28);font-weight:700}
+.btn-go:hover{background:linear-gradient(135deg,#e8c97a,#c9a84c);transform:translateY(-1px)}
 .btn-gh{background:rgba(255,255,255,.03);color:var(--txt2);border-color:var(--bdr)}
 .btn-gh:hover{background:rgba(255,255,255,.06);color:var(--txt);border-color:var(--bdr2);transform:translateY(-1px)}
-.btn-gr{background:linear-gradient(135deg,rgba(45,212,160,.14),rgba(45,212,160,.06));color:var(--green);border-color:var(--gbr)}
-.btn-gr:hover{background:linear-gradient(135deg,rgba(45,212,160,.22),rgba(45,212,160,.1));box-shadow:0 4px 14px rgba(45,212,160,.12)}
-.btn-rd{background:linear-gradient(135deg,rgba(240,90,90,.14),rgba(240,90,90,.06));color:var(--red);border-color:var(--rbr)}
-.btn-rd:hover{background:linear-gradient(135deg,rgba(240,90,90,.22),rgba(240,90,90,.1))}
+.btn-rd{background:rgba(240,90,90,.1);color:var(--red);border-color:var(--rbr)}
+.btn-rd:hover{background:rgba(240,90,90,.18)}
 .btn-sm{padding:6px 13px;font-size:11px}
-/* FORM */
+
+/* ── FORM ── */
 .fl{font-size:9px;font-weight:600;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:7px}
-input[type=text],input[type=number],select,textarea{width:100%;background:rgba(255,255,255,.025);border:1px solid var(--bdr);border-radius:var(--r);padding:11px 14px;font-size:13px;color:var(--txt);font-family:var(--f);outline:none;transition:all .2s;box-shadow:inset 0 2px 6px rgba(0,0,0,.35)}
-input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.02);box-shadow:inset 0 2px 6px rgba(0,0,0,.35),0 0 0 3px rgba(201,168,76,.06)}
-input::placeholder,textarea::placeholder{color:var(--txt3)}
-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-select option{background:var(--s2);color:var(--txt)}
-textarea{resize:vertical;min-height:140px;line-height:1.7;font-family:var(--fm);font-size:12px}
+.finp{width:100%;background:rgba(255,255,255,.025);border:1.5px solid rgba(201,168,76,0.15);border-radius:var(--r);padding:11px 14px;font-size:13px;color:var(--txt);font-family:var(--f);outline:none;transition:all .2s;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
+.finp:focus{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.03);box-shadow:inset 0 2px 6px rgba(0,0,0,.3),0 0 0 3px rgba(201,168,76,.08)}
+.finp::placeholder{color:var(--txt3)}
+.fsel{width:100%;background:rgba(255,255,255,.025);border:1.5px solid rgba(201,168,76,0.15);border-radius:var(--r);padding:11px 14px;font-size:13px;color:var(--txt);font-family:var(--f);outline:none;transition:all .2s;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.fsel:focus{border-color:rgba(201,168,76,.5);background-color:rgba(201,168,76,.03)}
+.fsel option{background:#111620;color:var(--txt)}
+.fta{width:100%;background:rgba(255,255,255,.025);border:1.5px solid rgba(201,168,76,0.15);border-radius:var(--r);padding:13px 14px;font-size:12px;color:var(--txt);font-family:var(--fm);outline:none;transition:all .2s;resize:vertical;min-height:140px;line-height:1.7}
+.fta:focus{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.03)}
+.fta::placeholder{color:var(--txt3)}
 .fg{margin-bottom:14px}
 .btn-row{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;align-items:center}
-/* FILTERS */
+
+/* ── FILTERS ── */
 .fb{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--bdr);flex-wrap:wrap;background:rgba(0,0,0,.2)}
-.fc{padding:5px 13px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--bdr);background:rgba(255,255,255,.02);color:var(--txt2);font-family:var(--f);transition:all .15s;letter-spacing:.02em}
+.fc{padding:5px 13px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--bdr);background:rgba(255,255,255,.02);color:var(--txt2);font-family:var(--f);transition:all .15s}
 .fc:hover{border-color:var(--bdr2);color:var(--txt)}
 .fc.fa{background:var(--gd);border-color:var(--bdr2);color:var(--gold2)}
 .fc.fy{background:var(--gbg);border-color:var(--gbr);color:var(--green)}
 .fc.fn{background:var(--rbg);border-color:var(--rbr);color:var(--red)}
 .vsep{width:1px;height:22px;background:var(--bdr);flex-shrink:0}
-.sw{flex:1;min-width:170px;position:relative}
-.sw input{padding:7px 12px 7px 32px;font-size:12px;font-family:var(--f)}
+.sw{flex:1;min-width:160px;position:relative}
+.sw .finp{padding:7px 12px 7px 32px;font-size:12px}
 .sico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:12px;pointer-events:none}
-.fsel{padding:7px 30px 7px 11px;font-size:12px;font-family:var(--f);color:var(--txt2);background-size:10px;background-position:right 9px center}
-/* TABLE */
+.fsel-sm{padding:7px 32px 7px 11px;font-size:12px;background-size:10px;background-position:right 8px center}
+
+/* ── TABLE ── */
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
 thead{background:rgba(0,0,0,.3)}
@@ -161,60 +168,64 @@ td{padding:10px 14px;font-size:13px;color:var(--txt)}
 .nr{font-family:var(--fm);font-size:11px;color:var(--txt2)}
 .te{text-align:center;padding:44px;color:var(--txt3);font-size:13px}
 .tf{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;border-top:1px solid var(--bdr);font-size:11px;color:var(--txt3);background:rgba(0,0,0,.2)}
-/* BANK BADGES */
+
+/* ── BANK BADGES ── */
 .bk{display:inline-block;padding:3px 8px;border-radius:5px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-.bk-bca{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
-.bk-bni{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.2)}
-.bk-bri{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
-.bk-mandiri{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
-.bk-cimb{background:rgba(168,85,247,.1);color:#c084fc;border:1px solid rgba(168,85,247,.2)}
-.bk-maybank{background:rgba(234,179,8,.1);color:#facc15;border:1px solid rgba(234,179,8,.2)}
-.bk-danamon{background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2)}
-.bk-permata{background:rgba(20,184,166,.1);color:#2dd4bf;border:1px solid rgba(20,184,166,.2)}
-.bk-sinarmas{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.2)}
-.bk-ocbc{background:rgba(132,204,22,.1);color:#a3e635;border:1px solid rgba(132,204,22,.2)}
-.bk-bsi{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
-.bk-btn2{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
-.bk-panin{background:rgba(99,102,241,.1);color:#a5b4fc;border:1px solid rgba(99,102,241,.2)}
-.bk-x{background:rgba(255,255,255,.06);color:var(--txt2);border:1px solid var(--bdr)}
-/* STATUS BADGES */
-.sb2{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.03em}
-.sy{background:var(--gbg);color:var(--green);border:1px solid var(--gbr);box-shadow:0 0 8px rgba(45,212,160,.08)}
+.bca{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
+.bni{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.2)}
+.bri{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.mandiri{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.cimb{background:rgba(168,85,247,.1);color:#c084fc;border:1px solid rgba(168,85,247,.2)}
+.maybank{background:rgba(234,179,8,.1);color:#facc15;border:1px solid rgba(234,179,8,.2)}
+.danamon{background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2)}
+.permata{background:rgba(20,184,166,.1);color:#2dd4bf;border:1px solid rgba(20,184,166,.2)}
+.sinarmas{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.2)}
+.ocbc{background:rgba(132,204,22,.1);color:#a3e635;border:1px solid rgba(132,204,22,.2)}
+.bsi{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.bkx{background:rgba(255,255,255,.06);color:var(--txt2);border:1px solid var(--bdr)}
+
+/* ── STATUS BADGES ── */
+.sb2{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600}
+.sy{background:var(--gbg);color:var(--green);border:1px solid var(--gbr)}
 .sn{background:var(--rbg);color:var(--red);border:1px solid var(--rbr)}
 .sdot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .sdg{background:var(--green);box-shadow:0 0 4px var(--green)}
-.sdr{background:var(--red);box-shadow:0 0 4px var(--red)}
-/* ALERTS */
-.al{display:none;padding:11px 14px;border-radius:var(--r);font-size:13px;border:1px solid;align-items:center;gap:8px}
+.sdr{background:var(--red)}
+
+/* ── ALERTS ── */
+.al{display:none;padding:12px 15px;border-radius:var(--r);font-size:13px;border:1px solid;align-items:center;gap:8px;margin-bottom:14px}
 .al.on{display:flex}
 .al-s{background:var(--gbg);border-color:var(--gbr);color:var(--green)}
 .al-w{background:var(--abg);border-color:rgba(240,184,77,.3);color:var(--amber)}
 .al-e{background:var(--rbg);border-color:var(--rbr);color:var(--red)}
-.al-i{background:var(--bbg);border-color:rgba(77,168,240,.25);color:var(--blue)}
-/* HISTORY */
+
+/* ── HISTORY ── */
 .hl{display:flex;flex-direction:column;gap:9px}
-.hi{display:flex;align-items:center;gap:13px;padding:13px 16px;background:rgba(255,255,255,.02);border-radius:var(--r);border:1px solid var(--bdr);cursor:pointer;transition:all .2s;box-shadow:var(--si)}
-.hi:hover{background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.2);transform:translateX(3px);box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.hi{display:flex;align-items:center;gap:13px;padding:13px 16px;background:rgba(255,255,255,.02);border-radius:var(--r);border:1px solid var(--bdr);cursor:pointer;transition:all .2s}
+.hi:hover{background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.2);transform:translateX(3px)}
 .hi-ico{font-size:18px;flex-shrink:0}
 .hi-info{flex:1}
 .hi-t{font-size:13px;font-weight:600;color:var(--txt)}
 .hi-m{font-size:11px;color:var(--txt3);margin-top:2px}
 .hi-b{display:flex;gap:6px;flex-shrink:0}
-/* DELETE BTN */
-.del-btn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;border:1px solid rgba(240,90,90,.2);background:rgba(240,90,90,.06);color:var(--red);cursor:pointer;font-size:13px;transition:all .15s;line-height:1}
-.del-btn:hover{background:rgba(240,90,90,.15);border-color:rgba(240,90,90,.4);transform:scale(1.08)}
-/* MODAL */
+
+/* ── DELETE BTN ── */
+.delbtn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;border:1px solid rgba(240,90,90,.2);background:rgba(240,90,90,.06);color:var(--red);cursor:pointer;font-size:12px;transition:all .15s;line-height:1}
+.delbtn:hover{background:rgba(240,90,90,.18);border-color:rgba(240,90,90,.4);transform:scale(1.08)}
+
+/* ── MODAL ── */
 .mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
 .mbg.on{display:flex}
-.md{background:linear-gradient(145deg,var(--s2),var(--s1));border:1px solid var(--bdr2);border-radius:var(--r3);padding:26px;width:500px;max-width:95vw;box-shadow:0 24px 80px rgba(0,0,0,.8),0 4px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(201,168,76,.1);animation:fi .22s ease;position:relative;overflow:hidden}
+.md{background:linear-gradient(145deg,var(--s2),var(--s1));border:1px solid var(--bdr2);border-radius:var(--r3);padding:26px;width:500px;max-width:95vw;box-shadow:0 24px 80px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.1);animation:fi .22s ease;position:relative;overflow:hidden}
 .md::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .mt2{font-family:var(--fs);font-size:19px;font-weight:700;color:var(--gold2)}
-.mx{cursor:pointer;color:var(--txt3);font-size:21px;line-height:1;background:none;border:none;font-family:var(--f);padding:0;transition:color .15s}
-.mx:hover{color:var(--txt)}
-.fmt{font-size:11px;color:var(--txt3);margin-bottom:12px;padding:9px 13px;background:rgba(201,168,76,.04);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;line-height:1.7}
+.mxbtn{cursor:pointer;color:var(--txt3);font-size:21px;line-height:1;background:none;border:none;font-family:var(--f);padding:0;transition:color .15s}
+.mxbtn:hover{color:var(--txt)}
+.fmthint{font-size:11px;color:var(--txt3);margin-bottom:14px;padding:9px 13px;background:rgba(201,168,76,.04);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;line-height:1.7}
 code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201,168,76,.1);padding:1px 6px;border-radius:4px}
-/* SCROLLBAR */
+
+/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(201,168,76,.14);border-radius:2px}
@@ -224,46 +235,46 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
 <body>
 <div class="app">
 
-<!-- ══════ SIDEBAR ══════ -->
+<!-- ══ SIDEBAR ══ -->
 <aside class="sb">
   <div class="sb-logo">
     <div style="display:flex;align-items:center;gap:12px">
       <div class="sb-gem">🏦</div>
       <div>
-        <div class="sb-lname">RekeningCheck</div>
-        <div class="sb-ltag">Premium Verification System</div>
+        <div style="font-family:var(--fs);font-size:17px;font-weight:700;color:var(--gold2);letter-spacing:.02em;line-height:1">RekeningCheck</div>
+        <div style="font-size:9px;color:var(--txt3);margin-top:3px;letter-spacing:.12em;text-transform:uppercase">Premium System</div>
       </div>
     </div>
   </div>
   <div class="sb-nav">
-    <div class="sb-lbl">Navigasi</div>
+    <div class="sblbl">Navigasi</div>
     <button class="nb on" onclick="go('dash')"><span class="ni">◈</span>Dashboard</button>
     <button class="nb" onclick="go('cek')"><span class="ni">⬡</span>Cek Rekening</button>
     <button class="nb" onclick="go('db')"><span class="ni">◫</span>Database Kami</button>
     <button class="nb" onclick="go('riwayat')"><span class="ni">◷</span>Riwayat</button>
-    <div class="sb-lbl" style="margin-top:6px">Kelola Data</div>
+    <div class="sblbl" style="margin-top:6px">Kelola Data</div>
     <button class="nb" onclick="go('tambah')"><span class="ni">⊕</span>Tambah Rekening</button>
-    <button class="nb" onclick="openImport()"><span class="ni">⇪</span>Import Massal</button>
-    <button class="nb" onclick="doExportCSV()"><span class="ni">⇩</span>Export CSV</button>
-    <button class="nb" onclick="konfirmReset()"><span class="ni">↺</span>Reset ke Default</button>
+    <button class="nb" onclick="bukaImport()"><span class="ni">⇪</span>Import Massal</button>
+    <button class="nb" onclick="doExport()"><span class="ni">⇩</span>Export CSV</button>
+    <button class="nb" onclick="doReset()"><span class="ni">↺</span>Reset ke Default</button>
   </div>
   <div class="sb-bot">
     <div class="si-row">
-      <span class="save-ind" id="sind"><span class="sdot sdg" style="width:5px;height:5px"></span>TERSIMPAN</span>
+      <span class="sind" id="sind"><span class="sdot sdg" style="width:5px;height:5px"></span>TERSIMPAN</span>
       <span style="font-size:9px;color:var(--txt3);letter-spacing:.07em">AUTO-SAVE ✓</span>
     </div>
     <div class="vcard">
       <div class="vl">◈ Vault Database</div>
-      <div class="vn" id="sb-n">0</div>
+      <div class="vn" id="sbn">0</div>
       <div class="vs">rekening tersimpan permanen</div>
     </div>
   </div>
 </aside>
 
-<!-- ══════ MAIN ══════ -->
+<!-- ══ MAIN ══ -->
 <main class="mn">
 
-<!-- ░░ DASHBOARD ░░ -->
+<!-- ▪ DASHBOARD ▪ -->
 <div class="pg on" id="pg-dash">
   <div class="topbar">
     <div><div class="pg-eye">◈ Overview</div><div class="pg-title">Dashboard</div><div class="pg-sub">Sistem verifikasi rekening bank premium</div></div>
@@ -272,13 +283,13 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
   <div class="sg">
     <div class="sc s-gold"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">🗄️</span><div class="sc-lbl">Database</div><div class="sc-val" id="d-tot">0</div><div class="sc-meta">rekening tersimpan</div></div>
     <div class="sc s-blue"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">🔍</span><div class="sc-lbl">Total Dicek</div><div class="sc-val" id="d-chk">0</div><div class="sc-meta">semua sesi</div></div>
-    <div class="sc s-green"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">✅</span><div class="sc-lbl">Tersedia</div><div class="sc-val" id="d-mtch">0</div><div class="sc-meta"><span class="pct pg-b" id="d-pm">0%</span> dari dicek</div></div>
-    <div class="sc s-red"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">❌</span><div class="sc-lbl">Tidak Ada</div><div class="sc-val" id="d-nm">0</div><div class="sc-meta"><span class="pct pr-b" id="d-pn">0%</span> dari dicek</div></div>
+    <div class="sc s-green"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">✅</span><div class="sc-lbl">Tersedia</div><div class="sc-val" id="d-mtch">0</div><div class="sc-meta"><span class="pct pctg" id="d-pm">0%</span> dari dicek</div></div>
+    <div class="sc s-red"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">❌</span><div class="sc-lbl">Tidak Ada</div><div class="sc-val" id="d-nm">0</div><div class="sc-meta"><span class="pct pctr" id="d-pn">0%</span> dari dicek</div></div>
   </div>
   <div class="g2">
     <div class="gc">
       <div class="ch"><div class="ct"><span>◈</span><span class="ctg">Distribusi Bank</span></div></div>
-      <div class="cb" id="bkdist"><div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Memuat...</div></div>
+      <div class="cb" id="bkdist"></div>
     </div>
     <div class="gc">
       <div class="ch"><div class="ct"><span>⚡</span><span class="ctg">Aksi Cepat</span></div></div>
@@ -287,8 +298,8 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
           <button class="qb qe" onclick="go('cek')"><span class="qi">🔍</span>Cek Rekening</button>
           <button class="qb qg" onclick="go('tambah')"><span class="qi">⊕</span>Tambah Rekening</button>
           <button class="qb" onclick="go('db')"><span class="qi">◫</span>Database Kami</button>
-          <button class="qb" onclick="openImport()"><span class="qi">⇪</span>Import Massal</button>
-          <button class="qb" onclick="doExportCSV()"><span class="qi">⇩</span>Export CSV</button>
+          <button class="qb" onclick="bukaImport()"><span class="qi">⇪</span>Import Massal</button>
+          <button class="qb" onclick="doExport()"><span class="qi">⇩</span>Export CSV</button>
           <button class="qb" onclick="go('riwayat')"><span class="qi">◷</span>Riwayat</button>
         </div>
       </div>
@@ -300,7 +311,7 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
   </div>
 </div>
 
-<!-- ░░ CEK REKENING ░░ -->
+<!-- ▪ CEK REKENING ▪ -->
 <div class="pg" id="pg-cek">
   <div class="topbar">
     <div><div class="pg-eye">⬡ Verifikasi</div><div class="pg-title">Cek Rekening</div><div class="pg-sub">Verifikasi apakah rekening tersedia di database kami</div></div>
@@ -308,8 +319,8 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
   <div class="gc mb">
     <div class="ch"><div class="ct"><span>📝</span><span class="ctg">Input Data Rekening</span></div><code>BANK [Tab] NAMA [Tab] NO.REKENING</code></div>
     <div class="cb">
-      <div class="al" id="al-cek" style="margin-bottom:12px"></div>
-      <textarea id="inp-cek" placeholder="Contoh:&#10;CIMB	YENI YUSTIANA	708707460800&#10;BCA	Budi Santoso	1234567890&#10;BNI	Siti Rahayu	9876543210&#10;&#10;Pisahkan setiap kolom dengan tombol Tab"></textarea>
+      <div class="al" id="al-cek"></div>
+      <textarea class="fta" id="inp-cek" placeholder="Contoh:&#10;CIMB	YENI YUSTIANA	708707460800&#10;BCA	Budi Santoso	1234567890&#10;BNI	Siti Rahayu	9876543210&#10;&#10;Pisahkan setiap kolom dengan tombol Tab"></textarea>
       <div class="btn-row">
         <button class="btn btn-go" onclick="runCek()">🔍 Cek Sekarang</button>
         <button class="btn btn-gh" onclick="pasteContoh()">📋 Contoh Data</button>
@@ -324,8 +335,8 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
         <button class="fc" id="fc-y" onclick="setF('y')">✅ Tersedia <span id="fc-yc">0</span></button>
         <button class="fc" id="fc-n" onclick="setF('n')">❌ Tidak Ada <span id="fc-nc">0</span></button>
         <div class="vsep"></div>
-        <div class="sw"><span class="sico">🔎</span><input type="text" id="cek-q" placeholder="Cari nama, nomor, bank..." oninput="renderCekTbl()"></div>
-        <select class="fsel" id="cek-bs" onchange="renderCekTbl()"><option value="">Semua Bank</option></select>
+        <div class="sw"><span class="sico">🔎</span><input class="finp" type="text" id="cek-q" placeholder="Cari nama, nomor, bank..." oninput="renderCekTbl()"></div>
+        <select class="fsel fsel-sm" id="cek-bs" onchange="renderCekTbl()"><option value="">Semua Bank</option></select>
         <button class="btn btn-go btn-sm" onclick="exportHasil()">📥 Export</button>
       </div>
       <div class="tw"><table>
@@ -337,13 +348,13 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
   </div>
 </div>
 
-<!-- ░░ DATABASE ░░ -->
+<!-- ▪ DATABASE ▪ -->
 <div class="pg" id="pg-db">
   <div class="topbar">
     <div><div class="pg-eye">◫ Vault</div><div class="pg-title">Database Kami</div><div class="pg-sub">Semua rekening tersimpan permanen di browser ini</div></div>
     <div class="tbr">
       <button class="btn btn-gh" onclick="go('tambah')">⊕ Tambah</button>
-      <button class="btn btn-gh" onclick="openImport()">⇪ Import</button>
+      <button class="btn btn-gh" onclick="bukaImport()">⇪ Import</button>
       <button class="btn btn-go" onclick="exportDB()">⇩ Export DB</button>
     </div>
   </div>
@@ -354,18 +365,18 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
   </div>
   <div class="gc mb">
     <div class="fb">
-      <div class="sw"><span class="sico">🔎</span><input type="text" id="db-q" placeholder="Cari nama, nomor rekening..." oninput="renderDB()"></div>
-      <select class="fsel" id="db-bs" onchange="renderDB()"><option value="">Semua Bank</option></select>
+      <div class="sw"><span class="sico">🔎</span><input class="finp" type="text" id="db-q" placeholder="Cari nama, nomor rekening..." oninput="renderDB()"></div>
+      <select class="fsel fsel-sm" id="db-bs" onchange="renderDB()"><option value="">Semua Bank</option></select>
     </div>
     <div class="tw"><table>
-      <thead><tr><th style="width:38px">#</th><th style="width:88px">Bank</th><th>Nama</th><th>No. Rekening</th><th style="width:50px">Hapus</th></tr></thead>
+      <thead><tr><th style="width:38px">#</th><th style="width:88px">Bank</th><th>Nama</th><th>No. Rekening</th><th style="width:52px">Hapus</th></tr></thead>
       <tbody id="db-body"><tr><td colspan="5" class="te">Memuat...</td></tr></tbody>
     </table></div>
     <div class="tf"><span id="db-info">—</span></div>
   </div>
 </div>
 
-<!-- ░░ RIWAYAT ░░ -->
+<!-- ▪ RIWAYAT ▪ -->
 <div class="pg" id="pg-riwayat">
   <div class="topbar">
     <div><div class="pg-eye">◷ Log</div><div class="pg-title">Riwayat Pengecekan</div><div class="pg-sub">Semua sesi verifikasi yang pernah dilakukan</div></div>
@@ -374,49 +385,63 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
   <div id="riwayat-list"></div>
 </div>
 
-<!-- ░░ TAMBAH REKENING ░░ -->
+<!-- ▪ TAMBAH REKENING ▪ -->
 <div class="pg" id="pg-tambah">
   <div class="topbar">
     <div><div class="pg-eye">⊕ Entri Baru</div><div class="pg-title">Tambah Rekening</div><div class="pg-sub">Tambahkan rekening baru ke database yang tersimpan permanen</div></div>
   </div>
+
+  <!-- NOTIFIKASI STATUS PENYIMPANAN -->
+  <div class="al" id="al-add-global"></div>
+
   <div class="g2">
-    <!-- FORM SATU -->
+    <!-- FORM SATU REKENING -->
     <div class="gc mb">
       <div class="ch"><div class="ct"><span>✏️</span><span class="ctg">Tambah Satu Rekening</span></div></div>
       <div class="cb">
-        <div class="al" id="al-add" style="margin-bottom:14px"></div>
+        <div class="al" id="al-add"></div>
         <div class="fg">
           <label class="fl">Bank</label>
-          <select id="add-bank">
-            <option value="" disabled selected>— Pilih Bank —</option>
-            <option>BCA</option><option>BNI</option><option>BRI</option>
-            <option>MANDIRI</option><option>CIMB</option><option>DANAMON</option>
-            <option>MAYBANK</option><option>PERMATA</option><option>SINARMAS</option>
-            <option>OCBC</option><option>BSI</option><option>BTN</option>
-            <option>PANIN</option><option>LAINNYA</option>
+          <select class="fsel" id="add-bank">
+            <option value="">— Pilih Bank —</option>
+            <option value="BCA">BCA</option>
+            <option value="BNI">BNI</option>
+            <option value="BRI">BRI</option>
+            <option value="MANDIRI">MANDIRI</option>
+            <option value="CIMB">CIMB</option>
+            <option value="DANAMON">DANAMON</option>
+            <option value="MAYBANK">MAYBANK</option>
+            <option value="PERMATA">PERMATA</option>
+            <option value="SINARMAS">SINARMAS</option>
+            <option value="OCBC">OCBC</option>
+            <option value="BSI">BSI</option>
+            <option value="BTN">BTN</option>
+            <option value="PANIN">PANIN</option>
+            <option value="LAINNYA">LAINNYA</option>
           </select>
         </div>
         <div class="fg">
           <label class="fl">Nama Pemilik Rekening</label>
-          <input type="text" id="add-nama" placeholder="Contoh: Ahmad Budi Santoso">
+          <input class="finp" type="text" id="add-nama" placeholder="Contoh: Ahmad Budi Santoso">
         </div>
         <div class="fg">
           <label class="fl">Nomor Rekening</label>
-          <input type="text" id="add-norek" placeholder="Contoh: 1234567890" style="font-family:var(--fm)">
+          <input class="finp" type="text" id="add-norek" placeholder="Contoh: 1234567890" style="font-family:var(--fm)">
         </div>
         <div class="btn-row">
-          <button class="btn btn-go" onclick="tambahSatu()">⊕ Simpan ke Database</button>
+          <button class="btn btn-go" id="btn-simpan" onclick="tambahSatu()">⊕ Simpan ke Database</button>
           <button class="btn btn-gh" onclick="resetForm()">✕ Bersihkan</button>
         </div>
       </div>
     </div>
-    <!-- BATCH -->
+
+    <!-- TAMBAH BEBERAPA -->
     <div class="gc mb">
       <div class="ch"><div class="ct"><span>📋</span><span class="ctg">Tambah Beberapa Sekaligus</span></div></div>
       <div class="cb">
-        <div class="fmt">Format: <code>BANK</code> → <code>Tab</code> → <code>NAMA</code> → <code>Tab</code> → <code>NO.REKENING</code><br>Satu baris = satu rekening. Duplikat otomatis dilewati.</div>
-        <div class="al" id="al-batch" style="margin-bottom:12px"></div>
-        <textarea id="inp-batch" placeholder="BCA	Ahmad Budi	1234567890&#10;BNI	Siti Dewi	9876543210&#10;MANDIRI	Rudi Hartono	0987654321"></textarea>
+        <div class="fmthint">Format: <code>BANK</code> → <code>Tab</code> → <code>NAMA</code> → <code>Tab</code> → <code>NO.REKENING</code><br>Satu baris = satu rekening. Duplikat otomatis dilewati.</div>
+        <div class="al" id="al-batch"></div>
+        <textarea class="fta" id="inp-batch" placeholder="BCA	Ahmad Budi	1234567890&#10;BNI	Siti Dewi	9876543210&#10;MANDIRI	Rudi Hartono	0987654321"></textarea>
         <div class="btn-row">
           <button class="btn btn-go" onclick="tambahBatch()">⊕ Tambahkan Semua</button>
           <button class="btn btn-gh" onclick="document.getElementById('inp-batch').value=''">✕ Bersihkan</button>
@@ -424,404 +449,667 @@ code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201
       </div>
     </div>
   </div>
-  <!-- RECENT -->
+
+  <!-- REKENING BARU DITAMBAHKAN -->
   <div class="gc mb">
-    <div class="ch"><div class="ct"><span>🕐</span><span class="ctg">Rekening Terakhir Ditambahkan</span></div><button class="btn btn-gh btn-sm" onclick="go('db')">Lihat Database →</button></div>
-    <div id="recent-tbl" style="padding:13px 16px"><div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada rekening ditambahkan di sesi ini</div></div>
+    <div class="ch">
+      <div class="ct"><span>🕐</span><span class="ctg">Rekening Terakhir Ditambahkan</span></div>
+      <button class="btn btn-gh btn-sm" onclick="go('db')">Lihat Database Lengkap →</button>
+    </div>
+    <div id="recent-tbl" style="padding:13px 16px">
+      <div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada rekening ditambahkan di sesi ini</div>
+    </div>
   </div>
 </div>
 
 </main>
 </div>
 
-<!-- ══════ IMPORT MODAL ══════ -->
+<!-- ══ IMPORT MODAL ══ -->
 <div class="mbg" id="m-import">
   <div class="md">
-    <div class="mh"><div class="mt2">⇪ Import Massal</div><button class="mx" onclick="closeImport()">×</button></div>
-    <div class="fmt">Format per baris: <code>BANK</code> → <code>Tab</code> → <code>NAMA</code> → <code>Tab</code> → <code>NO.REKENING</code><br>Duplikat otomatis dilewati saat ditambahkan.</div>
-    <textarea id="imp-ta" style="min-height:160px" placeholder="BCA	Budi Santoso	1234567890&#10;BNI	Siti Dewi	9876543210&#10;MANDIRI	Ahmad Fauzi	0987654321"></textarea>
+    <div class="mh"><div class="mt2">⇪ Import Massal</div><button class="mxbtn" onclick="tutupImport()">×</button></div>
+    <div class="fmthint">Format per baris: <code>BANK</code> → <code>Tab</code> → <code>NAMA</code> → <code>Tab</code> → <code>NO.REKENING</code><br>Duplikat akan otomatis dilewati.</div>
+    <textarea class="fta" id="imp-ta" style="min-height:160px" placeholder="BCA	Budi Santoso	1234567890&#10;BNI	Siti Dewi	9876543210&#10;MANDIRI	Ahmad Fauzi	0987654321"></textarea>
     <div class="btn-row">
       <button class="btn btn-go" onclick="doImport(false)">⊕ Tambahkan ke Database</button>
       <button class="btn btn-gh" onclick="doImport(true)">↺ Ganti Semua Data</button>
-      <button class="btn btn-gh" onclick="closeImport()">✕ Batal</button>
+      <button class="btn btn-gh" onclick="tutupImport()">✕ Batal</button>
     </div>
-    <div class="al" id="al-imp" style="margin-top:12px"></div>
+    <div class="al" id="al-imp" style="margin-top:12px;margin-bottom:0"></div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-// DATA DEFAULT
-// ═══════════════════════════════════════════
-const DEF=`BCA\tParmanto\t0771373541\nBCA\tKristina Natalia S\t7635717050\nBCA\tSane Ah\t2770826155\nBCA\tSIN KIONG\t1082948087\nBCA\tNursinah\t8841031130\nBCA\tAlfira Chika Ramadhani\t5810718210\nBCA\tReynaldi Tuwo\t6920311529\nBCA\tRosa Nur Amalilah\t5990423573\nBCA\tSinta Septiani\t2750780922\nBCA\tHasbybullah\t6920312614\nBCA\tRani Wahyuni\t2120460792\nBCA\tMuhammad Ferdinand\t7235654971\nBCA\tAdnan Fauzan\t8288146962\nBNI\tRuslan\t1927387250\nBNI\tEnjet Bin Mursin\t1992663198\nBNI\tYonna Sembiring\t1976857707\nBNI\tYuliyanti\t1981695146\nBNI\tDeni\t1993880178\nBNI\tAhmad Mubarak\t1982754248\nBRI\tSUKAESIH\t224801007030501\nBRI\tADIH PRAHYUDA ADRIANSYAH\t081901034309506\nBRI\tMUHAMAD FAISAL FERLIANDY\t179001006845501\nBRI\tDewi murni\t006301084456504\nBRI\tMohamad Muhdi\t078901002786507\nBRI\tRoni Supriadi\t112901037120507\nBRI\tSiti\t001901190849505\nMANDIRI\tMuhammad Zidan Darmawan\t078801002301507\nDANAMON\tMUHAMMAD I RAMADHAN\t3693723607\nMAYBANK\tREYVALDE SELGI REZKY\t8040905697\nCIMB\tYoel Julianus Partahian\t763793351500\nCIMB\tRONI KRISTIANTO P. SINAGA\t764100039400\nBCA\tM ALVIN NUGRAHA\t8832212937\nBCA\tNieska Nur Aini\t3860240628\nBCA\tM. Nur Diansyah\t3700109886\nBCA\tTaufiq Alhakim\t7391956140\nBCA\tRAMONA RAMADIANI\t7350334534\nBCA\tMUHAMMAD RAVI KURNIAWAN\t0941998649\nBCA\tYogi Saputra\t3120985883\nBCA\tNelvi Deswita\t0322737911\nBCA\tKartika Rahayu\t3120982221\nBCA\tAde Chandra\t8565342238\nBCA\tJASMINE TAMARA DESPUTRI\t1652827939\nBCA\tALBIANSYAH PUTRA\t2610291778\nBCA\tREZA PAHLEVI\t3110139186\nBCA\tDEA PUTRI CAHYANTI\t1980401053\nBCA\tMUHAMAD PERDIANSYAH\t7655625275\nBCA\tTri Hartanto\t7571159884\nBCA\tRahayu Prihatini\t4871055810\nBCA\tJa'far Shidiq\t0020321563\nBCA\tRafa Gilang Pratama\t1610169500\nBCA\tSiti Julaeha\t0690657619\nBCA\tAhmad Lemi\t2290700909\nBCA\tKarsini\t5411604234\nBCA\tSUNARNI\t7560500496\nBCA\tCLARITA PANYONGANG\t6485676566\nBCA\tGUSTI TRI HARDIANTO\t7726007640\nBCA\tI DEWA KADEK SUCI ADITAMA\t7703160087\nBCA\tJalaludin\t1751292606\nBCA\tUlina\t1751291952\nBCA\tEndang Sulastri\t1751292070\nBCA\tMita Astuti\t8040325230\nBCA\tMAHER ZAINI\t7726008662\nBCA\tDwi Rangga Darmawan\t8780529599\nBCA\tNurul Syadad\t2453715698\nBCA\tRISKI. A\t2770826643\nBCA\tSonny Turniawan\t1790401812\nBCA\tTaopik Ramdani\t5805135091\nBCA\tsalamiah\t1751293670\nBCA\tEdy Marlon Kakisina\t6430344747\nBCA\tputri handayani\t1751293611\nBCA\tSaniman\t8670958575\nBCA\tzuwandi\t1751295087\nBCA\tROSIDAH\t8660509217\nBNI\tJoni\t1924750060\nBNI\tDEDE IQBAL\t1913489189\nBNI\tIndah Sri Purnama S\t1919231406\nBNI\tWanda Juliana\t1919455766\nBNI\tRisma Riyanti\t1921642785\nBNI\tDian\t1924747864\nBNI\tDewi Anggita Nurnabilla\t1982711555\nBNI\tAhmad Rifki Fauzan\t1990965112\nBNI\tDanuar Yitsurani\t1993052155\nBNI\tMasilah rohimah\t1986092981\nBNI\tMUHAMMAD SULHANUDIN\t1988564976\nMANDIRI\tHayumi\t1630011585554\nMANDIRI\tSiti Rohani\t1340032182999\nMANDIRI\tJa'far Shidiq\t1190012292890\nMANDIRI\tSiti Wahyuni\t1150011293828\nMANDIRI\tMohamad Aji Saputra\t1680004359814\nMANDIRI\tDwi Apriyanto\t1680004404628\nBRI\tMARWATI\t112801014100532\nBRI\tATTHORIQ DWI FALLAH\t179001006822503\nBRI\tFerdiansyah\t033801064820508\nBRI\tAgus Salim\t324101003979508\nBRI\tAnwar Nata Kusuma\t385401006244507\nBRI\tAgus Ahad\t385401006221509\nBRI\tDeni\t481601019269507\nBRI\tAgustiatie Ateng\t041801027028503\nBRI\tMuhamad Faiz Ar Raffi\t748701001947505\nBRI\tElla Saphita\t082701047735505\nBRI\tRafli Fadillah\t050501021315507\nBRI\tAndrian Wahyu Prastyo\t041501044653507\nBRI\tNovita Sari\t332201005071506\nBRI\tMuhammad Patriya Pamungkas\t112901038935507\nBRI\tYOPI PIRMANSYAH\t112901038945502\nCIMB\tRomy Pryanto\t707050842000\nCIMB\tCINDY CLAUDIA\t708656165500\nCIMB\tYENI YUSTIANA\t708707460800\nCIMB\tHALAWANI\t708720033200\nCIMB\tDarmawan Hakim\t708651855400\nMAYBANK\tPutri Anggawati\t8285914084\nMAYBANK\tAhmad Agustiar Harja\t8039911220\nMAYBANK\tMuhamad Fiekry Adzahaby\t8107925422\nDANAMON\tAdin\t903692976867\nDANAMON\tMuhamad Enur\t903704328123\nPERMATA\tERIN SUHARI\t09940511752\nPERMATA\tROBI SEPTIAN\t9942427457\nPERMATA\tBAGUS HARTONO\t9947155722\nPERMATA\tAmatul Firdausiah\t9944432377\nPERMATA\tMulyadi\t9950617079\nPERMATA\tMuslina Fajri\t9949430305\nBCA\tATEP SUTISNA\t5805108735\nBCA\tRimba Reinnes\t6035061481\nBCA\tAndjar\t5810705428\nBCA\tShenna Budiyasih\t2850162002\nBCA\tENDANG M\t7120779731\nBCA\tULFAH\t7126141768\nBCA\tSUDARIAH\t8681467912\nBCA\tHeri Susanto\t2440507762\nBCA\tTakkas Poltak Sinambela\t5380349266\nBCA\tFIKRI DARMAWAN\t5850428826\nBCA\tAFRIYANTO\t2760234110\nMANDIRI\tMARIANDA\t1110024392447\nMANDIRI\tAINI NUSFATIROH\t1630011896837\nMANDIRI\tMeysha Khalisa Humaira\t1110024401107\nMANDIRI\tSAMSU RIZAL\t1230012530368\nMANDIRI\tYopi Pirmansyah\t1550015576898\nBRI\tDeanika.M.Prahuda\t008401289601506\nBRI\tMulyatini\t033801066452505\nBNI\tSupriana\t1919133588\nBNI\tRokmini\t1918958465\nBNI\tSri Prihatin Ningsih\t1925097391\nBNI\tFAISAL BASRI\t1983956695\nBNI\tRakhmat Azis\t1924992124\nDANAMON\tAryanah\t903688519838\nDANAMON\tJohny Jeffrison\t003692040516\nDANAMON\tRUKMINAH\t3693220497\nDANAMON\tYUNIARTO ADINUGROHO\t003700943289\nDANAMON\tAGUSTINA\t903703452866\nSINARMAS\tAryanah\t0018445433\nSINARMAS\tJohny Jeffrison\t0059647318\nSINARMAS\tMUHAMAD SAIFULLOH\t0018431807\nOCBC\tMUHAMAD SAIFULLOH\t693818148597\nBNI\tGUSMAN ANDRI SAPUTRA\t1927940897\nBCA\tEKA DWI NURIANDA\t0420773056\nBCA\tNOVIANA\t6801685843\nBRI\tNurul Juwita\t036801011724532\nBRI\tMuhammad Zidan Darmawan\t078801002301507\nBRI\tFitriyana\t161601006069505\nBCA\tRehan Nurjaman\t7772903807\nBCA\tDAMAN MULYANA\t1832267109\nBCA\tUjang Iskandar\t0280370371\nBCA\tYUSRAN\t7611383081\nBCA\tNURALIAH\t5860526877\nBCA\tANITA\t7571086852\nBCA\tRina Mutiara\t5195126469\nBRI\tPADLI\t223501013715500\nBRI\tTeguh Bagus Dwi Cahyo\t098401039559537\nBRI\tIntan Novianti\t34501045251503\nBRI\tViana Febriani\t034501045257509\nBRI\tLianna\t117101021928504\nPERMATA\tENENG TATI\t9923180289\nPERMATA\tSAHYU WANDIRA\t9930156512\nPERMATA\tImas Kurnia\t009936092397\nBCA\tTika nursafitri\t8660440829\nBCA\tRATIH\t5785366503\nBCA\tIrgi Ahmad Alfarzy\t4960523861\nBCA\tBagus Bayu Ardianta Sutjipta\t0499838877\nBCA\tELVIRA MAYASOFA SIMBOLON\t7580881054\nBCA\tFEBRINA TRIYAS ANDINI\t5677032915\nBNI\tFEBRINA TRIYAS ANDINI\t1848504246\nBRI\tAli Wijaya\t084001013397503\nBRI\tANISA SAILENDRA PUTRI\t720801003583505\nMANDIRI\tLIEM SILVIA\t1290014354464\nDANAMON\tReinhart Reynaldo Lukman\t903687103337`;
+// ════════════════════════════════════════
+//  DATA DEFAULT
+// ════════════════════════════════════════
+var DEF = [
+  ["BCA","Parmanto","0771373541"],["BCA","Kristina Natalia S","7635717050"],
+  ["BCA","Sane Ah","2770826155"],["BCA","SIN KIONG","1082948087"],
+  ["BCA","Nursinah","8841031130"],["BCA","Alfira Chika Ramadhani","5810718210"],
+  ["BCA","Reynaldi Tuwo","6920311529"],["BCA","Rosa Nur Amalilah","5990423573"],
+  ["BCA","Sinta Septiani","2750780922"],["BCA","Hasbybullah","6920312614"],
+  ["BCA","Rani Wahyuni","2120460792"],["BCA","Muhammad Ferdinand","7235654971"],
+  ["BCA","Adnan Fauzan","8288146962"],["BNI","Ruslan","1927387250"],
+  ["BNI","Enjet Bin Mursin","1992663198"],["BNI","Yonna Sembiring","1976857707"],
+  ["BNI","Yuliyanti","1981695146"],["BNI","Deni","1993880178"],
+  ["BNI","Ahmad Mubarak","1982754248"],["BRI","SUKAESIH","224801007030501"],
+  ["BRI","ADIH PRAHYUDA ADRIANSYAH","081901034309506"],
+  ["BRI","MUHAMAD FAISAL FERLIANDY","179001006845501"],
+  ["BRI","Dewi murni","006301084456504"],["BRI","Mohamad Muhdi","078901002786507"],
+  ["BRI","Roni Supriadi","112901037120507"],["BRI","Siti","001901190849505"],
+  ["MANDIRI","Muhammad Zidan Darmawan","078801002301507"],
+  ["DANAMON","MUHAMMAD I RAMADHAN","3693723607"],
+  ["MAYBANK","REYVALDE SELGI REZKY","8040905697"],
+  ["CIMB","Yoel Julianus Partahian","763793351500"],
+  ["CIMB","RONI KRISTIANTO P. SINAGA","764100039400"],
+  ["BCA","M ALVIN NUGRAHA","8832212937"],["BCA","Nieska Nur Aini","3860240628"],
+  ["BCA","M. Nur Diansyah","3700109886"],["BCA","Taufiq Alhakim","7391956140"],
+  ["BCA","RAMONA RAMADIANI","7350334534"],["BCA","MUHAMMAD RAVI KURNIAWAN","0941998649"],
+  ["BCA","Yogi Saputra","3120985883"],["BCA","Nelvi Deswita","0322737911"],
+  ["BCA","Kartika Rahayu","3120982221"],["BCA","Ade Chandra","8565342238"],
+  ["BCA","JASMINE TAMARA DESPUTRI","1652827939"],["BCA","ALBIANSYAH PUTRA","2610291778"],
+  ["BCA","REZA PAHLEVI","3110139186"],["BCA","DEA PUTRI CAHYANTI","1980401053"],
+  ["BCA","MUHAMAD PERDIANSYAH","7655625275"],["BCA","Tri Hartanto","7571159884"],
+  ["BCA","Rahayu Prihatini","4871055810"],["BCA","Ja'far Shidiq","0020321563"],
+  ["BCA","Rafa Gilang Pratama","1610169500"],["BCA","Siti Julaeha","0690657619"],
+  ["BCA","Ahmad Lemi","2290700909"],["BCA","Karsini","5411604234"],
+  ["BCA","SUNARNI","7560500496"],["BCA","CLARITA PANYONGANG","6485676566"],
+  ["BCA","GUSTI TRI HARDIANTO","7726007640"],["BCA","I DEWA KADEK SUCI ADITAMA","7703160087"],
+  ["BCA","Jalaludin","1751292606"],["BCA","Ulina","1751291952"],
+  ["BCA","Endang Sulastri","1751292070"],["BCA","Mita Astuti","8040325230"],
+  ["BCA","MAHER ZAINI","7726008662"],["BCA","Dwi Rangga Darmawan","8780529599"],
+  ["BCA","Nurul Syadad","2453715698"],["BCA","RISKI. A","2770826643"],
+  ["BCA","Sonny Turniawan","1790401812"],["BCA","Taopik Ramdani","5805135091"],
+  ["BCA","salamiah","1751293670"],["BCA","Edy Marlon Kakisina","6430344747"],
+  ["BCA","putri handayani","1751293611"],["BCA","Saniman","8670958575"],
+  ["BCA","zuwandi","1751295087"],["BCA","ROSIDAH","8660509217"],
+  ["BNI","Joni","1924750060"],["BNI","DEDE IQBAL","1913489189"],
+  ["BNI","Indah Sri Purnama S","1919231406"],["BNI","Wanda Juliana","1919455766"],
+  ["BNI","Risma Riyanti","1921642785"],["BNI","Dian","1924747864"],
+  ["BNI","Dewi Anggita Nurnabilla","1982711555"],["BNI","Ahmad Rifki Fauzan","1990965112"],
+  ["BNI","Danuar Yitsurani","1993052155"],["BNI","Masilah rohimah","1986092981"],
+  ["BNI","MUHAMMAD SULHANUDIN","1988564976"],["MANDIRI","Hayumi","1630011585554"],
+  ["MANDIRI","Siti Rohani","1340032182999"],["MANDIRI","Ja'far Shidiq","1190012292890"],
+  ["MANDIRI","Siti Wahyuni","1150011293828"],["MANDIRI","Mohamad Aji Saputra","1680004359814"],
+  ["MANDIRI","Dwi Apriyanto","1680004404628"],["BRI","MARWATI","112801014100532"],
+  ["BRI","ATTHORIQ DWI FALLAH","179001006822503"],["BRI","Ferdiansyah","033801064820508"],
+  ["BRI","Agus Salim","324101003979508"],["BRI","Anwar Nata Kusuma","385401006244507"],
+  ["BRI","Agus Ahad","385401006221509"],["BRI","Deni","481601019269507"],
+  ["BRI","Agustiatie Ateng","041801027028503"],["BRI","Muhamad Faiz Ar Raffi","748701001947505"],
+  ["BRI","Ella Saphita","082701047735505"],["BRI","Rafli Fadillah","050501021315507"],
+  ["BRI","Andrian Wahyu Prastyo","041501044653507"],["BRI","Novita Sari","332201005071506"],
+  ["BRI","Muhammad Patriya Pamungkas","112901038935507"],["BRI","YOPI PIRMANSYAH","112901038945502"],
+  ["CIMB","Romy Pryanto","707050842000"],["CIMB","CINDY CLAUDIA","708656165500"],
+  ["CIMB","YENI YUSTIANA","708707460800"],["CIMB","HALAWANI","708720033200"],
+  ["CIMB","Darmawan Hakim","708651855400"],["MAYBANK","Putri Anggawati","8285914084"],
+  ["MAYBANK","Ahmad Agustiar Harja","8039911220"],["MAYBANK","Muhamad Fiekry Adzahaby","8107925422"],
+  ["DANAMON","Adin","903692976867"],["DANAMON","Muhamad Enur","903704328123"],
+  ["PERMATA","ERIN SUHARI","09940511752"],["PERMATA","ROBI SEPTIAN","9942427457"],
+  ["PERMATA","BAGUS HARTONO","9947155722"],["PERMATA","Amatul Firdausiah","9944432377"],
+  ["PERMATA","Mulyadi","9950617079"],["PERMATA","Muslina Fajri","9949430305"],
+  ["BCA","ATEP SUTISNA","5805108735"],["BCA","Rimba Reinnes","6035061481"],
+  ["BCA","Andjar","5810705428"],["BCA","Shenna Budiyasih","2850162002"],
+  ["BCA","ENDANG M","7120779731"],["BCA","ULFAH","7126141768"],
+  ["BCA","SUDARIAH","8681467912"],["BCA","Heri Susanto","2440507762"],
+  ["BCA","Takkas Poltak Sinambela","5380349266"],["BCA","FIKRI DARMAWAN","5850428826"],
+  ["BCA","AFRIYANTO","2760234110"],["MANDIRI","MARIANDA","1110024392447"],
+  ["MANDIRI","AINI NUSFATIROH","1630011896837"],["MANDIRI","Meysha Khalisa Humaira","1110024401107"],
+  ["MANDIRI","SAMSU RIZAL","1230012530368"],["MANDIRI","Yopi Pirmansyah","1550015576898"],
+  ["BRI","Deanika.M.Prahuda","008401289601506"],["BRI","Mulyatini","033801066452505"],
+  ["BNI","Supriana","1919133588"],["BNI","Rokmini","1918958465"],
+  ["BNI","Sri Prihatin Ningsih","1925097391"],["BNI","FAISAL BASRI","1983956695"],
+  ["BNI","Rakhmat Azis","1924992124"],["DANAMON","Aryanah","903688519838"],
+  ["DANAMON","Johny Jeffrison","003692040516"],["DANAMON","RUKMINAH","3693220497"],
+  ["DANAMON","YUNIARTO ADINUGROHO","003700943289"],["DANAMON","AGUSTINA","903703452866"],
+  ["SINARMAS","Aryanah","0018445433"],["SINARMAS","Johny Jeffrison","0059647318"],
+  ["SINARMAS","MUHAMAD SAIFULLOH","0018431807"],["OCBC","MUHAMAD SAIFULLOH","693818148597"],
+  ["BNI","GUSMAN ANDRI SAPUTRA","1927940897"],["BCA","EKA DWI NURIANDA","0420773056"],
+  ["BCA","NOVIANA","6801685843"],["BRI","Nurul Juwita","036801011724532"],
+  ["BRI","Muhammad Zidan Darmawan","078801002301507"],["BRI","Fitriyana","161601006069505"],
+  ["BCA","Rehan Nurjaman","7772903807"],["BCA","DAMAN MULYANA","1832267109"],
+  ["BCA","Ujang Iskandar","0280370371"],["BCA","YUSRAN","7611383081"],
+  ["BCA","NURALIAH","5860526877"],["BCA","ANITA","7571086852"],
+  ["BCA","Rina Mutiara","5195126469"],["BRI","PADLI","223501013715500"],
+  ["BRI","Teguh Bagus Dwi Cahyo","098401039559537"],["BRI","Intan Novianti","34501045251503"],
+  ["BRI","Viana Febriani","034501045257509"],["BRI","Lianna","117101021928504"],
+  ["PERMATA","ENENG TATI","9923180289"],["PERMATA","SAHYU WANDIRA","9930156512"],
+  ["PERMATA","Imas Kurnia","009936092397"],["BCA","Tika nursafitri","8660440829"],
+  ["BCA","RATIH","5785366503"],["BCA","Irgi Ahmad Alfarzy","4960523861"],
+  ["BCA","Bagus Bayu Ardianta Sutjipta","0499838877"],["BCA","ELVIRA MAYASOFA SIMBOLON","7580881054"],
+  ["BCA","FEBRINA TRIYAS ANDINI","5677032915"],["BNI","FEBRINA TRIYAS ANDINI","1848504246"],
+  ["BRI","Ali Wijaya","084001013397503"],["BRI","ANISA SAILENDRA PUTRI","720801003583505"],
+  ["MANDIRI","LIEM SILVIA","1290014354464"],["DANAMON","Reinhart Reynaldo Lukman","903687103337"]
+];
 
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-var DB=[],hasil=[],riwayat=[],recentAdded=[];
-var filt='a',totChk=0,totMtch=0,totNm=0;
-var K_DB='rvdb4',K_ST='rvst4',K_RW='rvrw4';
+// ════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════
+var DB = [], hasil = [], riwayat = [], recentAdded = [];
+var filt = 'a', totChk = 0, totMtch = 0, totNm = 0;
+var KDB = 'rc_db5', KST = 'rc_st5', KRW = 'rc_rw5';
 
-// ═══════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════
-function parse(t){
-  return t.trim().split('\n').map(function(l){
-    var p=l.split('\t');
-    if(p.length<3) return null;
-    return {bank:p[0].trim().toUpperCase(),name:p[1].trim(),norek:p[2].trim().replace(/\s+/g,'')};
-  }).filter(Boolean);
+// ════════════════════════════════════════
+//  UTILS
+// ════════════════════════════════════════
+function mkey(r) { return r.bank + '|' + r.norek.trim().toLowerCase(); }
+
+function bkBadge(b) {
+  var map = {BCA:'bca',BNI:'bni',BRI:'bri',MANDIRI:'mandiri',CIMB:'cimb',
+    MAYBANK:'maybank',DANAMON:'danamon',PERMATA:'permata',SINARMAS:'sinarmas',
+    OCBC:'ocbc',BSI:'bsi'};
+  var cls = map[b] || 'bkx';
+  return '<span class="bk ' + cls + '">' + b + '</span>';
 }
-function rkey(r){return r.bank+'|'+r.norek.toLowerCase();}
-function bkClass(b){
-  var m={BCA:'bk-bca',BNI:'bk-bni',BRI:'bk-bri',MANDIRI:'bk-mandiri',CIMB:'bk-cimb',MAYBANK:'bk-maybank',DANAMON:'bk-danamon',PERMATA:'bk-permata',SINARMAS:'bk-sinarmas',OCBC:'bk-ocbc',BSI:'bk-bsi',BTN:'bk-btn2',PANIN:'bk-panin'};
-  return m[b]||'bk-x';
-}
-function bkBadge(b){return '<span class="bk '+bkClass(b)+'">'+b+'</span>';}
-function now2(){return new Date().toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-// ═══════════════════════════════════════════
-// PERSISTENCE
-// ═══════════════════════════════════════════
-function saveDB(){try{localStorage.setItem(K_DB,JSON.stringify(DB));flashSave();}catch(e){}}
-function loadDB(){try{var s=localStorage.getItem(K_DB);if(s){DB=JSON.parse(s);}else{DB=parse(DEF);saveDB();}}catch(e){DB=parse(DEF);}}
-function saveStats(){try{localStorage.setItem(K_ST,JSON.stringify({totChk:totChk,totMtch:totMtch,totNm:totNm}));}catch(e){}}
-function loadStats(){try{var s=localStorage.getItem(K_ST);if(s){var d=JSON.parse(s);totChk=d.totChk||0;totMtch=d.totMtch||0;totNm=d.totNm||0;}}catch(e){}}
-function saveRiwayat(){try{localStorage.setItem(K_RW,JSON.stringify(riwayat.slice(0,60)));}catch(e){}}
-function loadRiwayat(){try{var s=localStorage.getItem(K_RW);if(s)riwayat=JSON.parse(s);}catch(e){}}
-function flashSave(){var el=document.getElementById('sind');el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove('on');},2000);}
-
-// ═══════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════
-function go(id){
-  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
-  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on');});
-  document.getElementById('pg-'+id).classList.add('on');
-  var map={dash:0,cek:1,db:2,riwayat:3,tambah:4};
-  var btns=document.querySelectorAll('.nb');
-  if(map[id]!==undefined && btns[map[id]]) btns[map[id]].classList.add('on');
-  if(id==='db') renderDB();
-  if(id==='riwayat') renderRiwayat();
-  window.scrollTo(0,0);
+function stamp() {
+  return new Date().toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
 }
 
-// ═══════════════════════════════════════════
-// REFRESH STATS
-// ═══════════════════════════════════════════
-function refreshAll(){
-  document.getElementById('sb-n').textContent=DB.length;
-  document.getElementById('d-tot').textContent=DB.length;
-  document.getElementById('d-chk').textContent=totChk;
-  document.getElementById('d-mtch').textContent=totMtch;
-  document.getElementById('d-nm').textContent=totNm;
-  document.getElementById('d-pm').textContent=totChk?Math.round(totMtch/totChk*100)+'%':'0%';
-  document.getElementById('d-pn').textContent=totChk?Math.round(totNm/totChk*100)+'%':'0%';
-  document.getElementById('db-tot').textContent=DB.length;
-  var banks=[...new Set(DB.map(function(r){return r.bank;}))];
-  document.getElementById('db-bk').textContent=banks.length;
-  if(banks.length){
-    var c={};DB.forEach(function(r){c[r.bank]=(c[r.bank]||0)+1;});
-    var top=Object.entries(c).sort(function(a,b){return b[1]-a[1];})[0];
-    document.getElementById('db-top').textContent=top[0];
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ════════════════════════════════════════
+//  PARSE TSV TEXT → array of objects
+// ════════════════════════════════════════
+function parseTSV(txt) {
+  var rows = [];
+  txt.trim().split('\n').forEach(function(line) {
+    var p = line.split('\t');
+    if (p.length >= 3) {
+      var bank = p[0].trim().toUpperCase();
+      var name = p[1].trim();
+      var norek = p[2].trim().replace(/\s+/g,'');
+      if (bank && name && norek) rows.push({bank:bank, name:name, norek:norek});
+    }
+  });
+  return rows;
+}
+
+// ════════════════════════════════════════
+//  PERSISTENCE — localStorage
+// ════════════════════════════════════════
+function saveDB() {
+  try {
+    localStorage.setItem(KDB, JSON.stringify(DB));
+    flashSave();
+  } catch(e) {
+    console.warn('localStorage save failed:', e);
+  }
+}
+
+function loadDB() {
+  try {
+    var s = localStorage.getItem(KDB);
+    if (s) {
+      DB = JSON.parse(s);
+    } else {
+      // First time: load default
+      DB = DEF.map(function(r){ return {bank:r[0], name:r[1], norek:r[2]}; });
+      saveDB();
+    }
+  } catch(e) {
+    DB = DEF.map(function(r){ return {bank:r[0], name:r[1], norek:r[2]}; });
+  }
+}
+
+function saveStats() {
+  try { localStorage.setItem(KST, JSON.stringify({c:totChk,m:totMtch,n:totNm})); } catch(e) {}
+}
+function loadStats() {
+  try {
+    var s = localStorage.getItem(KST);
+    if (s) { var d=JSON.parse(s); totChk=d.c||0; totMtch=d.m||0; totNm=d.n||0; }
+  } catch(e) {}
+}
+function saveRiwayat() {
+  try { localStorage.setItem(KRW, JSON.stringify(riwayat.slice(0,50))); } catch(e) {}
+}
+function loadRiwayat() {
+  try { var s=localStorage.getItem(KRW); if(s) riwayat=JSON.parse(s); } catch(e) {}
+}
+
+function flashSave() {
+  var el = document.getElementById('sind');
+  el.classList.add('on');
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.classList.remove('on'); }, 2000);
+}
+
+// ════════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════════
+function go(id) {
+  document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.nb').forEach(function(b){ b.classList.remove('on'); });
+  document.getElementById('pg-' + id).classList.add('on');
+  var idx = {dash:0, cek:1, db:2, riwayat:3, tambah:4};
+  var btns = document.querySelectorAll('.nb');
+  if (idx[id] !== undefined && btns[idx[id]]) btns[idx[id]].classList.add('on');
+  if (id === 'db') renderDB();
+  if (id === 'riwayat') renderRiwayat();
+  window.scrollTo(0, 0);
+}
+
+// ════════════════════════════════════════
+//  REFRESH ALL STATS & UI
+// ════════════════════════════════════════
+function refreshAll() {
+  document.getElementById('sbn').textContent = DB.length;
+  document.getElementById('d-tot').textContent = DB.length;
+  document.getElementById('d-chk').textContent = totChk;
+  document.getElementById('d-mtch').textContent = totMtch;
+  document.getElementById('d-nm').textContent = totNm;
+  document.getElementById('d-pm').textContent = totChk ? Math.round(totMtch/totChk*100)+'%' : '0%';
+  document.getElementById('d-pn').textContent = totChk ? Math.round(totNm/totChk*100)+'%' : '0%';
+  document.getElementById('db-tot').textContent = DB.length;
+  var banks = [];
+  DB.forEach(function(r){ if(banks.indexOf(r.bank)<0) banks.push(r.bank); });
+  document.getElementById('db-bk').textContent = banks.length;
+  if (banks.length) {
+    var c = {};
+    DB.forEach(function(r){ c[r.bank] = (c[r.bank]||0)+1; });
+    var top = Object.keys(c).reduce(function(a,b){ return c[a]>c[b]?a:b; });
+    document.getElementById('db-top').textContent = top;
   }
   renderBankDist();
-  fillBankSels();
+  fillSelects();
   renderDashHist();
 }
 
-// ═══════════════════════════════════════════
-// BANK DISTRIBUTION
-// ═══════════════════════════════════════════
-function renderBankDist(){
-  var c={};DB.forEach(function(r){c[r.bank]=(c[r.bank]||0)+1;});
-  var sorted=Object.entries(c).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
-  var mx=sorted.length?sorted[0][1]:1;
-  document.getElementById('bkdist').innerHTML=sorted.length
-    ?sorted.map(function(e){return '<div class="brow"><div class="blbl">'+bkBadge(e[0])+'</div><div class="bbg"><div class="bb" style="width:'+Math.round(e[1]/mx*100)+'%"></div></div><div class="bcnt">'+e[1]+'</div></div>';}).join('')
-    :'<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Tidak ada data</div>';
+// ════════════════════════════════════════
+//  BANK DISTRIBUTION
+// ════════════════════════════════════════
+function renderBankDist() {
+  var c = {};
+  DB.forEach(function(r){ c[r.bank] = (c[r.bank]||0)+1; });
+  var sorted = Object.keys(c).map(function(b){ return [b, c[b]]; }).sort(function(a,b){ return b[1]-a[1]; }).slice(0,8);
+  var mx = sorted.length ? sorted[0][1] : 1;
+  document.getElementById('bkdist').innerHTML = sorted.length
+    ? sorted.map(function(e){ return '<div class="brow"><div class="blbl">'+bkBadge(e[0])+'</div><div class="bbg"><div class="bb" style="width:'+Math.round(e[1]/mx*100)+'%"></div></div><div class="bcnt">'+e[1]+'</div></div>'; }).join('')
+    : '<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Tidak ada data</div>';
 }
 
-// ═══════════════════════════════════════════
-// FILL BANK SELECTS
-// ═══════════════════════════════════════════
-function fillBankSels(){
-  var banks=[...new Set(DB.map(function(r){return r.bank;}))].sort();
-  ['cek-bs','db-bs'].forEach(function(id){
-    var s=document.getElementById(id),v=s.value;
-    s.innerHTML='<option value="">Semua Bank</option>'+banks.map(function(b){return '<option'+(b===v?' selected':'')+'>'+b+'</option>';}).join('');
+// ════════════════════════════════════════
+//  FILL BANK SELECTS
+// ════════════════════════════════════════
+function fillSelects() {
+  var banks = [];
+  DB.forEach(function(r){ if(banks.indexOf(r.bank)<0) banks.push(r.bank); });
+  banks.sort();
+  ['cek-bs','db-bs'].forEach(function(id) {
+    var s = document.getElementById(id), v = s.value;
+    s.innerHTML = '<option value="">Semua Bank</option>' + banks.map(function(b){
+      return '<option value="'+b+'"'+(b===v?' selected':'')+'>'+b+'</option>';
+    }).join('');
   });
 }
 
-// ═══════════════════════════════════════════
-// CEK REKENING
-// ═══════════════════════════════════════════
-function runCek(){
-  var val=document.getElementById('inp-cek').value.trim();
-  if(!val){showAl('al-cek','⚠️ Masukkan data rekening terlebih dahulu.','al-w');return;}
-  var toChk=parse(val);
-  if(!toChk.length){showAl('al-cek','⚠️ Format tidak valid. Gunakan Tab sebagai pemisah kolom.','al-w');return;}
-  var dbKeys=new Set(DB.map(rkey));
-  hasil=toChk.map(function(r){return Object.assign({},r,{found:dbKeys.has(rkey(r))});});
-  var m=hasil.filter(function(x){return x.found;}).length;
-  totChk+=hasil.length;totMtch+=m;totNm+=(hasil.length-m);
+// ════════════════════════════════════════
+//  CEK REKENING
+// ════════════════════════════════════════
+function runCek() {
+  var val = document.getElementById('inp-cek').value.trim();
+  if (!val) { showAl('al-cek','⚠️ Masukkan data rekening terlebih dahulu.','al-w'); return; }
+  var toChk = parseTSV(val);
+  if (!toChk.length) { showAl('al-cek','⚠️ Format tidak valid. Gunakan Tab sebagai pemisah kolom.','al-w'); return; }
+  var dbKeys = {};
+  DB.forEach(function(r){ dbKeys[mkey(r)] = true; });
+  hasil = toChk.map(function(r){ return {bank:r.bank, name:r.name, norek:r.norek, found:!!dbKeys[mkey(r)]}; });
+  var m = 0;
+  hasil.forEach(function(x){ if(x.found) m++; });
+  totChk += hasil.length; totMtch += m; totNm += (hasil.length - m);
   saveStats();
-  riwayat.unshift({t:now2(),cnt:hasil.length,mtch:m,data:hasil.slice()});
+  riwayat.unshift({t:stamp(), cnt:hasil.length, mtch:m, data:hasil.slice()});
   saveRiwayat();
   refreshAll();
-  fillBankSels();
-  document.getElementById('cek-hasil').style.display='block';
+  fillSelects();
+  document.getElementById('cek-hasil').style.display = 'block';
   setF('a');
   showAl('al-cek','✅ Selesai! <strong>'+m+'</strong> dari <strong>'+toChk.length+'</strong> rekening tersedia di database kami.','al-s');
 }
-function clearCek(){
-  document.getElementById('inp-cek').value='';
-  document.getElementById('cek-hasil').style.display='none';
-  hasil=[];
-  document.getElementById('al-cek').className='al';
+
+function clearCek() {
+  document.getElementById('inp-cek').value = '';
+  document.getElementById('cek-hasil').style.display = 'none';
+  hasil = [];
+  document.getElementById('al-cek').className = 'al';
 }
-function pasteContoh(){
-  document.getElementById('inp-cek').value='CIMB\tYENI YUSTIANA\t708707460800\nCIMB\tHALAWANI\t708720033200\nCIMB\tYUDA SYAHPUTRA\t708556371200\nBCA\tParmanto\t0771373541\nBRI\tTestUser\t999999999999';
+
+function pasteContoh() {
+  document.getElementById('inp-cek').value = 'CIMB\tYENI YUSTIANA\t708707460800\nCIMB\tHALAWANI\t708720033200\nCIMB\tYUDA SYAHPUTRA\t708556371200\nBCA\tParmanto\t0771373541\nBRI\tTestUser\t999999999999';
 }
-function setF(f){
-  filt=f;
-  document.getElementById('fc-a').className='fc'+(f==='a'?' fa':'');
-  document.getElementById('fc-y').className='fc'+(f==='y'?' fy':'');
-  document.getElementById('fc-n').className='fc'+(f==='n'?' fn':'');
+
+function setF(f) {
+  filt = f;
+  document.getElementById('fc-a').className = 'fc' + (f==='a' ? ' fa' : '');
+  document.getElementById('fc-y').className = 'fc' + (f==='y' ? ' fy' : '');
+  document.getElementById('fc-n').className = 'fc' + (f==='n' ? ' fn' : '');
   renderCekTbl();
 }
-function renderCekTbl(){
-  var q=(document.getElementById('cek-q').value||'').toLowerCase();
-  var bf=document.getElementById('cek-bs').value;
-  var r=hasil.slice();
-  if(filt==='y') r=r.filter(function(x){return x.found;});
-  if(filt==='n') r=r.filter(function(x){return !x.found;});
-  if(bf) r=r.filter(function(x){return x.bank===bf;});
-  if(q) r=r.filter(function(x){return x.name.toLowerCase().includes(q)||x.norek.includes(q)||x.bank.toLowerCase().includes(q);});
-  document.getElementById('fc-ac').textContent=hasil.length;
-  document.getElementById('fc-yc').textContent=hasil.filter(function(x){return x.found;}).length;
-  document.getElementById('fc-nc').textContent=hasil.filter(function(x){return !x.found;}).length;
-  document.getElementById('cek-info').textContent='Menampilkan '+r.length+' dari '+hasil.length+' data';
-  document.getElementById('cek-body').innerHTML=r.length
-    ?r.map(function(x,i){return '<tr><td style="color:var(--txt3);font-size:10px;font-family:var(--fm)">'+(i+1)+'</td><td>'+bkBadge(x.bank)+'</td><td style="font-weight:500">'+esc(x.name)+'</td><td class="nr">'+esc(x.norek)+'</td><td><span class="sb2 '+(x.found?'sy':'sn')+'"><span class="sdot '+(x.found?'sdg':'sdr')+'"></span>'+(x.found?'Tersedia':'Tidak Ada')+'</span></td></tr>';}).join('')
-    :'<tr><td colspan="5" class="te">Tidak ada data ditemukan</td></tr>';
+
+function renderCekTbl() {
+  var q = (document.getElementById('cek-q').value || '').toLowerCase();
+  var bf = document.getElementById('cek-bs').value;
+  var r = hasil.slice();
+  if (filt==='y') r = r.filter(function(x){ return x.found; });
+  if (filt==='n') r = r.filter(function(x){ return !x.found; });
+  if (bf) r = r.filter(function(x){ return x.bank===bf; });
+  if (q) r = r.filter(function(x){ return x.name.toLowerCase().indexOf(q)>=0 || x.norek.indexOf(q)>=0 || x.bank.toLowerCase().indexOf(q)>=0; });
+  document.getElementById('fc-ac').textContent = hasil.length;
+  document.getElementById('fc-yc').textContent = hasil.filter(function(x){ return x.found; }).length;
+  document.getElementById('fc-nc').textContent = hasil.filter(function(x){ return !x.found; }).length;
+  document.getElementById('cek-info').textContent = 'Menampilkan '+r.length+' dari '+hasil.length+' data';
+  document.getElementById('cek-body').innerHTML = r.length
+    ? r.map(function(x,i){ return '<tr><td style="color:var(--txt3);font-size:10px;font-family:var(--fm)">'+(i+1)+'</td><td>'+bkBadge(x.bank)+'</td><td style="font-weight:500">'+esc(x.name)+'</td><td class="nr">'+esc(x.norek)+'</td><td><span class="sb2 '+(x.found?'sy':'sn')+'"><span class="sdot '+(x.found?'sdg':'sdr')+'"></span>'+(x.found?'Tersedia':'Tidak Ada')+'</span></td></tr>'; }).join('')
+    : '<tr><td colspan="5" class="te">Tidak ada data ditemukan</td></tr>';
 }
 
-// ═══════════════════════════════════════════
-// DATABASE
-// ═══════════════════════════════════════════
-function renderDB(){
-  var q=(document.getElementById('db-q').value||'').toLowerCase();
-  var bf=document.getElementById('db-bs').value;
-  var r=DB.slice();
-  if(bf) r=r.filter(function(x){return x.bank===bf;});
-  if(q) r=r.filter(function(x){return x.name.toLowerCase().includes(q)||x.norek.includes(q)||x.bank.toLowerCase().includes(q);});
-  document.getElementById('db-info').textContent='Menampilkan '+r.length+' dari '+DB.length+' rekening';
-  document.getElementById('db-body').innerHTML=r.length
-    ?r.map(function(x,i){
-        var origIdx=DB.findIndex(function(d){return rkey(d)===rkey(x);});
-        return '<tr><td style="color:var(--txt3);font-size:10px;font-family:var(--fm)">'+(i+1)+'</td><td>'+bkBadge(x.bank)+'</td><td style="font-weight:500">'+esc(x.name)+'</td><td class="nr">'+esc(x.norek)+'</td><td><button class="del-btn" onclick="hapusRek('+origIdx+')" title="Hapus">✕</button></td></tr>';
+// ════════════════════════════════════════
+//  DATABASE
+// ════════════════════════════════════════
+function renderDB() {
+  var q = (document.getElementById('db-q').value || '').toLowerCase();
+  var bf = document.getElementById('db-bs').value;
+  var r = DB.slice();
+  if (bf) r = r.filter(function(x){ return x.bank===bf; });
+  if (q) r = r.filter(function(x){ return x.name.toLowerCase().indexOf(q)>=0 || x.norek.indexOf(q)>=0 || x.bank.toLowerCase().indexOf(q)>=0; });
+  document.getElementById('db-info').textContent = 'Menampilkan '+r.length+' dari '+DB.length+' rekening';
+  document.getElementById('db-body').innerHTML = r.length
+    ? r.map(function(x, i) {
+        var origIdx = -1;
+        for (var j=0; j<DB.length; j++) { if (mkey(DB[j])===mkey(x)) { origIdx=j; break; } }
+        return '<tr><td style="color:var(--txt3);font-size:10px;font-family:var(--fm)">'+(i+1)+'</td><td>'+bkBadge(x.bank)+'</td><td style="font-weight:500">'+esc(x.name)+'</td><td class="nr">'+esc(x.norek)+'</td><td><button class="delbtn" onclick="hapusRek('+origIdx+')" title="Hapus">✕</button></td></tr>';
       }).join('')
-    :'<tr><td colspan="5" class="te">Tidak ada data ditemukan</td></tr>';
-}
-function hapusRek(idx){
-  if(!confirm('Hapus rekening "'+DB[idx].name+'" ('+DB[idx].bank+' - '+DB[idx].norek+')?')) return;
-  DB.splice(idx,1);
-  saveDB();refreshAll();renderDB();
+    : '<tr><td colspan="5" class="te">Tidak ada data ditemukan</td></tr>';
 }
 
-// ═══════════════════════════════════════════
-// RIWAYAT
-// ═══════════════════════════════════════════
-function renderDashHist(){
-  var el=document.getElementById('dash-hist');
-  if(!riwayat.length){el.innerHTML='<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada riwayat pengecekan</div>';return;}
-  el.innerHTML='<div class="hl">'+riwayat.slice(0,4).map(function(h,i){return '<div class="hi" onclick="loadRiwayat('+i+');go(\'cek\')"><span class="hi-ico">◷</span><div class="hi-info"><div class="hi-t">'+h.cnt+' rekening dicek</div><div class="hi-m">'+h.t+'</div></div><div class="hi-b"><span class="sb2 sy"><span class="sdot sdg"></span>'+h.mtch+' tersedia</span><span class="sb2 sn"><span class="sdot sdr"></span>'+(h.cnt-h.mtch)+' tidak ada</span></div></div>';}).join('')+'</div>';
+function hapusRek(idx) {
+  if (idx < 0 || idx >= DB.length) return;
+  if (!confirm('Hapus rekening "'+DB[idx].name+'" ('+DB[idx].bank+' - '+DB[idx].norek+')?')) return;
+  DB.splice(idx, 1);
+  saveDB();
+  refreshAll();
+  renderDB();
 }
-function renderRiwayat(){
-  var el=document.getElementById('riwayat-list');
-  if(!riwayat.length){el.innerHTML='<div style="color:var(--txt3);font-size:13px;text-align:center;padding:60px">Belum ada riwayat pengecekan</div>';return;}
-  el.innerHTML='<div class="hl">'+riwayat.map(function(h,i){return '<div class="hi" onclick="loadRiwayat('+i+');go(\'cek\')"><span class="hi-ico">◷</span><div class="hi-info"><div class="hi-t">'+h.cnt+' rekening dicek</div><div class="hi-m">'+h.t+'</div></div><div class="hi-b"><span class="sb2 sy"><span class="sdot sdg"></span>'+h.mtch+' tersedia</span><span class="sb2 sn"><span class="sdot sdr"></span>'+(h.cnt-h.mtch)+' tidak ada</span></div></div>';}).join('')+'</div>';
-}
-function loadRiwayat(i){hasil=riwayat[i].data.slice();document.getElementById('cek-hasil').style.display='block';fillBankSels();setF('a');}
-function clearRiwayat(){if(!confirm('Hapus semua riwayat pengecekan?'))return;riwayat=[];saveRiwayat();renderRiwayat();renderDashHist();}
 
-// ═══════════════════════════════════════════
-// TAMBAH REKENING
-// ═══════════════════════════════════════════
-function tambahSatu(){
-  var bank=document.getElementById('add-bank').value.trim();
-  var name=document.getElementById('add-nama').value.trim();
-  var norek=document.getElementById('add-norek').value.trim().replace(/\s+/g,'');
-  if(!bank){showAl('al-add','⚠️ Pilih nama bank terlebih dahulu.','al-w');return;}
-  if(!name){showAl('al-add','⚠️ Nama pemilik tidak boleh kosong.','al-w');return;}
-  if(!norek){showAl('al-add','⚠️ Nomor rekening tidak boleh kosong.','al-w');return;}
-  if(!/^\d+$/.test(norek)){showAl('al-add','⚠️ Nomor rekening hanya boleh berisi angka.','al-w');return;}
-  var rec={bank:bank,name:name,norek:norek};
-  if(DB.some(function(r){return rkey(r)===rkey(rec);})){showAl('al-add','⚠️ Rekening ini sudah ada di database (duplikat).','al-w');return;}
+// ════════════════════════════════════════
+//  RIWAYAT
+// ════════════════════════════════════════
+function renderDashHist() {
+  var el = document.getElementById('dash-hist');
+  if (!riwayat.length) {
+    el.innerHTML = '<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada riwayat pengecekan</div>';
+    return;
+  }
+  el.innerHTML = '<div class="hl">' + riwayat.slice(0,4).map(function(h,i){
+    return '<div class="hi" onclick="loadHist('+i+');go(\'cek\')"><span class="hi-ico">◷</span><div class="hi-info"><div class="hi-t">'+h.cnt+' rekening dicek</div><div class="hi-m">'+h.t+'</div></div><div class="hi-b"><span class="sb2 sy"><span class="sdot sdg"></span>'+h.mtch+' tersedia</span><span class="sb2 sn"><span class="sdot sdr"></span>'+(h.cnt-h.mtch)+' tidak ada</span></div></div>';
+  }).join('') + '</div>';
+}
+
+function renderRiwayat() {
+  var el = document.getElementById('riwayat-list');
+  if (!riwayat.length) {
+    el.innerHTML = '<div style="color:var(--txt3);font-size:13px;text-align:center;padding:60px">Belum ada riwayat pengecekan</div>';
+    return;
+  }
+  el.innerHTML = '<div class="hl">' + riwayat.map(function(h,i){
+    return '<div class="hi" onclick="loadHist('+i+');go(\'cek\')"><span class="hi-ico">◷</span><div class="hi-info"><div class="hi-t">'+h.cnt+' rekening dicek</div><div class="hi-m">'+h.t+'</div></div><div class="hi-b"><span class="sb2 sy"><span class="sdot sdg"></span>'+h.mtch+' tersedia</span><span class="sb2 sn"><span class="sdot sdr"></span>'+(h.cnt-h.mtch)+' tidak ada</span></div></div>';
+  }).join('') + '</div>';
+}
+
+function loadHist(i) {
+  hasil = riwayat[i].data.slice();
+  document.getElementById('cek-hasil').style.display = 'block';
+  fillSelects();
+  setF('a');
+}
+
+function clearRiwayat() {
+  if (!confirm('Hapus semua riwayat pengecekan?')) return;
+  riwayat = [];
+  saveRiwayat();
+  renderRiwayat();
+  renderDashHist();
+}
+
+// ════════════════════════════════════════
+//  TAMBAH REKENING — SATU PER SATU
+// ════════════════════════════════════════
+function tambahSatu() {
+  var bank  = document.getElementById('add-bank').value.trim();
+  var name  = document.getElementById('add-nama').value.trim();
+  var norek = document.getElementById('add-norek').value.trim().replace(/\s+/g,'');
+
+  // Validasi
+  if (!bank)  { showAl('al-add','⚠️ Pilih nama bank terlebih dahulu.','al-w'); return; }
+  if (!name)  { showAl('al-add','⚠️ Nama pemilik tidak boleh kosong.','al-w'); return; }
+  if (!norek) { showAl('al-add','⚠️ Nomor rekening tidak boleh kosong.','al-w'); return; }
+  // Nomor rekening boleh angka saja (hapus validasi ketat supaya semua format lolos)
+  if (norek.length < 4) { showAl('al-add','⚠️ Nomor rekening terlalu pendek (minimal 4 karakter).','al-w'); return; }
+
+  var rec = {bank: bank, name: name, norek: norek};
+
+  // Cek duplikat
+  var dup = false;
+  for (var i=0; i<DB.length; i++) {
+    if (mkey(DB[i]) === mkey(rec)) { dup = true; break; }
+  }
+  if (dup) { showAl('al-add','⚠️ Rekening ini sudah ada di database (duplikat).','al-w'); return; }
+
+  // SIMPAN
   DB.unshift(rec);
-  recentAdded.unshift(Object.assign({},rec,{at:now2()}));
-  saveDB();refreshAll();renderRecentTbl();
-  showAl('al-add','✅ Rekening <strong>'+esc(name)+'</strong> ('+bank+') berhasil disimpan!','al-s');
+  recentAdded.unshift({bank:bank, name:name, norek:norek, at:stamp()});
+  saveDB();
+  refreshAll();
+  renderRecentTbl();
+
+  showAl('al-add','✅ Rekening <strong>'+esc(name)+'</strong> ('+bank+') berhasil disimpan! Total database: '+DB.length+' rekening.','al-s');
   resetForm();
 }
-function tambahBatch(){
-  var val=document.getElementById('inp-batch').value.trim();
-  if(!val){showAl('al-batch','⚠️ Masukkan data rekening terlebih dahulu.','al-w');return;}
-  var parsed=parse(val);
-  if(!parsed.length){showAl('al-batch','⚠️ Format tidak valid. Gunakan Tab sebagai pemisah.','al-w');return;}
-  var ex=new Set(DB.map(rkey));
-  var added=parsed.filter(function(r){return !ex.has(rkey(r));});
-  var skip=parsed.length-added.length;
-  if(!added.length){showAl('al-batch','⚠️ Semua rekening sudah ada di database (semua duplikat).','al-w');return;}
-  added.forEach(function(r){DB.unshift(r);recentAdded.unshift(Object.assign({},r,{at:now2()}));});
-  saveDB();refreshAll();renderRecentTbl();
-  showAl('al-batch','✅ <strong>'+added.length+' rekening</strong> berhasil ditambahkan.'+(skip?' '+skip+' duplikat dilewati.':''),'al-s');
-  document.getElementById('inp-batch').value='';
-}
-function resetForm(){
-  document.getElementById('add-bank').value='';
-  document.getElementById('add-nama').value='';
-  document.getElementById('add-norek').value='';
-}
-function renderRecentTbl(){
-  var el=document.getElementById('recent-tbl');
-  if(!recentAdded.length){el.innerHTML='<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada rekening ditambahkan di sesi ini</div>';return;}
-  el.innerHTML='<div class="tw"><table><thead><tr><th style="width:88px">Bank</th><th>Nama</th><th>No. Rekening</th><th style="width:155px">Waktu Tambah</th></tr></thead><tbody>'+recentAdded.slice(0,15).map(function(r){return '<tr><td>'+bkBadge(r.bank)+'</td><td style="font-weight:500">'+esc(r.name)+'</td><td class="nr">'+esc(r.norek)+'</td><td style="font-size:11px;color:var(--txt3)">'+r.at+'</td></tr>';}).join('')+'</tbody></table></div>';
-}
 
-// ═══════════════════════════════════════════
-// IMPORT MASSAL
-// ═══════════════════════════════════════════
-function openImport(){document.getElementById('imp-ta').value='';document.getElementById('al-imp').className='al';document.getElementById('m-import').classList.add('on');}
-function closeImport(){document.getElementById('m-import').classList.remove('on');}
-function doImport(replace){
-  var val=document.getElementById('imp-ta').value.trim();
-  if(!val)return;
-  var parsed=parse(val);
-  if(!parsed.length)return;
-  if(replace){
-    if(!confirm('Ganti semua '+DB.length+' rekening dengan '+parsed.length+' rekening baru?'))return;
-    DB=parsed;
-    showAl('al-imp','✅ Database diganti dengan '+parsed.length+' rekening baru.','al-s');
-  }else{
-    var ex=new Set(DB.map(rkey));
-    var added=parsed.filter(function(r){return !ex.has(rkey(r));});
-    var skip=parsed.length-added.length;
-    DB=DB.concat(added);
-    showAl('al-imp','✅ '+added.length+' ditambahkan. '+skip+' duplikat dilewati.','al-s');
+// ════════════════════════════════════════
+//  TAMBAH BATCH
+// ════════════════════════════════════════
+function tambahBatch() {
+  var val = document.getElementById('inp-batch').value.trim();
+  if (!val) { showAl('al-batch','⚠️ Masukkan data rekening terlebih dahulu.','al-w'); return; }
+  var parsed = parseTSV(val);
+  if (!parsed.length) { showAl('al-batch','⚠️ Format tidak valid. Gunakan Tab sebagai pemisah.','al-w'); return; }
+
+  var existing = {};
+  DB.forEach(function(r){ existing[mkey(r)] = true; });
+
+  var added = [];
+  parsed.forEach(function(r) {
+    if (!existing[mkey(r)]) {
+      added.push(r);
+      existing[mkey(r)] = true;
+    }
+  });
+
+  var skip = parsed.length - added.length;
+
+  if (!added.length) {
+    showAl('al-batch','⚠️ Semua rekening sudah ada di database (semua duplikat).','al-w');
+    return;
   }
-  saveDB();refreshAll();
-  setTimeout(closeImport,2200);
+
+  // Tambah ke depan DB
+  added.forEach(function(r) {
+    DB.unshift(r);
+    recentAdded.unshift({bank:r.bank, name:r.name, norek:r.norek, at:stamp()});
+  });
+
+  saveDB();
+  refreshAll();
+  renderRecentTbl();
+
+  var msg = '✅ <strong>'+added.length+' rekening</strong> berhasil ditambahkan ke database!';
+  if (skip > 0) msg += ' ('+skip+' duplikat dilewati)';
+  msg += ' Total sekarang: '+DB.length+' rekening.';
+  showAl('al-batch', msg, 'al-s');
+  document.getElementById('inp-batch').value = '';
 }
 
-// ═══════════════════════════════════════════
-// EXPORT
-// ═══════════════════════════════════════════
-function exportHasil(){
-  if(!hasil.length){alert('Tidak ada data hasil pengecekan.');return;}
-  var rows=[['Bank','Nama','No. Rekening','Status']].concat(hasil.map(function(r){return [r.bank,r.name,r.norek,r.found?'Tersedia':'Tidak Tersedia'];}));
-  dl('hasil_cek_'+new Date().toLocaleDateString('id-ID').replace(/\//g,'-')+'.csv',rows.map(function(r){return r.join(',');}).join('\n'));
+function resetForm() {
+  document.getElementById('add-bank').value = '';
+  document.getElementById('add-nama').value = '';
+  document.getElementById('add-norek').value = '';
 }
-function exportDB(){
-  var rows=[['Bank','Nama','No. Rekening']].concat(DB.map(function(r){return [r.bank,r.name,r.norek];}));
-  dl('database_rekening.csv',rows.map(function(r){return r.join(',');}).join('\n'));
-}
-function doExportCSV(){if(hasil.length){exportHasil();}else{exportDB();}}
-function dl(fn,c){var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(c);a.download=fn;a.click();}
 
-// ═══════════════════════════════════════════
-// RESET
-// ═══════════════════════════════════════════
-function konfirmReset(){
-  if(!confirm('Reset database ke data default? Semua data tambahan akan hilang.'))return;
-  DB=parse(DEF);saveDB();refreshAll();renderDB();
-  alert('Database berhasil direset ke data default.');
+function renderRecentTbl() {
+  var el = document.getElementById('recent-tbl');
+  if (!recentAdded.length) {
+    el.innerHTML = '<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada rekening ditambahkan di sesi ini</div>';
+    return;
+  }
+  el.innerHTML = '<div class="tw"><table><thead><tr><th style="width:88px">Bank</th><th>Nama</th><th>No. Rekening</th><th style="width:155px">Waktu Tambah</th></tr></thead><tbody>'
+    + recentAdded.slice(0,20).map(function(r){
+        return '<tr><td>'+bkBadge(r.bank)+'</td><td style="font-weight:500">'+esc(r.name)+'</td><td class="nr">'+esc(r.norek)+'</td><td style="font-size:11px;color:var(--txt3)">'+r.at+'</td></tr>';
+      }).join('')
+    + '</tbody></table></div>';
+}
+
+// ════════════════════════════════════════
+//  IMPORT MASSAL
+// ════════════════════════════════════════
+function bukaImport() {
+  document.getElementById('imp-ta').value = '';
+  document.getElementById('al-imp').className = 'al';
+  document.getElementById('m-import').classList.add('on');
+}
+function tutupImport() { document.getElementById('m-import').classList.remove('on'); }
+
+function doImport(replace) {
+  var val = document.getElementById('imp-ta').value.trim();
+  if (!val) return;
+  var parsed = parseTSV(val);
+  if (!parsed.length) { showAl('al-imp','⚠️ Format tidak valid.','al-w'); return; }
+
+  if (replace) {
+    if (!confirm('Ganti semua '+DB.length+' rekening dengan '+parsed.length+' rekening baru?')) return;
+    DB = parsed;
+    showAl('al-imp','✅ Database diganti dengan '+parsed.length+' rekening baru.','al-s');
+  } else {
+    var existing = {};
+    DB.forEach(function(r){ existing[mkey(r)] = true; });
+    var added = parsed.filter(function(r){ return !existing[mkey(r)]; });
+    var skip = parsed.length - added.length;
+    DB = DB.concat(added);
+    showAl('al-imp','✅ '+added.length+' rekening ditambahkan. '+skip+' duplikat dilewati. Total: '+DB.length+'.','al-s');
+  }
+  saveDB();
+  refreshAll();
+  setTimeout(tutupImport, 2500);
+}
+
+// ════════════════════════════════════════
+//  EXPORT
+// ════════════════════════════════════════
+function exportHasil() {
+  if (!hasil.length) { alert('Tidak ada data hasil pengecekan untuk diekspor.'); return; }
+  var rows = [['Bank','Nama','No. Rekening','Status']].concat(
+    hasil.map(function(r){ return [r.bank, r.name, r.norek, r.found?'Tersedia':'Tidak Tersedia']; })
+  );
+  dlCSV('hasil_cek_'+new Date().toLocaleDateString('id-ID').replace(/\//g,'-')+'.csv', rows);
+}
+function exportDB() {
+  var rows = [['Bank','Nama','No. Rekening']].concat(DB.map(function(r){ return [r.bank, r.name, r.norek]; }));
+  dlCSV('database_rekening.csv', rows);
+}
+function doExport() { if (hasil.length) exportHasil(); else exportDB(); }
+
+function dlCSV(fn, rows) {
+  var csv = '\uFEFF' + rows.map(function(r){
+    return r.map(function(v){ return '"'+String(v).replace(/"/g,'""')+'"'; }).join(',');
+  }).join('\n');
+  var a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = fn;
+  a.click();
+}
+
+// ════════════════════════════════════════
+//  RESET
+// ════════════════════════════════════════
+function doReset() {
+  if (!confirm('Reset database ke data default? Semua rekening tambahan akan hilang.')) return;
+  DB = DEF.map(function(r){ return {bank:r[0], name:r[1], norek:r[2]}; });
+  saveDB();
+  refreshAll();
+  renderDB();
+  alert('✅ Database berhasil direset ke data default ('+DB.length+' rekening).');
   go('dash');
 }
 
-// ═══════════════════════════════════════════
-// ALERT HELPER
-// ═══════════════════════════════════════════
-function showAl(id,msg,cls){
-  var el=document.getElementById(id);
-  if(!el)return;
-  el.className='al on '+cls;
-  el.innerHTML=msg;
+// ════════════════════════════════════════
+//  ALERT HELPER
+// ════════════════════════════════════════
+function showAl(id, msg, cls) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'al on ' + cls;
+  el.innerHTML = msg;
   clearTimeout(el._t);
-  el._t=setTimeout(function(){el.className='al';},5500);
+  el._t = setTimeout(function(){ el.className = 'al'; }, 6000);
 }
 
-// ═══════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════
-loadDB();loadStats();loadRiwayat();
+// ════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════
+loadDB();
+loadStats();
+loadRiwayat();
 refreshAll();
 renderRiwayat();
 
-// ═══════════════════════════════════════════
-// PROTEKSI - KLIK KANAN, F12, CTRL+SHIFT+C
-// ═══════════════════════════════════════════
-(function(){
-  // Buat overlay shield
+// ════════════════════════════════════════
+//  PROTEKSI — klik kanan, F12, Ctrl+Shift+C
+// ════════════════════════════════════════
+(function() {
+  // Buat overlay
   var sh = document.createElement('div');
   sh.style.cssText = 'display:none;position:fixed;inset:0;z-index:2147483647;background:linear-gradient(135deg,#060809,#0d1117);align-items:center;justify-content:center;flex-direction:column;font-family:Outfit,sans-serif;';
   sh.innerHTML = '<div style="text-align:center;padding:40px;max-width:420px">'
-    + '<div style="font-size:64px;margin-bottom:20px;filter:drop-shadow(0 0 32px rgba(201,168,76,.6))">&#x1F512;</div>'
+    + '<div style="font-size:64px;margin-bottom:20px">&#x1F512;</div>'
     + '<div style="font-family:Cormorant Garamond,serif;font-size:28px;font-weight:700;color:#e8c97a;margin-bottom:10px">Akses Ditolak</div>'
-    + '<div style="font-size:13px;color:#4a5a78;line-height:1.9;margin-bottom:28px">Tindakan ini tidak diizinkan.<br>Sistem dikunci untuk melindungi data.</div>'
+    + '<div style="font-size:13px;color:#4a5a78;line-height:1.9;margin-bottom:28px">Tindakan ini tidak diizinkan.<br>Sistem dikunci untuk melindungi data rekening.</div>'
     + '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:20px;font-size:10px;color:#c9a84c;letter-spacing:.1em;text-transform:uppercase">'
-    + '<span style="width:6px;height:6px;border-radius:50%;background:#c9a84c;display:inline-block"></span>RekeningCheck Premium</div>'
-    + '</div>';
+    + '<span style="width:6px;height:6px;border-radius:50%;background:#c9a84c;display:inline-block"></span>RekeningCheck Premium</div></div>';
   document.body.appendChild(sh);
 
-  var devOpen = false, shTimer = null;
+  var devOpen = false, timer = null;
 
-  function showShield(permanent) {
+  function show(perm) {
     sh.style.display = 'flex';
-    clearTimeout(shTimer);
-    if (!permanent) {
-      shTimer = setTimeout(function(){ if (!devOpen) hideShield(); }, 2500);
-    }
+    clearTimeout(timer);
+    if (!perm) timer = setTimeout(function(){ if (!devOpen) hide(); }, 2500);
   }
-  function hideShield() {
-    if (!devOpen) sh.style.display = 'none';
-  }
+  function hide() { if (!devOpen) sh.style.display = 'none'; }
 
   // Blokir klik kanan
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    showShield(false);
-    return false;
-  });
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); show(false); return false; });
 
-  // Blokir tombol keyboard berbahaya SAJA (bukan semua tombol)
+  // Blokir tombol
   document.addEventListener('keydown', function(e) {
     var k = e.keyCode;
-    // F12
-    if (k === 123) { e.preventDefault(); showShield(false); return false; }
-    // Ctrl+Shift+I
-    if (e.ctrlKey && e.shiftKey && k === 73) { e.preventDefault(); showShield(false); return false; }
-    // Ctrl+Shift+J
-    if (e.ctrlKey && e.shiftKey && k === 74) { e.preventDefault(); showShield(false); return false; }
-    // Ctrl+Shift+C
-    if (e.ctrlKey && e.shiftKey && k === 67) { e.preventDefault(); showShield(false); return false; }
-    // Ctrl+U
-    if (e.ctrlKey && k === 85) { e.preventDefault(); showShield(false); return false; }
-    // Ctrl+S
-    if (e.ctrlKey && k === 83) { e.preventDefault(); return false; }
+    if (k === 123) { e.preventDefault(); show(false); return false; }                           // F12
+    if (e.ctrlKey && e.shiftKey && k === 73) { e.preventDefault(); show(false); return false; } // Ctrl+Shift+I
+    if (e.ctrlKey && e.shiftKey && k === 74) { e.preventDefault(); show(false); return false; } // Ctrl+Shift+J
+    if (e.ctrlKey && e.shiftKey && k === 67) { e.preventDefault(); show(false); return false; } // Ctrl+Shift+C
+    if (e.ctrlKey && k === 85) { e.preventDefault(); show(false); return false; }               // Ctrl+U
+    if (e.ctrlKey && k === 83) { e.preventDefault(); return false; }                            // Ctrl+S
   });
 
-  // Deteksi DevTools via ukuran window
+  // Deteksi DevTools
   setInterval(function() {
-    var w = window.outerWidth - window.innerWidth > 160;
+    var w = window.outerWidth  - window.innerWidth  > 160;
     var h = window.outerHeight - window.innerHeight > 160;
-    if (w || h) {
-      if (!devOpen) { devOpen = true; showShield(true); }
-    } else {
-      if (devOpen) { devOpen = false; hideShield(); }
-    }
+    if (w || h) { if (!devOpen) { devOpen = true;  show(true); } }
+    else        { if (devOpen)  { devOpen = false; hide();     } }
   }, 800);
 
 })();
