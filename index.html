@@ -1167,6 +1167,97 @@ loadHist();
 refreshStats();
 renderDash();
 renderHistPage();
+
+// ══════════════════════════════════════════════
+//  PROTEKSI KODE
+// ══════════════════════════════════════════════
+(function(){
+  // Blokir klik kanan
+  document.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+    showShield();
+    return false;
+  });
+
+  // Blokir F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U, Ctrl+S
+  document.addEventListener('keydown', function(e){
+    const key = e.key || e.keyCode;
+    // F12
+    if(e.keyCode === 123){ e.preventDefault(); showShield(); return false; }
+    // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
+    if(e.ctrlKey && e.shiftKey && (e.keyCode===73||e.keyCode===74||e.keyCode===67)){
+      e.preventDefault(); showShield(); return false;
+    }
+    // Ctrl+U (view source)
+    if(e.ctrlKey && e.keyCode===85){ e.preventDefault(); showShield(); return false; }
+    // Ctrl+S (save page)
+    if(e.ctrlKey && e.keyCode===83){ e.preventDefault(); return false; }
+  });
+
+  // Deteksi DevTools terbuka via ukuran window
+  let devOpen = false;
+  const threshold = 160;
+  setInterval(function(){
+    const widthDiff = window.outerWidth - window.innerWidth > threshold;
+    const heightDiff = window.outerHeight - window.innerHeight > threshold;
+    if((widthDiff || heightDiff) && !devOpen){
+      devOpen = true;
+      showShield();
+    } else if(!widthDiff && !heightDiff){
+      devOpen = false;
+      hideShield();
+    }
+  }, 800);
+
+  // Buat overlay shield
+  const shield = document.createElement('div');
+  shield.id = 'devtools-shield';
+  shield.style.cssText = `
+    display:none; position:fixed; inset:0; z-index:99999;
+    background:linear-gradient(135deg,#060809 0%,#0d1117 100%);
+    align-items:center; justify-content:center; flex-direction:column;
+    font-family:'Outfit',sans-serif;
+  `;
+  shield.innerHTML = `
+    <div style="text-align:center;padding:40px;max-width:420px;">
+      <div style="font-size:64px;margin-bottom:24px;filter:drop-shadow(0 0 30px rgba(201,168,76,0.5))">🔒</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#e8c97a;margin-bottom:12px;letter-spacing:0.02em">Akses Ditolak</div>
+      <div style="font-size:13px;color:#3d4d68;line-height:1.8;margin-bottom:28px">
+        Tindakan ini tidak diizinkan.<br>
+        Sistem telah dikunci untuk melindungi data dan kode.
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:20px;font-size:11px;color:#c9a84c;letter-spacing:0.1em;text-transform:uppercase">
+        <span style="width:6px;height:6px;border-radius:50%;background:#c9a84c;display:inline-block"></span>
+        RekeningCheck Premium
+      </div>
+    </div>
+  `;
+  document.body.appendChild(shield);
+
+  function showShield(){
+    shield.style.display = 'flex';
+    // Auto sembunyikan setelah 3 detik untuk klik kanan (bukan devtools)
+    clearTimeout(shield._t);
+    if(!devOpen){
+      shield._t = setTimeout(hideShield, 2500);
+    }
+  }
+
+  function hideShield(){
+    if(!devOpen) shield.style.display = 'none';
+  }
+
+  // Disable text selection pada elemen non-input
+  document.addEventListener('selectstart', function(e){
+    if(!['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){
+      e.preventDefault();
+    }
+  });
+
+  // Disable drag
+  document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+
+})();
 </script>
 </body>
 </html>
