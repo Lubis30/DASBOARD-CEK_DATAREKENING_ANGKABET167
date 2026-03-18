@@ -3,1259 +3,869 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RekeningCheck — Premium Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>RekeningCheck — Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#060809;
-  --bg2:#0a0c0f;
-  --s1:#0d1117;
-  --s2:#111620;
-  --s3:#161c28;
-  --s4:#1c2436;
-  --gold:#c9a84c;
-  --gold2:#e8c97a;
-  --gold3:#f5e0a0;
-  --gold-dim:rgba(201,168,76,0.12);
-  --gold-glow:rgba(201,168,76,0.25);
-  --silver:#8a9ab5;
-  --border:rgba(201,168,76,0.1);
-  --border2:rgba(201,168,76,0.22);
-  --border3:rgba(255,255,255,0.05);
-  --green:#2dd4a0;
-  --green-bg:rgba(45,212,160,0.08);
-  --green-border:rgba(45,212,160,0.2);
-  --red:#f05a5a;
-  --red-bg:rgba(240,90,90,0.08);
-  --red-border:rgba(240,90,90,0.2);
-  --blue:#4da8f0;
-  --blue-bg:rgba(77,168,240,0.08);
-  --amber:#f0b84d;
-  --amber-bg:rgba(240,184,77,0.08);
-  --text:#e8eaf0;
-  --text2:#7a8aa8;
-  --text3:#3d4d68;
-  --font:'Outfit',sans-serif;
-  --serif:'Cormorant Garamond',serif;
-  --mono:'JetBrains Mono',monospace;
+  --bg:#07090d;--s1:#0d1117;--s2:#111620;--s3:#161c28;--s4:#1c2438;
+  --gold:#c9a84c;--gold2:#e8c97a;--gold3:#f5e0a0;
+  --gd:rgba(201,168,76,0.12);--gb:rgba(201,168,76,0.22);
+  --green:#2dd4a0;--gbg:rgba(45,212,160,0.08);--gbr:rgba(45,212,160,0.22);
+  --red:#f05a5a;--rbg:rgba(240,90,90,0.08);--rbr:rgba(240,90,90,0.22);
+  --blue:#4da8f0;--bbg:rgba(77,168,240,0.08);
+  --amber:#f0b84d;--abg:rgba(240,184,77,0.08);
+  --txt:#e8eaf0;--txt2:#7a8aa8;--txt3:#3d4d68;
+  --bdr:rgba(201,168,76,0.1);--bdr2:rgba(201,168,76,0.22);--bdr3:rgba(255,255,255,0.05);
+  --f:'Outfit',sans-serif;--fs:'Cormorant Garamond',serif;--fm:'JetBrains Mono',monospace;
+  --sc:0 8px 32px rgba(0,0,0,0.6),0 2px 8px rgba(0,0,0,0.4);
+  --si:inset 0 1px 0 rgba(255,255,255,0.04);
   --r:10px;--r2:14px;--r3:18px;
-  --shadow-gold:0 0 40px rgba(201,168,76,0.08);
-  --shadow-card:0 8px 32px rgba(0,0,0,0.6),0 2px 8px rgba(0,0,0,0.4);
-  --shadow-inset:inset 0 1px 0 rgba(255,255,255,0.04);
 }
-
-html{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh}
-body{min-height:100vh;background:var(--bg);position:relative;overflow-x:hidden}
-
-/* ANIMATED BG */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(201,168,76,0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 80% 80%, rgba(77,168,240,0.03) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 40% at 50% 50%, rgba(0,0,0,0.8) 0%, transparent 100%);
-  pointer-events:none;
-}
-
-/* GRID TEXTURE */
-body::after{
-  content:'';position:fixed;inset:0;z-index:0;
-  background-image:
-    linear-gradient(rgba(201,168,76,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,168,76,0.015) 1px, transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;
-}
-
+html,body{min-height:100vh;background:var(--bg);color:var(--txt);font-family:var(--f);font-size:14px}
+body{overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(201,168,76,0.04) 0%,transparent 60%),
+  radial-gradient(ellipse 40% 60% at 80% 80%,rgba(77,168,240,0.03) 0%,transparent 60%)}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(201,168,76,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.012) 1px,transparent 1px);
+  background-size:60px 60px}
 .app{display:flex;min-height:100vh;position:relative;z-index:1}
-
-/* ═══ SIDEBAR ═══ */
-.sidebar{
-  width:260px;min-height:100vh;
-  background:linear-gradient(180deg, var(--s1) 0%, var(--bg2) 100%);
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  position:fixed;top:0;left:0;z-index:100;
-  box-shadow:4px 0 40px rgba(0,0,0,0.8), inset -1px 0 0 rgba(201,168,76,0.06);
-}
-
-.logo-area{
-  padding:28px 22px 22px;
-  border-bottom:1px solid var(--border);
-  background:linear-gradient(135deg, rgba(201,168,76,0.05) 0%, transparent 60%);
-  position:relative;overflow:hidden;
-}
-.logo-area::after{
-  content:'';position:absolute;top:-20px;right:-20px;
-  width:80px;height:80px;
-  background:radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
-}
-.logo-mark{display:flex;align-items:center;gap:13px}
-.logo-gem{
-  width:42px;height:42px;
-  background:linear-gradient(135deg, #c9a84c 0%, #e8c97a 50%, #c9a84c 100%);
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-  box-shadow:0 4px 20px rgba(201,168,76,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
-  transform:perspective(100px) rotateX(5deg) rotateY(-5deg);
-  transition:transform 0.3s;
-}
-.logo-gem:hover{transform:perspective(100px) rotateX(-2deg) rotateY(2deg) scale(1.05)}
-.logo-name{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--gold2);letter-spacing:0.02em;line-height:1}
-.logo-tagline{font-size:10px;color:var(--text3);margin-top:3px;letter-spacing:0.12em;text-transform:uppercase}
-
-.nav-wrap{padding:16px 12px;flex:1;overflow-y:auto}
-.nav-section-lbl{font-size:9px;font-weight:600;color:var(--text3);letter-spacing:0.15em;text-transform:uppercase;padding:10px 10px 6px}
-.nav-btn{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 12px;border-radius:9px;
-  cursor:pointer;font-size:13px;font-weight:500;
-  color:var(--text2);transition:all 0.2s;
-  margin-bottom:2px;border:none;background:none;
-  width:100%;text-align:left;font-family:var(--font);
-  position:relative;overflow:hidden;
-}
-.nav-btn::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;
-  width:3px;border-radius:0 2px 2px 0;
-  background:var(--gold);opacity:0;transition:opacity 0.2s;
-}
-.nav-btn:hover{background:rgba(255,255,255,0.03);color:var(--text)}
-.nav-btn.active{
-  background:linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.05) 100%);
-  color:var(--gold2);font-weight:600;
-  border:1px solid rgba(201,168,76,0.15);
-  box-shadow:0 2px 12px rgba(201,168,76,0.1), var(--shadow-inset);
-}
-.nav-btn.active::before{opacity:1}
-.nav-ico{font-size:16px;width:20px;text-align:center;flex-shrink:0}
-
-.sidebar-bottom{padding:16px;border-top:1px solid var(--border)}
-.vault-card{
-  background:linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.03) 100%);
-  border:1px solid var(--border2);border-radius:var(--r2);
-  padding:14px 16px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.4), var(--shadow-inset), inset 0 0 30px rgba(201,168,76,0.03);
-  position:relative;overflow:hidden;
-}
-.vault-card::after{
-  content:'◈';position:absolute;right:12px;top:8px;
-  font-size:32px;color:rgba(201,168,76,0.06);line-height:1;
-}
-.vault-lbl{font-size:9px;font-weight:600;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px}
-.vault-num{font-size:32px;font-weight:700;font-family:var(--mono);color:var(--gold2);letter-spacing:-0.02em;line-height:1;text-shadow:0 0 20px rgba(201,168,76,0.3)}
-.vault-sub{font-size:10px;color:var(--text3);margin-top:5px;letter-spacing:0.04em}
-
-/* ═══ MAIN ═══ */
-.main{margin-left:260px;flex:1;padding:32px 36px;min-height:100vh}
-.page{display:none}
-.page.active{display:block;animation:luxFadeIn 0.35s cubic-bezier(.23,1,.32,1)}
-@keyframes luxFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
-.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;gap:16px}
-.page-eyebrow{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px}
-.page-title{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--text);letter-spacing:-0.01em;line-height:1}
-.page-sub{font-size:13px;color:var(--text2);margin-top:6px}
-.topbar-right{display:flex;gap:10px;align-items:center;flex-shrink:0;padding-top:6px}
-
-.live-pill{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:7px 15px;
-  background:linear-gradient(135deg, rgba(45,212,160,0.1), rgba(45,212,160,0.05));
-  border:1px solid rgba(45,212,160,0.2);border-radius:20px;
-  font-size:11px;font-weight:600;color:var(--green);
-  box-shadow:0 2px 12px rgba(45,212,160,0.1);
-  letter-spacing:0.04em;
-}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;box-shadow:0 0 6px var(--green)}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
-
-/* ═══ STAT CARDS 3D ═══ */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-.scard{
-  background:linear-gradient(145deg, var(--s2) 0%, var(--s1) 100%);
-  border-radius:var(--r3);
-  padding:22px 22px 18px;
-  position:relative;overflow:hidden;
-  box-shadow:var(--shadow-card), var(--shadow-inset);
-  transform:perspective(800px) rotateX(2deg);
-  transition:transform 0.3s cubic-bezier(.23,1,.32,1), box-shadow 0.3s;
-  cursor:default;
-}
-.scard::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-}
-.scard::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;top:0;
-  border-radius:var(--r3);
-  border:1px solid rgba(255,255,255,0.05);
-  pointer-events:none;
-}
-.scard:hover{transform:perspective(800px) rotateX(0deg) translateY(-3px) scale(1.01);box-shadow:0 16px 48px rgba(0,0,0,0.7),0 4px 12px rgba(0,0,0,0.4),var(--shadow-inset)}
-.scard-top-line{position:absolute;top:0;left:20px;right:20px;height:2px;border-radius:0 0 2px 2px}
-.s-gold .scard-top-line{background:linear-gradient(90deg, transparent, var(--gold), transparent)}
-.s-green .scard-top-line{background:linear-gradient(90deg, transparent, var(--green), transparent)}
-.s-red .scard-top-line{background:linear-gradient(90deg, transparent, var(--red), transparent)}
-.s-blue .scard-top-line{background:linear-gradient(90deg, transparent, var(--blue), transparent)}
-.scard-ico{font-size:24px;margin-bottom:12px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5))}
-.scard-lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px}
-.s-gold .scard-lbl{color:var(--gold)}
-.s-green .scard-lbl{color:var(--green)}
-.s-red .scard-lbl{color:var(--red)}
-.s-blue .scard-lbl{color:var(--blue)}
-.scard-val{font-size:36px;font-weight:700;font-family:var(--mono);line-height:1;letter-spacing:-0.03em}
-.s-gold .scard-val{color:var(--gold2);text-shadow:0 0 30px rgba(201,168,76,0.4)}
-.s-green .scard-val{color:var(--green);text-shadow:0 0 30px rgba(45,212,160,0.3)}
-.s-red .scard-val{color:var(--red);text-shadow:0 0 30px rgba(240,90,90,0.3)}
-.s-blue .scard-val{color:var(--blue);text-shadow:0 0 30px rgba(77,168,240,0.3)}
-.scard-meta{font-size:11px;color:var(--text3);margin-top:10px;display:flex;align-items:center;gap:7px}
-.pct{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;font-family:var(--mono)}
-.pct-g{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
-.pct-r{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
-.scard-glow{
-  position:absolute;bottom:-20px;right:-20px;
-  width:100px;height:100px;border-radius:50%;
-  opacity:0.06;pointer-events:none;
-}
-.s-gold .scard-glow{background:var(--gold)}
-.s-green .scard-glow{background:var(--green)}
-.s-red .scard-glow{background:var(--red)}
-.s-blue .scard-glow{background:var(--blue)}
-
-/* ═══ GLASS CARDS ═══ */
-.glass-card{
-  background:linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-  border:1px solid var(--border);border-radius:var(--r3);
-  box-shadow:var(--shadow-card), var(--shadow-inset);
-  position:relative;overflow:hidden;
-  backdrop-filter:blur(4px);
-}
-.glass-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg, transparent, rgba(201,168,76,0.15), transparent);
-  pointer-events:none;
-}
-.card-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
-.card-title{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;letter-spacing:0.01em}
-.card-title-gold{font-family:var(--serif);font-size:15px;color:var(--gold2);font-weight:600}
-.card-body{padding:20px}
-
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
-.mb22{margin-bottom:22px}
-
-/* BANK DISTRIBUTION */
-.brow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+/* SIDEBAR */
+.sb{width:252px;min-height:100vh;background:linear-gradient(180deg,var(--s1),var(--bg));border-right:1px solid var(--bdr);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100;box-shadow:4px 0 40px rgba(0,0,0,0.8),inset -1px 0 0 rgba(201,168,76,0.05)}
+.mn{margin-left:252px;flex:1;padding:30px 34px;min-height:100vh}
+.sb-logo{padding:24px 20px 20px;border-bottom:1px solid var(--bdr);background:linear-gradient(135deg,rgba(201,168,76,0.05),transparent);position:relative;overflow:hidden}
+.sb-logo::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(201,168,76,0.1),transparent 70%)}
+.sb-gem{width:40px;height:40px;background:linear-gradient(135deg,#c9a84c,#e8c97a,#c9a84c);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 4px 20px rgba(201,168,76,0.4),inset 0 1px 0 rgba(255,255,255,0.3);transform:perspective(100px) rotateX(5deg) rotateY(-5deg);transition:transform .3s}
+.sb-gem:hover{transform:perspective(100px) rotateX(-2deg) rotateY(2deg) scale(1.06)}
+.sb-lname{font-family:var(--fs);font-size:17px;font-weight:700;color:var(--gold2);letter-spacing:.02em;line-height:1}
+.sb-ltag{font-size:9px;color:var(--txt3);margin-top:3px;letter-spacing:.12em;text-transform:uppercase}
+.sb-nav{padding:14px 10px;flex:1;overflow-y:auto}
+.sb-lbl{font-size:9px;font-weight:600;color:var(--txt3);letter-spacing:.15em;text-transform:uppercase;padding:10px 10px 5px}
+.nb{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--txt2);transition:all .2s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:var(--f);position:relative;overflow:hidden}
+.nb::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:0 2px 2px 0;background:var(--gold);opacity:0;transition:opacity .2s}
+.nb:hover{background:rgba(255,255,255,0.03);color:var(--txt)}
+.nb.on{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.04));color:var(--gold2);font-weight:600;border:1px solid rgba(201,168,76,0.14);box-shadow:0 2px 12px rgba(201,168,76,0.08),var(--si)}
+.nb.on::before{opacity:1}
+.ni{font-size:15px;width:19px;text-align:center;flex-shrink:0}
+.sb-bot{padding:14px;border-top:1px solid var(--bdr)}
+.vcard{background:linear-gradient(135deg,rgba(201,168,76,0.09),rgba(201,168,76,0.02));border:1px solid var(--bdr2);border-radius:var(--r2);padding:13px 15px;box-shadow:0 4px 20px rgba(0,0,0,0.4),var(--si);position:relative;overflow:hidden}
+.vcard::after{content:'◈';position:absolute;right:10px;top:6px;font-size:30px;color:rgba(201,168,76,0.06);line-height:1}
+.vl{font-size:9px;font-weight:600;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px}
+.vn{font-size:30px;font-weight:700;font-family:var(--fm);color:var(--gold2);letter-spacing:-.02em;line-height:1;text-shadow:0 0 20px rgba(201,168,76,0.3)}
+.vs{font-size:10px;color:var(--txt3);margin-top:4px}
+.si-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.save-ind{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:9px;font-weight:600;letter-spacing:.06em;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.14);color:var(--gold);opacity:0;transition:opacity .3s}
+.save-ind.on{opacity:1}
+/* PAGES */
+.pg{display:none}
+.pg.on{display:block;animation:fi .3s cubic-bezier(.23,1,.32,1)}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:26px;gap:16px}
+.pg-eye{font-size:9px;font-weight:600;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
+.pg-title{font-family:var(--fs);font-size:30px;font-weight:700;color:var(--txt);letter-spacing:-.01em;line-height:1}
+.pg-sub{font-size:12px;color:var(--txt2);margin-top:5px}
+.tbr{display:flex;gap:9px;align-items:center;flex-shrink:0;padding-top:4px}
+/* LIVE */
+.live{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;background:linear-gradient(135deg,rgba(45,212,160,0.1),rgba(45,212,160,0.04));border:1px solid rgba(45,212,160,0.2);border-radius:20px;font-size:11px;font-weight:600;color:var(--green);box-shadow:0 2px 12px rgba(45,212,160,0.08);letter-spacing:.04em}
+.ld{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;box-shadow:0 0 6px var(--green)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+/* STAT CARDS */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.sg3{grid-template-columns:repeat(3,1fr)}
+.sc{background:linear-gradient(145deg,var(--s2),var(--s1));border-radius:var(--r3);padding:20px 20px 16px;position:relative;overflow:hidden;box-shadow:var(--sc),var(--si);transform:perspective(800px) rotateX(2deg);transition:transform .3s cubic-bezier(.23,1,.32,1),box-shadow .3s;cursor:default}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent)}
+.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;top:0;border-radius:var(--r3);border:1px solid rgba(255,255,255,0.04);pointer-events:none}
+.sc:hover{transform:perspective(800px) rotateX(0deg) translateY(-3px) scale(1.01);box-shadow:0 16px 48px rgba(0,0,0,0.7),0 4px 12px rgba(0,0,0,0.4),var(--si)}
+.sc-line{position:absolute;top:0;left:18px;right:18px;height:2px;border-radius:0 0 2px 2px}
+.sc-glow{position:absolute;bottom:-20px;right:-20px;width:90px;height:90px;border-radius:50%;opacity:.06;pointer-events:none}
+.sg .s-gold .sc-line{background:linear-gradient(90deg,transparent,var(--gold),transparent)} .sg .s-gold .sc-glow{background:var(--gold)} .sg .s-gold .sc-val{color:var(--gold2);text-shadow:0 0 28px rgba(201,168,76,0.4)} .sg .s-gold .sc-lbl{color:var(--gold)}
+.sg .s-green .sc-line{background:linear-gradient(90deg,transparent,var(--green),transparent)} .sg .s-green .sc-glow{background:var(--green)} .sg .s-green .sc-val{color:var(--green);text-shadow:0 0 28px rgba(45,212,160,0.3)} .sg .s-green .sc-lbl{color:var(--green)}
+.sg .s-red .sc-line{background:linear-gradient(90deg,transparent,var(--red),transparent)} .sg .s-red .sc-glow{background:var(--red)} .sg .s-red .sc-val{color:var(--red);text-shadow:0 0 28px rgba(240,90,90,0.3)} .sg .s-red .sc-lbl{color:var(--red)}
+.sg .s-blue .sc-line{background:linear-gradient(90deg,transparent,var(--blue),transparent)} .sg .s-blue .sc-glow{background:var(--blue)} .sg .s-blue .sc-val{color:var(--blue);text-shadow:0 0 28px rgba(77,168,240,0.3)} .sg .s-blue .sc-lbl{color:var(--blue)}
+.sc-ico{font-size:22px;margin-bottom:10px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.sc-lbl{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.sc-val{font-size:33px;font-weight:700;font-family:var(--fm);line-height:1;letter-spacing:-.03em}
+.sc-meta{font-size:11px;color:var(--txt3);margin-top:8px;display:flex;align-items:center;gap:6px}
+.pct{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:600;font-family:var(--fm)}
+.pg-b{background:var(--gbg);color:var(--green);border:1px solid var(--gbr)}
+.pr-b{background:var(--rbg);color:var(--red);border:1px solid var(--rbr)}
+/* GLASS CARD */
+.gc{background:linear-gradient(145deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border:1px solid var(--bdr);border-radius:var(--r3);box-shadow:var(--sc),var(--si);position:relative;overflow:hidden}
+.gc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.14),transparent);pointer-events:none}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--bdr)}
+.ct{font-size:13px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:7px;letter-spacing:.01em}
+.ctg{font-family:var(--fs);font-size:15px;color:var(--gold2);font-weight:600}
+.cb{padding:18px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.mb{margin-bottom:20px}
+/* BANK DIST */
+.brow{display:flex;align-items:center;gap:10px;margin-bottom:9px}
 .brow:last-child{margin-bottom:0}
-.blbl{font-size:10px;font-weight:700;letter-spacing:0.06em;width:70px;flex-shrink:0}
-.bbar-bg{flex:1;height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,0.5)}
-.bbar{height:100%;border-radius:3px;background:linear-gradient(90deg, var(--gold), var(--gold3));box-shadow:0 0 8px rgba(201,168,76,0.4);transition:width 0.8s cubic-bezier(.23,1,.32,1)}
-.bcnt{font-size:11px;color:var(--text3);min-width:26px;text-align:right;font-family:var(--mono)}
-
+.blbl{width:66px;flex-shrink:0;font-size:10px}
+.bbg{flex:1;height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.5)}
+.bb{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold3));box-shadow:0 0 8px rgba(201,168,76,.4);transition:width .8s cubic-bezier(.23,1,.32,1)}
+.bcnt{font-size:10px;color:var(--txt3);min-width:24px;text-align:right;font-family:var(--fm)}
 /* QUICK ACTIONS */
-.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.qa-btn{
-  display:flex;align-items:center;gap:9px;
-  padding:12px 14px;border-radius:var(--r);
-  border:1px solid var(--border);
-  background:rgba(255,255,255,0.02);
-  cursor:pointer;font-family:var(--font);font-size:12px;font-weight:500;
-  color:var(--text2);transition:all 0.2s;text-align:left;
-  box-shadow:var(--shadow-inset);
-}
-.qa-btn:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.06);color:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,0.4),var(--shadow-inset)}
-.qa-btn.gold{background:linear-gradient(135deg, rgba(201,168,76,0.15),rgba(201,168,76,0.05));border-color:var(--border2);color:var(--gold2)}
-.qa-btn.gold:hover{background:linear-gradient(135deg, rgba(201,168,76,0.25),rgba(201,168,76,0.1));box-shadow:0 4px 20px rgba(201,168,76,0.2)}
-.qa-btn.em{background:linear-gradient(135deg, rgba(45,212,160,0.12),rgba(45,212,160,0.04));border-color:var(--green-border);color:var(--green)}
-.qa-btn.em:hover{background:linear-gradient(135deg, rgba(45,212,160,0.2),rgba(45,212,160,0.08));box-shadow:0 4px 20px rgba(45,212,160,0.15)}
-.qa-ico{font-size:18px;flex-shrink:0}
-
-/* ═══ FORM ═══ */
-textarea{
-  width:100%;
-  background:rgba(255,255,255,0.02);
-  border:1px solid var(--border);border-radius:var(--r);
-  color:var(--text);font-family:var(--mono);font-size:12px;
-  padding:14px 16px;resize:vertical;min-height:150px;line-height:1.7;
-  outline:none;transition:all 0.2s;
-  box-shadow:inset 0 2px 8px rgba(0,0,0,0.4);
-}
-textarea:focus{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.02);box-shadow:inset 0 2px 8px rgba(0,0,0,0.4),0 0 0 3px rgba(201,168,76,0.06)}
-textarea::placeholder{color:var(--text3)}
-.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
-
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.qb{display:flex;align-items:center;gap:8px;padding:11px 13px;border-radius:var(--r);border:1px solid var(--bdr);background:rgba(255,255,255,0.02);cursor:pointer;font-family:var(--f);font-size:12px;font-weight:500;color:var(--txt2);transition:all .2s;text-align:left;box-shadow:var(--si)}
+.qb:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.06);color:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.4),var(--si)}
+.qb.qg{background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(201,168,76,.04));border-color:var(--bdr2);color:var(--gold2)}
+.qb.qg:hover{background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.08));box-shadow:0 4px 18px rgba(201,168,76,.2)}
+.qb.qe{background:linear-gradient(135deg,rgba(45,212,160,.1),rgba(45,212,160,.03));border-color:var(--gbr);color:var(--green)}
+.qb.qe:hover{background:linear-gradient(135deg,rgba(45,212,160,.18),rgba(45,212,160,.07));box-shadow:0 4px 18px rgba(45,212,160,.12)}
+.qi{font-size:17px;flex-shrink:0}
 /* BUTTONS */
-.btn{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:10px 20px;border-radius:var(--r);
-  font-size:13px;font-weight:600;cursor:pointer;
-  transition:all 0.2s;border:1px solid transparent;
-  font-family:var(--font);line-height:1;position:relative;overflow:hidden;
-}
-.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);pointer-events:none}
-.btn-gold{
-  background:linear-gradient(135deg, #c9a84c, #a8873a);
-  color:#0a0c0f;border-color:rgba(201,168,76,0.3);
-  box-shadow:0 4px 16px rgba(201,168,76,0.3),var(--shadow-inset);
-  font-weight:700;
-}
-.btn-gold:hover{background:linear-gradient(135deg, #e8c97a, #c9a84c);box-shadow:0 6px 24px rgba(201,168,76,0.45),var(--shadow-inset);transform:translateY(-1px)}
-.btn-ghost{background:rgba(255,255,255,0.03);color:var(--text2);border-color:var(--border)}
-.btn-ghost:hover{background:rgba(255,255,255,0.06);color:var(--text);border-color:var(--border2);transform:translateY(-1px)}
-.btn-green{background:linear-gradient(135deg,rgba(45,212,160,0.2),rgba(45,212,160,0.1));color:var(--green);border-color:var(--green-border)}
-.btn-green:hover{background:linear-gradient(135deg,rgba(45,212,160,0.3),rgba(45,212,160,0.15));box-shadow:0 4px 16px rgba(45,212,160,0.15)}
-.btn-sm{padding:6px 14px;font-size:11px}
-
-/* ═══ FILTERS ═══ */
-.filters-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;background:rgba(0,0,0,0.2)}
-.fchip{
-  padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;
-  cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,0.02);
-  color:var(--text2);font-family:var(--font);transition:all 0.15s;letter-spacing:0.02em;
-}
-.fchip:hover{border-color:var(--border2);color:var(--text)}
-.fchip.fa{background:var(--gold-dim);border-color:var(--border2);color:var(--gold2)}
-.fchip.fy{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
-.fchip.fn{background:var(--red-bg);border-color:var(--red-border);color:var(--red)}
-.vsep{width:1px;height:24px;background:var(--border);flex-shrink:0}
-.search-wrap{flex:1;min-width:180px;position:relative}
-.search-wrap input{
-  width:100%;background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);border-radius:8px;
-  padding:8px 12px 8px 34px;font-size:12px;color:var(--text);
-  font-family:var(--font);outline:none;transition:all 0.15s;
-}
-.search-wrap input:focus{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.02)}
-.search-wrap input::placeholder{color:var(--text3)}
-.search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:12px;pointer-events:none}
-.sel{
-  background:rgba(255,255,255,0.03);border:1px solid var(--border);
-  border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text2);
-  font-family:var(--font);outline:none;cursor:pointer;
-}
-.sel:focus{border-color:rgba(201,168,76,0.3)}
-.sel option{background:var(--s2);color:var(--text)}
-
-/* ═══ TABLE ═══ */
-.tbl-wrap{overflow-x:auto}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid transparent;font-family:var(--f);line-height:1;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06),transparent);pointer-events:none}
+.btn-go{background:linear-gradient(135deg,#c9a84c,#a8873a);color:#08090d;border-color:rgba(201,168,76,.3);box-shadow:0 4px 14px rgba(201,168,76,.28),var(--si);font-weight:700}
+.btn-go:hover{background:linear-gradient(135deg,#e8c97a,#c9a84c);box-shadow:0 6px 22px rgba(201,168,76,.42),var(--si);transform:translateY(-1px)}
+.btn-gh{background:rgba(255,255,255,.03);color:var(--txt2);border-color:var(--bdr)}
+.btn-gh:hover{background:rgba(255,255,255,.06);color:var(--txt);border-color:var(--bdr2);transform:translateY(-1px)}
+.btn-gr{background:linear-gradient(135deg,rgba(45,212,160,.14),rgba(45,212,160,.06));color:var(--green);border-color:var(--gbr)}
+.btn-gr:hover{background:linear-gradient(135deg,rgba(45,212,160,.22),rgba(45,212,160,.1));box-shadow:0 4px 14px rgba(45,212,160,.12)}
+.btn-rd{background:linear-gradient(135deg,rgba(240,90,90,.14),rgba(240,90,90,.06));color:var(--red);border-color:var(--rbr)}
+.btn-rd:hover{background:linear-gradient(135deg,rgba(240,90,90,.22),rgba(240,90,90,.1))}
+.btn-sm{padding:6px 13px;font-size:11px}
+/* FORM */
+.fl{font-size:9px;font-weight:600;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:7px}
+input[type=text],input[type=number],select,textarea{width:100%;background:rgba(255,255,255,.025);border:1px solid var(--bdr);border-radius:var(--r);padding:11px 14px;font-size:13px;color:var(--txt);font-family:var(--f);outline:none;transition:all .2s;box-shadow:inset 0 2px 6px rgba(0,0,0,.35)}
+input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.02);box-shadow:inset 0 2px 6px rgba(0,0,0,.35),0 0 0 3px rgba(201,168,76,.06)}
+input::placeholder,textarea::placeholder{color:var(--txt3)}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+select option{background:var(--s2);color:var(--txt)}
+textarea{resize:vertical;min-height:140px;line-height:1.7;font-family:var(--fm);font-size:12px}
+.fg{margin-bottom:14px}
+.btn-row{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;align-items:center}
+/* FILTERS */
+.fb{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--bdr);flex-wrap:wrap;background:rgba(0,0,0,.2)}
+.fc{padding:5px 13px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--bdr);background:rgba(255,255,255,.02);color:var(--txt2);font-family:var(--f);transition:all .15s;letter-spacing:.02em}
+.fc:hover{border-color:var(--bdr2);color:var(--txt)}
+.fc.fa{background:var(--gd);border-color:var(--bdr2);color:var(--gold2)}
+.fc.fy{background:var(--gbg);border-color:var(--gbr);color:var(--green)}
+.fc.fn{background:var(--rbg);border-color:var(--rbr);color:var(--red)}
+.vsep{width:1px;height:22px;background:var(--bdr);flex-shrink:0}
+.sw{flex:1;min-width:170px;position:relative}
+.sw input{padding:7px 12px 7px 32px;font-size:12px;font-family:var(--f)}
+.sico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:12px;pointer-events:none}
+.fsel{padding:7px 30px 7px 11px;font-size:12px;font-family:var(--f);color:var(--txt2);background-size:10px;background-position:right 9px center}
+/* TABLE */
+.tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
-thead{background:rgba(0,0,0,0.3)}
-thead th{
-  padding:11px 16px;font-size:10px;font-weight:700;
-  color:var(--gold);text-transform:uppercase;letter-spacing:0.12em;
-  text-align:left;border-bottom:1px solid var(--border);
-}
-tbody tr{border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.15s}
+thead{background:rgba(0,0,0,.3)}
+thead th{padding:10px 14px;font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;text-align:left;border-bottom:1px solid var(--bdr)}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.03);transition:background .1s}
 tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:rgba(201,168,76,0.04)}
-td{padding:11px 16px;font-size:13px;color:var(--text)}
-.norek{font-family:var(--mono);font-size:11px;color:var(--text2)}
-.tbl-empty{text-align:center;padding:50px;color:var(--text3);font-size:13px}
-.tbl-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text3);background:rgba(0,0,0,0.2)}
-
+tbody tr:hover{background:rgba(201,168,76,.04)}
+td{padding:10px 14px;font-size:13px;color:var(--txt)}
+.nr{font-family:var(--fm);font-size:11px;color:var(--txt2)}
+.te{text-align:center;padding:44px;color:var(--txt3);font-size:13px}
+.tf{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;border-top:1px solid var(--bdr);font-size:11px;color:var(--txt3);background:rgba(0,0,0,.2)}
 /* BANK BADGES */
-.bbadge{display:inline-block;padding:3px 9px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
-.bca{background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.2)}
-.bni{background:rgba(249,115,22,0.1);color:#fb923c;border:1px solid rgba(249,115,22,0.2)}
-.bri{background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2)}
-.mandiri{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2)}
-.cimb{background:rgba(168,85,247,0.1);color:#c084fc;border:1px solid rgba(168,85,247,0.2)}
-.maybank{background:rgba(234,179,8,0.1);color:#facc15;border:1px solid rgba(234,179,8,0.2)}
-.danamon{background:rgba(6,182,212,0.1);color:#22d3ee;border:1px solid rgba(6,182,212,0.2)}
-.permata{background:rgba(20,184,166,0.1);color:#2dd4bf;border:1px solid rgba(20,184,166,0.2)}
-.sinarmas{background:rgba(236,72,153,0.1);color:#f472b6;border:1px solid rgba(236,72,153,0.2)}
-.ocbc{background:rgba(132,204,22,0.1);color:#a3e635;border:1px solid rgba(132,204,22,0.2)}
-.dbank{background:rgba(255,255,255,0.05);color:var(--text2);border:1px solid var(--border)}
-
+.bk{display:inline-block;padding:3px 8px;border-radius:5px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.bk-bca{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
+.bk-bni{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.2)}
+.bk-bri{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.bk-mandiri{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.bk-cimb{background:rgba(168,85,247,.1);color:#c084fc;border:1px solid rgba(168,85,247,.2)}
+.bk-maybank{background:rgba(234,179,8,.1);color:#facc15;border:1px solid rgba(234,179,8,.2)}
+.bk-danamon{background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2)}
+.bk-permata{background:rgba(20,184,166,.1);color:#2dd4bf;border:1px solid rgba(20,184,166,.2)}
+.bk-sinarmas{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.2)}
+.bk-ocbc{background:rgba(132,204,22,.1);color:#a3e635;border:1px solid rgba(132,204,22,.2)}
+.bk-bsi{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.bk-btn2{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.bk-panin{background:rgba(99,102,241,.1);color:#a5b4fc;border:1px solid rgba(99,102,241,.2)}
+.bk-x{background:rgba(255,255,255,.06);color:var(--txt2);border:1px solid var(--bdr)}
 /* STATUS BADGES */
-.sbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.03em}
-.sy{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);box-shadow:0 0 8px rgba(45,212,160,0.1)}
-.sn{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.sb2{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.03em}
+.sy{background:var(--gbg);color:var(--green);border:1px solid var(--gbr);box-shadow:0 0 8px rgba(45,212,160,.08)}
+.sn{background:var(--rbg);color:var(--red);border:1px solid var(--rbr)}
 .sdot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.sdot-g{background:var(--green);box-shadow:0 0 4px var(--green)}
-.sdot-r{background:var(--red);box-shadow:0 0 4px var(--red)}
-
-/* ALERT */
-.alert{display:none;padding:12px 16px;border-radius:var(--r);font-size:13px;margin-bottom:16px;border:1px solid;align-items:center;gap:9px}
-.alert.show{display:flex}
-.alert-info{background:rgba(77,168,240,0.08);border-color:rgba(77,168,240,0.25);color:var(--blue)}
-.alert-success{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
-.alert-warn{background:var(--amber-bg);border-color:rgba(240,184,77,0.3);color:var(--amber)}
-
+.sdg{background:var(--green);box-shadow:0 0 4px var(--green)}
+.sdr{background:var(--red);box-shadow:0 0 4px var(--red)}
+/* ALERTS */
+.al{display:none;padding:11px 14px;border-radius:var(--r);font-size:13px;border:1px solid;align-items:center;gap:8px}
+.al.on{display:flex}
+.al-s{background:var(--gbg);border-color:var(--gbr);color:var(--green)}
+.al-w{background:var(--abg);border-color:rgba(240,184,77,.3);color:var(--amber)}
+.al-e{background:var(--rbg);border-color:var(--rbr);color:var(--red)}
+.al-i{background:var(--bbg);border-color:rgba(77,168,240,.25);color:var(--blue)}
 /* HISTORY */
-.hist-list{display:flex;flex-direction:column;gap:10px}
-.hist-item{
-  display:flex;align-items:center;gap:14px;padding:14px 18px;
-  background:rgba(255,255,255,0.02);
-  border-radius:var(--r);border:1px solid var(--border);
-  cursor:pointer;transition:all 0.2s;
-  box-shadow:var(--shadow-inset);
-}
-.hist-item:hover{background:rgba(201,168,76,0.05);border-color:rgba(201,168,76,0.2);transform:translateX(3px);box-shadow:0 4px 20px rgba(0,0,0,0.4)}
-.hist-ico{font-size:20px;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5))}
-.hist-info{flex:1}
-.hist-title{font-size:13px;font-weight:600;color:var(--text)}
-.hist-meta{font-size:11px;color:var(--text3);margin-top:2px;letter-spacing:0.02em}
-.hist-badges{display:flex;gap:7px;flex-shrink:0}
-
+.hl{display:flex;flex-direction:column;gap:9px}
+.hi{display:flex;align-items:center;gap:13px;padding:13px 16px;background:rgba(255,255,255,.02);border-radius:var(--r);border:1px solid var(--bdr);cursor:pointer;transition:all .2s;box-shadow:var(--si)}
+.hi:hover{background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.2);transform:translateX(3px);box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.hi-ico{font-size:18px;flex-shrink:0}
+.hi-info{flex:1}
+.hi-t{font-size:13px;font-weight:600;color:var(--txt)}
+.hi-m{font-size:11px;color:var(--txt3);margin-top:2px}
+.hi-b{display:flex;gap:6px;flex-shrink:0}
+/* DELETE BTN */
+.del-btn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;border:1px solid rgba(240,90,90,.2);background:rgba(240,90,90,.06);color:var(--red);cursor:pointer;font-size:13px;transition:all .15s;line-height:1}
+.del-btn:hover{background:rgba(240,90,90,.15);border-color:rgba(240,90,90,.4);transform:scale(1.08)}
 /* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
-.modal-bg.open{display:flex}
-.modal{
-  background:linear-gradient(145deg, var(--s2) 0%, var(--s1) 100%);
-  border:1px solid var(--border2);border-radius:var(--r3);
-  padding:28px;width:520px;max-width:95vw;
-  box-shadow:0 24px 80px rgba(0,0,0,0.8),0 4px 16px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.04),inset 0 1px 0 rgba(201,168,76,0.1);
-  animation:luxFadeIn 0.25s ease;
-  position:relative;overflow:hidden;
-}
-.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.modal-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--gold2)}
-.modal-x{cursor:pointer;color:var(--text3);font-size:22px;line-height:1;background:none;border:none;font-family:var(--font);padding:0;transition:color 0.15s}
-.modal-x:hover{color:var(--text)}
-
-/* FORMAT HINT */
-.fmt-hint{font-size:11px;color:var(--text3);margin-bottom:14px;line-height:1.7;padding:10px 14px;background:rgba(201,168,76,0.04);border-left:2px solid var(--gold);border-radius:0 6px 6px 0}
-code{font-family:var(--mono);font-size:11px;color:var(--gold2);background:rgba(201,168,76,0.1);padding:1px 7px;border-radius:4px}
-
-/* DIVIDER */
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:20px 0}
-
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
+.mbg.on{display:flex}
+.md{background:linear-gradient(145deg,var(--s2),var(--s1));border:1px solid var(--bdr2);border-radius:var(--r3);padding:26px;width:500px;max-width:95vw;box-shadow:0 24px 80px rgba(0,0,0,.8),0 4px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(201,168,76,.1);animation:fi .22s ease;position:relative;overflow:hidden}
+.md::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.mt2{font-family:var(--fs);font-size:19px;font-weight:700;color:var(--gold2)}
+.mx{cursor:pointer;color:var(--txt3);font-size:21px;line-height:1;background:none;border:none;font-family:var(--f);padding:0;transition:color .15s}
+.mx:hover{color:var(--txt)}
+.fmt{font-size:11px;color:var(--txt3);margin-bottom:12px;padding:9px 13px;background:rgba(201,168,76,.04);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;line-height:1.7}
+code{font-family:var(--fm);font-size:10px;color:var(--gold2);background:rgba(201,168,76,.1);padding:1px 6px;border-radius:4px}
 /* SCROLLBAR */
-::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.15);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:rgba(201,168,76,0.3)}
-
-/* SAVE INDICATOR */
-.save-ind{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:5px 12px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:0.05em;
-  background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);
-  color:var(--gold);opacity:0;transition:opacity 0.3s;
-}
-.save-ind.show{opacity:1}
-.save-ind .sdot-g{box-shadow:0 0 4px var(--gold);background:var(--gold)}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,.14);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:rgba(201,168,76,.28)}
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- ═══ SIDEBAR ═══ -->
-<aside class="sidebar">
-  <div class="logo-area">
-    <div class="logo-mark">
-      <div class="logo-gem">🏦</div>
+<!-- ══════ SIDEBAR ══════ -->
+<aside class="sb">
+  <div class="sb-logo">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="sb-gem">🏦</div>
       <div>
-        <div class="logo-name">RekeningCheck</div>
-        <div class="logo-tagline">Premium Verification System</div>
+        <div class="sb-lname">RekeningCheck</div>
+        <div class="sb-ltag">Premium Verification System</div>
       </div>
     </div>
   </div>
-  <div class="nav-wrap">
-    <div class="nav-section-lbl">Navigasi</div>
-    <button class="nav-btn active" onclick="showPage('dashboard')"><span class="nav-ico">◈</span>Dashboard</button>
-    <button class="nav-btn" onclick="showPage('check')"><span class="nav-ico">⬡</span>Cek Rekening</button>
-    <button class="nav-btn" onclick="showPage('database')"><span class="nav-ico">◫</span>Database Kami</button>
-    <button class="nav-btn" onclick="showPage('history')"><span class="nav-ico">◷</span>Riwayat</button>
-    <div class="nav-section-lbl">Tools</div>
-    <button class="nav-btn" onclick="openImport()"><span class="nav-ico">⇪</span>Import Data</button>
-    <button class="nav-btn" onclick="exportCSV()"><span class="nav-ico">⇩</span>Export CSV</button>
-    <button class="nav-btn" onclick="resetDB()"><span class="nav-ico">↺</span>Reset ke Default</button>
+  <div class="sb-nav">
+    <div class="sb-lbl">Navigasi</div>
+    <button class="nb on" onclick="go('dash')"><span class="ni">◈</span>Dashboard</button>
+    <button class="nb" onclick="go('cek')"><span class="ni">⬡</span>Cek Rekening</button>
+    <button class="nb" onclick="go('db')"><span class="ni">◫</span>Database Kami</button>
+    <button class="nb" onclick="go('riwayat')"><span class="ni">◷</span>Riwayat</button>
+    <div class="sb-lbl" style="margin-top:6px">Kelola Data</div>
+    <button class="nb" onclick="go('tambah')"><span class="ni">⊕</span>Tambah Rekening</button>
+    <button class="nb" onclick="openImport()"><span class="ni">⇪</span>Import Massal</button>
+    <button class="nb" onclick="doExportCSV()"><span class="ni">⇩</span>Export CSV</button>
+    <button class="nb" onclick="konfirmReset()"><span class="ni">↺</span>Reset ke Default</button>
   </div>
-  <div class="sidebar-bottom">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <span class="save-ind" id="save-ind"><span class="sdot sdot-g"></span>TERSIMPAN</span>
-      <span style="font-size:9px;color:var(--text3);letter-spacing:0.08em">AUTO-SAVE ✓</span>
+  <div class="sb-bot">
+    <div class="si-row">
+      <span class="save-ind" id="sind"><span class="sdot sdg" style="width:5px;height:5px"></span>TERSIMPAN</span>
+      <span style="font-size:9px;color:var(--txt3);letter-spacing:.07em">AUTO-SAVE ✓</span>
     </div>
-    <div class="vault-card">
-      <div class="vault-lbl">◈ Vault Database</div>
-      <div class="vault-num" id="sb-total">0</div>
-      <div class="vault-sub">rekening tersimpan permanen</div>
+    <div class="vcard">
+      <div class="vl">◈ Vault Database</div>
+      <div class="vn" id="sb-n">0</div>
+      <div class="vs">rekening tersimpan permanen</div>
     </div>
   </div>
 </aside>
 
-<!-- ═══ MAIN ═══ -->
-<main class="main">
+<!-- ══════ MAIN ══════ -->
+<main class="mn">
 
-  <!-- DASHBOARD -->
-  <div class="page active" id="page-dashboard">
-    <div class="topbar">
-      <div>
-        <div class="page-eyebrow">◈ Overview</div>
-        <div class="page-title">Dashboard</div>
-        <div class="page-sub">Sistem verifikasi rekening bank premium</div>
-      </div>
-      <div class="topbar-right">
-        <div class="live-pill"><span class="live-dot"></span>Sistem Aktif</div>
-      </div>
+<!-- ░░ DASHBOARD ░░ -->
+<div class="pg on" id="pg-dash">
+  <div class="topbar">
+    <div><div class="pg-eye">◈ Overview</div><div class="pg-title">Dashboard</div><div class="pg-sub">Sistem verifikasi rekening bank premium</div></div>
+    <div class="tbr"><div class="live"><span class="ld"></span>Sistem Aktif</div></div>
+  </div>
+  <div class="sg">
+    <div class="sc s-gold"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">🗄️</span><div class="sc-lbl">Database</div><div class="sc-val" id="d-tot">0</div><div class="sc-meta">rekening tersimpan</div></div>
+    <div class="sc s-blue"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">🔍</span><div class="sc-lbl">Total Dicek</div><div class="sc-val" id="d-chk">0</div><div class="sc-meta">semua sesi</div></div>
+    <div class="sc s-green"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">✅</span><div class="sc-lbl">Tersedia</div><div class="sc-val" id="d-mtch">0</div><div class="sc-meta"><span class="pct pg-b" id="d-pm">0%</span> dari dicek</div></div>
+    <div class="sc s-red"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">❌</span><div class="sc-lbl">Tidak Ada</div><div class="sc-val" id="d-nm">0</div><div class="sc-meta"><span class="pct pr-b" id="d-pn">0%</span> dari dicek</div></div>
+  </div>
+  <div class="g2">
+    <div class="gc">
+      <div class="ch"><div class="ct"><span>◈</span><span class="ctg">Distribusi Bank</span></div></div>
+      <div class="cb" id="bkdist"><div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Memuat...</div></div>
     </div>
-
-    <div class="stats-grid">
-      <div class="scard s-gold">
-        <div class="scard-top-line"></div>
-        <div class="scard-glow"></div>
-        <span class="scard-ico">🗄️</span>
-        <div class="scard-lbl">Database</div>
-        <div class="scard-val" id="d-total">0</div>
-        <div class="scard-meta">rekening tersimpan</div>
-      </div>
-      <div class="scard s-blue">
-        <div class="scard-top-line"></div>
-        <div class="scard-glow"></div>
-        <span class="scard-ico">🔍</span>
-        <div class="scard-lbl">Total Dicek</div>
-        <div class="scard-val" id="d-checked">0</div>
-        <div class="scard-meta">semua sesi</div>
-      </div>
-      <div class="scard s-green">
-        <div class="scard-top-line"></div>
-        <div class="scard-glow"></div>
-        <span class="scard-ico">✅</span>
-        <div class="scard-lbl">Tersedia</div>
-        <div class="scard-val" id="d-match">0</div>
-        <div class="scard-meta"><span class="pct pct-g" id="d-pct-m">0%</span> dari dicek</div>
-      </div>
-      <div class="scard s-red">
-        <div class="scard-top-line"></div>
-        <div class="scard-glow"></div>
-        <span class="scard-ico">❌</span>
-        <div class="scard-lbl">Tidak Ada</div>
-        <div class="scard-val" id="d-nomatch">0</div>
-        <div class="scard-meta"><span class="pct pct-r" id="d-pct-n">0%</span> dari dicek</div>
-      </div>
-    </div>
-
-    <div class="grid2">
-      <div class="glass-card">
-        <div class="card-head">
-          <div class="card-title"><span>◈</span><span class="card-title-gold">Distribusi Bank</span></div>
-        </div>
-        <div class="card-body"><div id="bank-dist"><div style="color:var(--text3);font-size:12px;text-align:center;padding:16px">Memuat...</div></div></div>
-      </div>
-      <div class="glass-card">
-        <div class="card-head"><div class="card-title"><span>⚡</span><span class="card-title-gold">Aksi Cepat</span></div></div>
-        <div class="card-body">
-          <div class="qa-grid">
-            <button class="qa-btn em" onclick="showPage('check')"><span class="qa-ico">🔍</span>Cek Rekening</button>
-            <button class="qa-btn gold" onclick="showPage('database')"><span class="qa-ico">🗄️</span>Database</button>
-            <button class="qa-btn" onclick="exportCSV()"><span class="qa-ico">📥</span>Export CSV</button>
-            <button class="qa-btn" onclick="openImport()"><span class="qa-ico">📤</span>Import Data</button>
-          </div>
+    <div class="gc">
+      <div class="ch"><div class="ct"><span>⚡</span><span class="ctg">Aksi Cepat</span></div></div>
+      <div class="cb">
+        <div class="qa">
+          <button class="qb qe" onclick="go('cek')"><span class="qi">🔍</span>Cek Rekening</button>
+          <button class="qb qg" onclick="go('tambah')"><span class="qi">⊕</span>Tambah Rekening</button>
+          <button class="qb" onclick="go('db')"><span class="qi">◫</span>Database Kami</button>
+          <button class="qb" onclick="openImport()"><span class="qi">⇪</span>Import Massal</button>
+          <button class="qb" onclick="doExportCSV()"><span class="qi">⇩</span>Export CSV</button>
+          <button class="qb" onclick="go('riwayat')"><span class="qi">◷</span>Riwayat</button>
         </div>
       </div>
-    </div>
-
-    <div class="glass-card mb22">
-      <div class="card-head">
-        <div class="card-title"><span>◷</span><span class="card-title-gold">Riwayat Terbaru</span></div>
-        <button class="btn btn-ghost btn-sm" onclick="showPage('history')">Lihat Semua →</button>
-      </div>
-      <div id="dash-hist" style="padding:14px 18px"></div>
     </div>
   </div>
+  <div class="gc mb">
+    <div class="ch"><div class="ct"><span>◷</span><span class="ctg">Riwayat Terbaru</span></div><button class="btn btn-gh btn-sm" onclick="go('riwayat')">Lihat Semua →</button></div>
+    <div id="dash-hist" style="padding:13px 16px"></div>
+  </div>
+</div>
 
-  <!-- CEK REKENING -->
-  <div class="page" id="page-check">
-    <div class="topbar">
-      <div>
-        <div class="page-eyebrow">⬡ Verifikasi</div>
-        <div class="page-title">Cek Rekening</div>
-        <div class="page-sub">Masukkan data rekening untuk diverifikasi dengan database</div>
+<!-- ░░ CEK REKENING ░░ -->
+<div class="pg" id="pg-cek">
+  <div class="topbar">
+    <div><div class="pg-eye">⬡ Verifikasi</div><div class="pg-title">Cek Rekening</div><div class="pg-sub">Verifikasi apakah rekening tersedia di database kami</div></div>
+  </div>
+  <div class="gc mb">
+    <div class="ch"><div class="ct"><span>📝</span><span class="ctg">Input Data Rekening</span></div><code>BANK [Tab] NAMA [Tab] NO.REKENING</code></div>
+    <div class="cb">
+      <div class="al" id="al-cek" style="margin-bottom:12px"></div>
+      <textarea id="inp-cek" placeholder="Contoh:&#10;CIMB	YENI YUSTIANA	708707460800&#10;BCA	Budi Santoso	1234567890&#10;BNI	Siti Rahayu	9876543210&#10;&#10;Pisahkan setiap kolom dengan tombol Tab"></textarea>
+      <div class="btn-row">
+        <button class="btn btn-go" onclick="runCek()">🔍 Cek Sekarang</button>
+        <button class="btn btn-gh" onclick="pasteContoh()">📋 Contoh Data</button>
+        <button class="btn btn-gh" onclick="clearCek()">✕ Bersihkan</button>
       </div>
     </div>
-
-    <div class="glass-card mb22">
-      <div class="card-head">
-        <div class="card-title"><span>📝</span><span class="card-title-gold">Input Data Rekening</span></div>
-        <code style="font-size:10px;padding:4px 10px">BANK [Tab] NAMA [Tab] NO.REKENING</code>
+  </div>
+  <div id="cek-hasil" style="display:none">
+    <div class="gc mb">
+      <div class="fb">
+        <button class="fc fa" id="fc-a" onclick="setF('a')">Semua <span id="fc-ac">0</span></button>
+        <button class="fc" id="fc-y" onclick="setF('y')">✅ Tersedia <span id="fc-yc">0</span></button>
+        <button class="fc" id="fc-n" onclick="setF('n')">❌ Tidak Ada <span id="fc-nc">0</span></button>
+        <div class="vsep"></div>
+        <div class="sw"><span class="sico">🔎</span><input type="text" id="cek-q" placeholder="Cari nama, nomor, bank..." oninput="renderCekTbl()"></div>
+        <select class="fsel" id="cek-bs" onchange="renderCekTbl()"><option value="">Semua Bank</option></select>
+        <button class="btn btn-go btn-sm" onclick="exportHasil()">📥 Export</button>
       </div>
-      <div class="card-body">
-        <div class="alert" id="check-alert"><span id="check-alert-msg"></span></div>
-        <textarea id="check-input" placeholder="Contoh:
-CIMB	YENI YUSTIANA	708707460800
-BCA	Budi Santoso	1234567890
-BNI	Siti Rahayu	9876543210
+      <div class="tw"><table>
+        <thead><tr><th style="width:38px">#</th><th style="width:88px">Bank</th><th>Nama</th><th>No. Rekening</th><th style="width:112px">Status</th></tr></thead>
+        <tbody id="cek-body"><tr><td colspan="5" class="te">Belum ada data</td></tr></tbody>
+      </table></div>
+      <div class="tf"><span id="cek-info">—</span><button class="btn btn-gh btn-sm" onclick="exportHasil()">📥 Unduh Hasil</button></div>
+    </div>
+  </div>
+</div>
 
-Setiap kolom dipisahkan dengan tombol Tab"></textarea>
+<!-- ░░ DATABASE ░░ -->
+<div class="pg" id="pg-db">
+  <div class="topbar">
+    <div><div class="pg-eye">◫ Vault</div><div class="pg-title">Database Kami</div><div class="pg-sub">Semua rekening tersimpan permanen di browser ini</div></div>
+    <div class="tbr">
+      <button class="btn btn-gh" onclick="go('tambah')">⊕ Tambah</button>
+      <button class="btn btn-gh" onclick="openImport()">⇪ Import</button>
+      <button class="btn btn-go" onclick="exportDB()">⇩ Export DB</button>
+    </div>
+  </div>
+  <div class="sg sg3">
+    <div class="sc s-gold"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">📦</span><div class="sc-lbl">Total Rekening</div><div class="sc-val" id="db-tot">0</div><div class="sc-meta">tersimpan permanen</div></div>
+    <div class="sc s-green"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">🏦</span><div class="sc-lbl">Jumlah Bank</div><div class="sc-val" id="db-bk">0</div><div class="sc-meta">bank berbeda</div></div>
+    <div class="sc s-blue"><div class="sc-line"></div><div class="sc-glow"></div><span class="sc-ico">🏆</span><div class="sc-lbl">Bank Terbanyak</div><div class="sc-val" id="db-top" style="font-size:19px">—</div><div class="sc-meta">rekening terbanyak</div></div>
+  </div>
+  <div class="gc mb">
+    <div class="fb">
+      <div class="sw"><span class="sico">🔎</span><input type="text" id="db-q" placeholder="Cari nama, nomor rekening..." oninput="renderDB()"></div>
+      <select class="fsel" id="db-bs" onchange="renderDB()"><option value="">Semua Bank</option></select>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th style="width:38px">#</th><th style="width:88px">Bank</th><th>Nama</th><th>No. Rekening</th><th style="width:50px">Hapus</th></tr></thead>
+      <tbody id="db-body"><tr><td colspan="5" class="te">Memuat...</td></tr></tbody>
+    </table></div>
+    <div class="tf"><span id="db-info">—</span></div>
+  </div>
+</div>
+
+<!-- ░░ RIWAYAT ░░ -->
+<div class="pg" id="pg-riwayat">
+  <div class="topbar">
+    <div><div class="pg-eye">◷ Log</div><div class="pg-title">Riwayat Pengecekan</div><div class="pg-sub">Semua sesi verifikasi yang pernah dilakukan</div></div>
+    <div class="tbr"><button class="btn btn-rd" onclick="clearRiwayat()">✕ Hapus Semua</button></div>
+  </div>
+  <div id="riwayat-list"></div>
+</div>
+
+<!-- ░░ TAMBAH REKENING ░░ -->
+<div class="pg" id="pg-tambah">
+  <div class="topbar">
+    <div><div class="pg-eye">⊕ Entri Baru</div><div class="pg-title">Tambah Rekening</div><div class="pg-sub">Tambahkan rekening baru ke database yang tersimpan permanen</div></div>
+  </div>
+  <div class="g2">
+    <!-- FORM SATU -->
+    <div class="gc mb">
+      <div class="ch"><div class="ct"><span>✏️</span><span class="ctg">Tambah Satu Rekening</span></div></div>
+      <div class="cb">
+        <div class="al" id="al-add" style="margin-bottom:14px"></div>
+        <div class="fg">
+          <label class="fl">Bank</label>
+          <select id="add-bank">
+            <option value="" disabled selected>— Pilih Bank —</option>
+            <option>BCA</option><option>BNI</option><option>BRI</option>
+            <option>MANDIRI</option><option>CIMB</option><option>DANAMON</option>
+            <option>MAYBANK</option><option>PERMATA</option><option>SINARMAS</option>
+            <option>OCBC</option><option>BSI</option><option>BTN</option>
+            <option>PANIN</option><option>LAINNYA</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">Nama Pemilik Rekening</label>
+          <input type="text" id="add-nama" placeholder="Contoh: Ahmad Budi Santoso">
+        </div>
+        <div class="fg">
+          <label class="fl">Nomor Rekening</label>
+          <input type="text" id="add-norek" placeholder="Contoh: 1234567890" style="font-family:var(--fm)">
+        </div>
         <div class="btn-row">
-          <button class="btn btn-gold" onclick="runCheck()">🔍 Cek Sekarang</button>
-          <button class="btn btn-ghost" onclick="pasteEx()">📋 Contoh Data</button>
-          <button class="btn btn-ghost" onclick="clearCheck()">✕ Bersihkan</button>
+          <button class="btn btn-go" onclick="tambahSatu()">⊕ Simpan ke Database</button>
+          <button class="btn btn-gh" onclick="resetForm()">✕ Bersihkan</button>
         </div>
       </div>
     </div>
-
-    <div id="result-section" style="display:none">
-      <div class="glass-card mb22">
-        <div class="filters-bar">
-          <button class="fchip fa" id="fc-all" onclick="setFilter('all')">Semua &nbsp;<span id="fc-ac" style="opacity:0.6">0</span></button>
-          <button class="fchip" id="fc-yes" onclick="setFilter('yes')">✅ Tersedia &nbsp;<span id="fc-yc" style="opacity:0.6">0</span></button>
-          <button class="fchip" id="fc-no" onclick="setFilter('no')">❌ Tidak Ada &nbsp;<span id="fc-nc" style="opacity:0.6">0</span></button>
-          <div class="vsep"></div>
-          <div class="search-wrap"><span class="search-ico">🔎</span><input type="text" id="search-box" placeholder="Cari nama, nomor, atau bank..." oninput="renderTable()"></div>
-          <select class="sel" id="bank-sel" onchange="renderTable()"><option value="">Semua Bank</option></select>
-          <button class="btn btn-gold btn-sm" onclick="exportCSV()">📥 Export</button>
+    <!-- BATCH -->
+    <div class="gc mb">
+      <div class="ch"><div class="ct"><span>📋</span><span class="ctg">Tambah Beberapa Sekaligus</span></div></div>
+      <div class="cb">
+        <div class="fmt">Format: <code>BANK</code> → <code>Tab</code> → <code>NAMA</code> → <code>Tab</code> → <code>NO.REKENING</code><br>Satu baris = satu rekening. Duplikat otomatis dilewati.</div>
+        <div class="al" id="al-batch" style="margin-bottom:12px"></div>
+        <textarea id="inp-batch" placeholder="BCA	Ahmad Budi	1234567890&#10;BNI	Siti Dewi	9876543210&#10;MANDIRI	Rudi Hartono	0987654321"></textarea>
+        <div class="btn-row">
+          <button class="btn btn-go" onclick="tambahBatch()">⊕ Tambahkan Semua</button>
+          <button class="btn btn-gh" onclick="document.getElementById('inp-batch').value=''">✕ Bersihkan</button>
         </div>
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr>
-              <th style="width:42px">#</th>
-              <th style="width:95px">Bank</th>
-              <th>Nama</th>
-              <th>No. Rekening</th>
-              <th style="width:118px">Status</th>
-            </tr></thead>
-            <tbody id="tbl-body"><tr><td colspan="5" class="tbl-empty">Belum ada data</td></tr></tbody>
-          </table>
-        </div>
-        <div class="tbl-foot"><span id="tbl-info">—</span><button class="btn btn-ghost btn-sm" onclick="exportCSV()">📥 Unduh Hasil</button></div>
       </div>
     </div>
   </div>
-
-  <!-- DATABASE -->
-  <div class="page" id="page-database">
-    <div class="topbar">
-      <div>
-        <div class="page-eyebrow">◫ Vault</div>
-        <div class="page-title">Database Kami</div>
-        <div class="page-sub">Semua rekening tersimpan permanen di browser Anda</div>
-      </div>
-      <div class="topbar-right">
-        <button class="btn btn-ghost" onclick="openImport()">📤 Import</button>
-        <button class="btn btn-gold" onclick="exportDBCSV()">📥 Export DB</button>
-      </div>
-    </div>
-
-    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
-      <div class="scard s-gold">
-        <div class="scard-top-line"></div>
-        <div class="scard-glow"></div>
-        <span class="scard-ico">📦</span>
-        <div class="scard-lbl">Total Rekening</div>
-        <div class="scard-val" id="db-tot">0</div>
-        <div class="scard-meta">tersimpan permanen</div>
-      </div>
-      <div class="scard s-green">
-        <div class="scard-top-line"></div>
-        <div class="scard-glow"></div>
-        <span class="scard-ico">🏦</span>
-        <div class="scard-lbl">Jumlah Bank</div>
-        <div class="scard-val" id="db-banks">0</div>
-        <div class="scard-meta">bank berbeda</div>
-      </div>
-      <div class="scard s-blue">
-        <div class="scard-top-line"></div>
-        <div class="scard-glow"></div>
-        <span class="scard-ico">🏆</span>
-        <div class="scard-lbl">Bank Terbanyak</div>
-        <div class="scard-val" id="db-top" style="font-size:20px">—</div>
-        <div class="scard-meta">rekening terbanyak</div>
-      </div>
-    </div>
-
-    <div class="glass-card mb22">
-      <div class="filters-bar">
-        <div class="search-wrap"><span class="search-ico">🔎</span><input type="text" id="db-search" placeholder="Cari di database..." oninput="renderDB()"></div>
-        <select class="sel" id="db-bsel" onchange="renderDB()"><option value="">Semua Bank</option></select>
-      </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr>
-            <th style="width:42px">#</th>
-            <th style="width:95px">Bank</th>
-            <th>Nama</th>
-            <th>No. Rekening</th>
-          </tr></thead>
-          <tbody id="db-body"><tr><td colspan="4" class="tbl-empty">Memuat...</td></tr></tbody>
-        </table>
-      </div>
-      <div class="tbl-foot"><span id="db-info">—</span></div>
-    </div>
+  <!-- RECENT -->
+  <div class="gc mb">
+    <div class="ch"><div class="ct"><span>🕐</span><span class="ctg">Rekening Terakhir Ditambahkan</span></div><button class="btn btn-gh btn-sm" onclick="go('db')">Lihat Database →</button></div>
+    <div id="recent-tbl" style="padding:13px 16px"><div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada rekening ditambahkan di sesi ini</div></div>
   </div>
-
-  <!-- HISTORY -->
-  <div class="page" id="page-history">
-    <div class="topbar">
-      <div>
-        <div class="page-eyebrow">◷ Log</div>
-        <div class="page-title">Riwayat Pengecekan</div>
-        <div class="page-sub">Semua sesi verifikasi yang pernah dilakukan</div>
-      </div>
-      <div class="topbar-right">
-        <button class="btn btn-ghost" onclick="clearHist()">✕ Hapus Semua</button>
-      </div>
-    </div>
-    <div id="hist-page"></div>
-  </div>
+</div>
 
 </main>
 </div>
 
-<!-- IMPORT MODAL -->
-<div class="modal-bg" id="import-modal">
-  <div class="modal">
-    <div class="modal-head">
-      <div class="modal-title">📤 Import Data Rekening</div>
-      <button class="modal-x" onclick="closeImport()">×</button>
-    </div>
-    <div class="fmt-hint">
-      Format per baris: <code>BANK</code> → <code>Tab</code> → <code>NAMA</code> → <code>Tab</code> → <code>NO.REKENING</code><br>
-      Data akan disimpan permanen dan tersedia di semua browser/perangkat yang menggunakan file ini.
-    </div>
-    <textarea id="import-ta" style="min-height:160px" placeholder="BCA	Budi Santoso	1234567890
-BNI	Siti Dewi	9876543210
-MANDIRI	Ahmad Fauzi	0987654321"></textarea>
+<!-- ══════ IMPORT MODAL ══════ -->
+<div class="mbg" id="m-import">
+  <div class="md">
+    <div class="mh"><div class="mt2">⇪ Import Massal</div><button class="mx" onclick="closeImport()">×</button></div>
+    <div class="fmt">Format per baris: <code>BANK</code> → <code>Tab</code> → <code>NAMA</code> → <code>Tab</code> → <code>NO.REKENING</code><br>Duplikat otomatis dilewati saat ditambahkan.</div>
+    <textarea id="imp-ta" style="min-height:160px" placeholder="BCA	Budi Santoso	1234567890&#10;BNI	Siti Dewi	9876543210&#10;MANDIRI	Ahmad Fauzi	0987654321"></textarea>
     <div class="btn-row">
-      <button class="btn btn-gold" onclick="doImport(false)">⊕ Tambahkan ke Database</button>
-      <button class="btn btn-ghost" onclick="doImport(true)">↺ Ganti Semua Data</button>
-      <button class="btn btn-ghost" onclick="closeImport()">✕ Batal</button>
+      <button class="btn btn-go" onclick="doImport(false)">⊕ Tambahkan ke Database</button>
+      <button class="btn btn-gh" onclick="doImport(true)">↺ Ganti Semua Data</button>
+      <button class="btn btn-gh" onclick="closeImport()">✕ Batal</button>
     </div>
-    <div class="alert" id="import-alert" style="margin-top:14px"></div>
+    <div class="al" id="al-imp" style="margin-top:12px"></div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-//  DATA DEFAULT
-// ══════════════════════════════════════════════
-const DEFAULT_RAW=`BCA\tParmanto\t0771373541
-BCA\tKristina Natalia S\t7635717050
-BCA\tSane Ah\t2770826155
-BCA\tSIN KIONG\t1082948087
-BCA\tNursinah\t8841031130
-BCA\tAlfira Chika Ramadhani\t5810718210
-BCA\tReynaldi Tuwo\t6920311529
-BCA\tRosa Nur Amalilah\t5990423573
-BCA\tSinta Septiani\t2750780922
-BCA\tHasbybullah\t6920312614
-BCA\tRani Wahyuni\t2120460792
-BCA\tMuhammad Ferdinand\t7235654971
-BCA\tAdnan Fauzan\t8288146962
-BNI\tRuslan\t1927387250
-BNI\tEnjet Bin Mursin\t1992663198
-BNI\tYonna Sembiring\t1976857707
-BNI\tYuliyanti\t1981695146
-BNI\tDeni\t1993880178
-BNI\tAhmad Mubarak\t1982754248
-BRI\tSUKAESIH\t224801007030501
-BRI\tADIH PRAHYUDA ADRIANSYAH\t081901034309506
-BRI\tMUHAMAD FAISAL FERLIANDY\t179001006845501
-BRI\tDewi murni\t006301084456504
-BRI\tMohamad Muhdi\t078901002786507
-BRI\tRoni Supriadi\t112901037120507
-BRI\tSiti\t001901190849505
-MANDIRI\tMuhammad Zidan Darmawan\t078801002301507
-DANAMON\tMUHAMMAD I RAMADHAN\t3693723607
-MAYBANK\tREYVALDE SELGI REZKY\t8040905697
-CIMB\tYoel Julianus Partahian\t763793351500
-CIMB\tRONI KRISTIANTO P. SINAGA\t764100039400
-BCA\tM ALVIN NUGRAHA\t8832212937
-BCA\tNieska Nur Aini\t3860240628
-BCA\tM. Nur Diansyah\t3700109886
-BCA\tTaufiq Alhakim\t7391956140
-BCA\tRAMONA RAMADIANI\t7350334534
-BCA\tMUHAMMAD RAVI KURNIAWAN\t0941998649
-BCA\tYogi Saputra\t3120985883
-BCA\tNelvi Deswita\t0322737911
-BCA\tKartika Rahayu\t3120982221
-BCA\tAde Chandra\t8565342238
-BCA\tJASMINE TAMARA DESPUTRI\t1652827939
-BCA\tALBIANSYAH PUTRA\t2610291778
-BCA\tREZA PAHLEVI\t3110139186
-BCA\tDEA PUTRI CAHYANTI\t1980401053
-BCA\tMUHAMAD PERDIANSYAH\t7655625275
-BCA\tTri Hartanto\t7571159884
-BCA\tRahayu Prihatini\t4871055810
-BCA\tJa'far Shidiq\t0020321563
-BCA\tRafa Gilang Pratama\t1610169500
-BCA\tSiti Julaeha\t0690657619
-BCA\tAhmad Lemi\t2290700909
-BCA\tKarsini\t5411604234
-BCA\tSUNARNI\t7560500496
-BCA\tCLARITA PANYONGANG\t6485676566
-BCA\tGUSTI TRI HARDIANTO\t7726007640
-BCA\tI DEWA KADEK SUCI ADITAMA\t7703160087
-BCA\tJalaludin\t1751292606
-BCA\tUlina\t1751291952
-BCA\tEndang Sulastri\t1751292070
-BCA\tMita Astuti\t8040325230
-BCA\tMAHER ZAINI\t7726008662
-BCA\tDwi Rangga Darmawan\t8780529599
-BCA\tNurul Syadad\t2453715698
-BCA\tRISKI. A\t2770826643
-BCA\tSonny Turniawan\t1790401812
-BCA\tTaopik Ramdani\t5805135091
-BCA\tsalamiah\t1751293670
-BCA\tEdy Marlon Kakisina\t6430344747
-BCA\tputri handayani\t1751293611
-BCA\tSaniman\t8670958575
-BCA\tzuwandi\t1751295087
-BCA\tROSIDAH\t8660509217
-BNI\tJoni\t1924750060
-BNI\tDEDE IQBAL\t1913489189
-BNI\tIndah Sri Purnama S\t1919231406
-BNI\tWanda Juliana\t1919455766
-BNI\tRisma Riyanti\t1921642785
-BNI\tDian\t1924747864
-BNI\tDewi Anggita Nurnabilla\t1982711555
-BNI\tAhmad Rifki Fauzan\t1990965112
-BNI\tDanuar Yitsurani\t1993052155
-BNI\tMasilah rohimah\t1986092981
-BNI\tMUHAMMAD SULHANUDIN\t1988564976
-MANDIRI\tHayumi\t1630011585554
-MANDIRI\tSiti Rohani\t1340032182999
-MANDIRI\tJa'far Shidiq\t1190012292890
-MANDIRI\tSiti Wahyuni\t1150011293828
-MANDIRI\tMohamad Aji Saputra\t1680004359814
-MANDIRI\tDwi Apriyanto\t1680004404628
-BRI\tMARWATI\t112801014100532
-BRI\tATTHORIQ DWI FALLAH\t179001006822503
-BRI\tFerdiansyah\t033801064820508
-BRI\tAgus Salim\t324101003979508
-BRI\tAnwar Nata Kusuma\t385401006244507
-BRI\tAgus Ahad\t385401006221509
-BRI\tDeni\t481601019269507
-BRI\tAgustiatie Ateng\t041801027028503
-BRI\tMuhamad Faiz Ar Raffi\t748701001947505
-BRI\tElla Saphita\t082701047735505
-BRI\tRafli Fadillah\t050501021315507
-BRI\tAndrian Wahyu Prastyo\t041501044653507
-BRI\tNovita Sari\t332201005071506
-BRI\tMuhammad Patriya Pamungkas\t112901038935507
-BRI\tYOPI PIRMANSYAH\t112901038945502
-CIMB\tRomy Pryanto\t707050842000
-CIMB\tCINDY CLAUDIA\t708656165500
-CIMB\tYENI YUSTIANA\t708707460800
-CIMB\tHALAWANI\t708720033200
-CIMB\tDarmawan Hakim\t708651855400
-MAYBANK\tPutri Anggawati\t8285914084
-MAYBANK\tAhmad Agustiar Harja\t8039911220
-MAYBANK\tMuhamad Fiekry Adzahaby\t8107925422
-DANAMON\tAdin\t903692976867
-DANAMON\tMuhamad Enur\t903704328123
-PERMATA\tERIN SUHARI\t09940511752
-PERMATA\tROBI SEPTIAN\t9942427457
-PERMATA\tBAGUS HARTONO\t9947155722
-PERMATA\tAmatul Firdausiah\t9944432377
-PERMATA\tMulyadi\t9950617079
-PERMATA\tMuslina Fajri\t9949430305
-BCA\tATEP SUTISNA\t5805108735
-BCA\tRimba Reinnes\t6035061481
-BCA\tAndjar\t5810705428
-BCA\tShenna Budiyasih\t2850162002
-BCA\tENDANG M\t7120779731
-BCA\tULFAH\t7126141768
-BCA\tSUDARIAH\t8681467912
-BCA\tHeri Susanto\t2440507762
-BCA\tTakkas Poltak Sinambela\t5380349266
-BCA\tFIKRI DARMAWAN\t5850428826
-BCA\tAFRIYANTO\t2760234110
-MANDIRI\tMARIANDA\t1110024392447
-MANDIRI\tAINI NUSFATIROH\t1630011896837
-MANDIRI\tMeysha Khalisa Humaira\t1110024401107
-MANDIRI\tSAMSU RIZAL\t1230012530368
-MANDIRI\tYopi Pirmansyah\t1550015576898
-BRI\tDeanika.M.Prahuda\t008401289601506
-BRI\tMulyatini\t033801066452505
-BNI\tSupriana\t1919133588
-BNI\tRokmini\t1918958465
-BNI\tSri Prihatin Ningsih\t1925097391
-BNI\tFAISAL BASRI\t1983956695
-BNI\tRakhmat Azis\t1924992124
-DANAMON\tAryanah\t903688519838
-DANAMON\tJohny Jeffrison\t003692040516
-DANAMON\tRUKMINAH\t3693220497
-DANAMON\tYUNIARTO ADINUGROHO\t003700943289
-DANAMON\tAGUSTINA\t903703452866
-SINARMAS\tAryanah\t0018445433
-SINARMAS\tJohny Jeffrison\t0059647318
-SINARMAS\tMUHAMAD SAIFULLOH\t0018431807
-OCBC\tMUHAMAD SAIFULLOH\t693818148597
-BNI\tGUSMAN ANDRI SAPUTRA\t1927940897
-BCA\tEKA DWI NURIANDA\t0420773056
-BCA\tNOVIANA\t6801685843
-BRI\tNurul Juwita\t036801011724532
-BRI\tMuhammad Zidan Darmawan\t078801002301507
-BRI\tFitriyana\t161601006069505
-BCA\tRehan Nurjaman\t7772903807
-BCA\tDAMAN MULYANA\t1832267109
-BCA\tUjang Iskandar\t0280370371
-BCA\tYUSRAN\t7611383081
-BCA\tNURALIAH\t5860526877
-BCA\tANITA\t7571086852
-BCA\tRina Mutiara\t5195126469
-BRI\tPADLI\t223501013715500
-BRI\tTeguh Bagus Dwi Cahyo\t098401039559537
-BRI\tIntan Novianti\t34501045251503
-BRI\tViana Febriani\t034501045257509
-BRI\tLianna\t117101021928504
-PERMATA\tENENG TATI\t9923180289
-PERMATA\tSAHYU WANDIRA\t9930156512
-PERMATA\tImas Kurnia\t009936092397
-BCA\tTika nursafitri\t8660440829
-BCA\tRATIH\t5785366503
-BCA\tIrgi Ahmad Alfarzy\t4960523861
-BCA\tBagus Bayu Ardianta Sutjipta\t0499838877
-BCA\tELVIRA MAYASOFA SIMBOLON\t7580881054
-BCA\tFEBRINA TRIYAS ANDINI\t5677032915
-BNI\tFEBRINA TRIYAS ANDINI\t1848504246
-BRI\tAli Wijaya\t084001013397503
-BRI\tANISA SAILENDRA PUTRI\t720801003583505
-MANDIRI\tLIEM SILVIA\t1290014354464
-DANAMON\tReinhart Reynaldo Lukman\t903687103337`;
+// ═══════════════════════════════════════════
+// DATA DEFAULT
+// ═══════════════════════════════════════════
+const DEF=`BCA\tParmanto\t0771373541\nBCA\tKristina Natalia S\t7635717050\nBCA\tSane Ah\t2770826155\nBCA\tSIN KIONG\t1082948087\nBCA\tNursinah\t8841031130\nBCA\tAlfira Chika Ramadhani\t5810718210\nBCA\tReynaldi Tuwo\t6920311529\nBCA\tRosa Nur Amalilah\t5990423573\nBCA\tSinta Septiani\t2750780922\nBCA\tHasbybullah\t6920312614\nBCA\tRani Wahyuni\t2120460792\nBCA\tMuhammad Ferdinand\t7235654971\nBCA\tAdnan Fauzan\t8288146962\nBNI\tRuslan\t1927387250\nBNI\tEnjet Bin Mursin\t1992663198\nBNI\tYonna Sembiring\t1976857707\nBNI\tYuliyanti\t1981695146\nBNI\tDeni\t1993880178\nBNI\tAhmad Mubarak\t1982754248\nBRI\tSUKAESIH\t224801007030501\nBRI\tADIH PRAHYUDA ADRIANSYAH\t081901034309506\nBRI\tMUHAMAD FAISAL FERLIANDY\t179001006845501\nBRI\tDewi murni\t006301084456504\nBRI\tMohamad Muhdi\t078901002786507\nBRI\tRoni Supriadi\t112901037120507\nBRI\tSiti\t001901190849505\nMANDIRI\tMuhammad Zidan Darmawan\t078801002301507\nDANAMON\tMUHAMMAD I RAMADHAN\t3693723607\nMAYBANK\tREYVALDE SELGI REZKY\t8040905697\nCIMB\tYoel Julianus Partahian\t763793351500\nCIMB\tRONI KRISTIANTO P. SINAGA\t764100039400\nBCA\tM ALVIN NUGRAHA\t8832212937\nBCA\tNieska Nur Aini\t3860240628\nBCA\tM. Nur Diansyah\t3700109886\nBCA\tTaufiq Alhakim\t7391956140\nBCA\tRAMONA RAMADIANI\t7350334534\nBCA\tMUHAMMAD RAVI KURNIAWAN\t0941998649\nBCA\tYogi Saputra\t3120985883\nBCA\tNelvi Deswita\t0322737911\nBCA\tKartika Rahayu\t3120982221\nBCA\tAde Chandra\t8565342238\nBCA\tJASMINE TAMARA DESPUTRI\t1652827939\nBCA\tALBIANSYAH PUTRA\t2610291778\nBCA\tREZA PAHLEVI\t3110139186\nBCA\tDEA PUTRI CAHYANTI\t1980401053\nBCA\tMUHAMAD PERDIANSYAH\t7655625275\nBCA\tTri Hartanto\t7571159884\nBCA\tRahayu Prihatini\t4871055810\nBCA\tJa'far Shidiq\t0020321563\nBCA\tRafa Gilang Pratama\t1610169500\nBCA\tSiti Julaeha\t0690657619\nBCA\tAhmad Lemi\t2290700909\nBCA\tKarsini\t5411604234\nBCA\tSUNARNI\t7560500496\nBCA\tCLARITA PANYONGANG\t6485676566\nBCA\tGUSTI TRI HARDIANTO\t7726007640\nBCA\tI DEWA KADEK SUCI ADITAMA\t7703160087\nBCA\tJalaludin\t1751292606\nBCA\tUlina\t1751291952\nBCA\tEndang Sulastri\t1751292070\nBCA\tMita Astuti\t8040325230\nBCA\tMAHER ZAINI\t7726008662\nBCA\tDwi Rangga Darmawan\t8780529599\nBCA\tNurul Syadad\t2453715698\nBCA\tRISKI. A\t2770826643\nBCA\tSonny Turniawan\t1790401812\nBCA\tTaopik Ramdani\t5805135091\nBCA\tsalamiah\t1751293670\nBCA\tEdy Marlon Kakisina\t6430344747\nBCA\tputri handayani\t1751293611\nBCA\tSaniman\t8670958575\nBCA\tzuwandi\t1751295087\nBCA\tROSIDAH\t8660509217\nBNI\tJoni\t1924750060\nBNI\tDEDE IQBAL\t1913489189\nBNI\tIndah Sri Purnama S\t1919231406\nBNI\tWanda Juliana\t1919455766\nBNI\tRisma Riyanti\t1921642785\nBNI\tDian\t1924747864\nBNI\tDewi Anggita Nurnabilla\t1982711555\nBNI\tAhmad Rifki Fauzan\t1990965112\nBNI\tDanuar Yitsurani\t1993052155\nBNI\tMasilah rohimah\t1986092981\nBNI\tMUHAMMAD SULHANUDIN\t1988564976\nMANDIRI\tHayumi\t1630011585554\nMANDIRI\tSiti Rohani\t1340032182999\nMANDIRI\tJa'far Shidiq\t1190012292890\nMANDIRI\tSiti Wahyuni\t1150011293828\nMANDIRI\tMohamad Aji Saputra\t1680004359814\nMANDIRI\tDwi Apriyanto\t1680004404628\nBRI\tMARWATI\t112801014100532\nBRI\tATTHORIQ DWI FALLAH\t179001006822503\nBRI\tFerdiansyah\t033801064820508\nBRI\tAgus Salim\t324101003979508\nBRI\tAnwar Nata Kusuma\t385401006244507\nBRI\tAgus Ahad\t385401006221509\nBRI\tDeni\t481601019269507\nBRI\tAgustiatie Ateng\t041801027028503\nBRI\tMuhamad Faiz Ar Raffi\t748701001947505\nBRI\tElla Saphita\t082701047735505\nBRI\tRafli Fadillah\t050501021315507\nBRI\tAndrian Wahyu Prastyo\t041501044653507\nBRI\tNovita Sari\t332201005071506\nBRI\tMuhammad Patriya Pamungkas\t112901038935507\nBRI\tYOPI PIRMANSYAH\t112901038945502\nCIMB\tRomy Pryanto\t707050842000\nCIMB\tCINDY CLAUDIA\t708656165500\nCIMB\tYENI YUSTIANA\t708707460800\nCIMB\tHALAWANI\t708720033200\nCIMB\tDarmawan Hakim\t708651855400\nMAYBANK\tPutri Anggawati\t8285914084\nMAYBANK\tAhmad Agustiar Harja\t8039911220\nMAYBANK\tMuhamad Fiekry Adzahaby\t8107925422\nDANAMON\tAdin\t903692976867\nDANAMON\tMuhamad Enur\t903704328123\nPERMATA\tERIN SUHARI\t09940511752\nPERMATA\tROBI SEPTIAN\t9942427457\nPERMATA\tBAGUS HARTONO\t9947155722\nPERMATA\tAmatul Firdausiah\t9944432377\nPERMATA\tMulyadi\t9950617079\nPERMATA\tMuslina Fajri\t9949430305\nBCA\tATEP SUTISNA\t5805108735\nBCA\tRimba Reinnes\t6035061481\nBCA\tAndjar\t5810705428\nBCA\tShenna Budiyasih\t2850162002\nBCA\tENDANG M\t7120779731\nBCA\tULFAH\t7126141768\nBCA\tSUDARIAH\t8681467912\nBCA\tHeri Susanto\t2440507762\nBCA\tTakkas Poltak Sinambela\t5380349266\nBCA\tFIKRI DARMAWAN\t5850428826\nBCA\tAFRIYANTO\t2760234110\nMANDIRI\tMARIANDA\t1110024392447\nMANDIRI\tAINI NUSFATIROH\t1630011896837\nMANDIRI\tMeysha Khalisa Humaira\t1110024401107\nMANDIRI\tSAMSU RIZAL\t1230012530368\nMANDIRI\tYopi Pirmansyah\t1550015576898\nBRI\tDeanika.M.Prahuda\t008401289601506\nBRI\tMulyatini\t033801066452505\nBNI\tSupriana\t1919133588\nBNI\tRokmini\t1918958465\nBNI\tSri Prihatin Ningsih\t1925097391\nBNI\tFAISAL BASRI\t1983956695\nBNI\tRakhmat Azis\t1924992124\nDANAMON\tAryanah\t903688519838\nDANAMON\tJohny Jeffrison\t003692040516\nDANAMON\tRUKMINAH\t3693220497\nDANAMON\tYUNIARTO ADINUGROHO\t003700943289\nDANAMON\tAGUSTINA\t903703452866\nSINARMAS\tAryanah\t0018445433\nSINARMAS\tJohny Jeffrison\t0059647318\nSINARMAS\tMUHAMAD SAIFULLOH\t0018431807\nOCBC\tMUHAMAD SAIFULLOH\t693818148597\nBNI\tGUSMAN ANDRI SAPUTRA\t1927940897\nBCA\tEKA DWI NURIANDA\t0420773056\nBCA\tNOVIANA\t6801685843\nBRI\tNurul Juwita\t036801011724532\nBRI\tMuhammad Zidan Darmawan\t078801002301507\nBRI\tFitriyana\t161601006069505\nBCA\tRehan Nurjaman\t7772903807\nBCA\tDAMAN MULYANA\t1832267109\nBCA\tUjang Iskandar\t0280370371\nBCA\tYUSRAN\t7611383081\nBCA\tNURALIAH\t5860526877\nBCA\tANITA\t7571086852\nBCA\tRina Mutiara\t5195126469\nBRI\tPADLI\t223501013715500\nBRI\tTeguh Bagus Dwi Cahyo\t098401039559537\nBRI\tIntan Novianti\t34501045251503\nBRI\tViana Febriani\t034501045257509\nBRI\tLianna\t117101021928504\nPERMATA\tENENG TATI\t9923180289\nPERMATA\tSAHYU WANDIRA\t9930156512\nPERMATA\tImas Kurnia\t009936092397\nBCA\tTika nursafitri\t8660440829\nBCA\tRATIH\t5785366503\nBCA\tIrgi Ahmad Alfarzy\t4960523861\nBCA\tBagus Bayu Ardianta Sutjipta\t0499838877\nBCA\tELVIRA MAYASOFA SIMBOLON\t7580881054\nBCA\tFEBRINA TRIYAS ANDINI\t5677032915\nBNI\tFEBRINA TRIYAS ANDINI\t1848504246\nBRI\tAli Wijaya\t084001013397503\nBRI\tANISA SAILENDRA PUTRI\t720801003583505\nMANDIRI\tLIEM SILVIA\t1290014354464\nDANAMON\tReinhart Reynaldo Lukman\t903687103337`;
 
-// ══════════════════════════════════════════════
-//  STATE & PERSISTENCE
-// ══════════════════════════════════════════════
-const STORAGE_KEY='rekening_db_v2';
-const STATS_KEY='rekening_stats_v2';
-const HIST_KEY='rekening_hist_v2';
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+var DB=[],hasil=[],riwayat=[],recentAdded=[];
+var filt='a',totChk=0,totMtch=0,totNm=0;
+var K_DB='rvdb4',K_ST='rvst4',K_RW='rvrw4';
 
-let DB=[],results=[],hist=[],filt='all';
-let totalChecked=0,totalMatch=0,totalNoMatch=0;
+// ═══════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════
+function parse(t){
+  return t.trim().split('\n').map(function(l){
+    var p=l.split('\t');
+    if(p.length<3) return null;
+    return {bank:p[0].trim().toUpperCase(),name:p[1].trim(),norek:p[2].trim().replace(/\s+/g,'')};
+  }).filter(Boolean);
+}
+function rkey(r){return r.bank+'|'+r.norek.toLowerCase();}
+function bkClass(b){
+  var m={BCA:'bk-bca',BNI:'bk-bni',BRI:'bk-bri',MANDIRI:'bk-mandiri',CIMB:'bk-cimb',MAYBANK:'bk-maybank',DANAMON:'bk-danamon',PERMATA:'bk-permata',SINARMAS:'bk-sinarmas',OCBC:'bk-ocbc',BSI:'bk-bsi',BTN:'bk-btn2',PANIN:'bk-panin'};
+  return m[b]||'bk-x';
+}
+function bkBadge(b){return '<span class="bk '+bkClass(b)+'">'+b+'</span>';}
+function now2(){return new Date().toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-const parse=t=>t.trim().split('\n').map(l=>{const p=l.split('\t');return p.length>=3?{bank:p[0].trim().toUpperCase(),name:p[1].trim(),norek:p[2].trim().replace(/\s+/g,'')}:null}).filter(Boolean);
-const key=r=>r.bank+'|'+r.norek.toLowerCase();
-const bc=b=>({BCA:'bca',BNI:'bni',BRI:'bri',MANDIRI:'mandiri',CIMB:'cimb',MAYBANK:'maybank',DANAMON:'danamon',PERMATA:'permata',SINARMAS:'sinarmas',OCBC:'ocbc'}[b]||'dbank');
+// ═══════════════════════════════════════════
+// PERSISTENCE
+// ═══════════════════════════════════════════
+function saveDB(){try{localStorage.setItem(K_DB,JSON.stringify(DB));flashSave();}catch(e){}}
+function loadDB(){try{var s=localStorage.getItem(K_DB);if(s){DB=JSON.parse(s);}else{DB=parse(DEF);saveDB();}}catch(e){DB=parse(DEF);}}
+function saveStats(){try{localStorage.setItem(K_ST,JSON.stringify({totChk:totChk,totMtch:totMtch,totNm:totNm}));}catch(e){}}
+function loadStats(){try{var s=localStorage.getItem(K_ST);if(s){var d=JSON.parse(s);totChk=d.totChk||0;totMtch=d.totMtch||0;totNm=d.totNm||0;}}catch(e){}}
+function saveRiwayat(){try{localStorage.setItem(K_RW,JSON.stringify(riwayat.slice(0,60)));}catch(e){}}
+function loadRiwayat(){try{var s=localStorage.getItem(K_RW);if(s)riwayat=JSON.parse(s);}catch(e){}}
+function flashSave(){var el=document.getElementById('sind');el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove('on');},2000);}
 
-function saveDB(){
-  try{
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(DB));
-    flashSave();
-  }catch(e){console.warn('LocalStorage full',e)}
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+function go(id){
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('pg-'+id).classList.add('on');
+  var map={dash:0,cek:1,db:2,riwayat:3,tambah:4};
+  var btns=document.querySelectorAll('.nb');
+  if(map[id]!==undefined && btns[map[id]]) btns[map[id]].classList.add('on');
+  if(id==='db') renderDB();
+  if(id==='riwayat') renderRiwayat();
+  window.scrollTo(0,0);
 }
 
-function loadDB(){
-  try{
-    const saved=localStorage.getItem(STORAGE_KEY);
-    if(saved){DB=JSON.parse(saved);}
-    else{DB=parse(DEFAULT_RAW);saveDB();}
-  }catch(e){DB=parse(DEFAULT_RAW)}
-}
-
-function saveStats(){
-  try{localStorage.setItem(STATS_KEY,JSON.stringify({totalChecked,totalMatch,totalNoMatch}))}catch(e){}
-}
-function loadStats(){
-  try{const s=localStorage.getItem(STATS_KEY);if(s){const d=JSON.parse(s);totalChecked=d.totalChecked||0;totalMatch=d.totalMatch||0;totalNoMatch=d.totalNoMatch||0}}catch(e){}
-}
-
-function saveHist(){
-  try{localStorage.setItem(HIST_KEY,JSON.stringify(hist.slice(0,50)))}catch(e){}
-}
-function loadHist(){
-  try{const h=localStorage.getItem(HIST_KEY);if(h)hist=JSON.parse(h)}catch(e){}
-}
-
-function flashSave(){
-  const el=document.getElementById('save-ind');
-  el.classList.add('show');
-  clearTimeout(el._t);
-  el._t=setTimeout(()=>el.classList.remove('show'),2000);
-}
-
-function resetDB(){
-  if(!confirm('Reset database ke data default? Semua tambahan data akan hilang.'))return;
-  DB=parse(DEFAULT_RAW);saveDB();
-  refreshStats();renderDB();
-  alert('Database berhasil direset ke data default.');
-}
-
-// ══════════════════════════════════════════════
-//  UI
-// ══════════════════════════════════════════════
-function refreshStats(){
-  document.getElementById('sb-total').textContent=DB.length;
-  document.getElementById('d-total').textContent=DB.length;
+// ═══════════════════════════════════════════
+// REFRESH STATS
+// ═══════════════════════════════════════════
+function refreshAll(){
+  document.getElementById('sb-n').textContent=DB.length;
+  document.getElementById('d-tot').textContent=DB.length;
+  document.getElementById('d-chk').textContent=totChk;
+  document.getElementById('d-mtch').textContent=totMtch;
+  document.getElementById('d-nm').textContent=totNm;
+  document.getElementById('d-pm').textContent=totChk?Math.round(totMtch/totChk*100)+'%':'0%';
+  document.getElementById('d-pn').textContent=totChk?Math.round(totNm/totChk*100)+'%':'0%';
   document.getElementById('db-tot').textContent=DB.length;
-  document.getElementById('d-checked').textContent=totalChecked;
-  document.getElementById('d-match').textContent=totalMatch;
-  document.getElementById('d-nomatch').textContent=totalNoMatch;
-  document.getElementById('d-pct-m').textContent=totalChecked?Math.round(totalMatch/totalChecked*100)+'%':'0%';
-  document.getElementById('d-pct-n').textContent=totalChecked?Math.round(totalNoMatch/totalChecked*100)+'%':'0%';
-  const banks=[...new Set(DB.map(r=>r.bank))];
-  document.getElementById('db-banks').textContent=banks.length;
+  var banks=[...new Set(DB.map(function(r){return r.bank;}))];
+  document.getElementById('db-bk').textContent=banks.length;
   if(banks.length){
-    const c={};DB.forEach(r=>c[r.bank]=(c[r.bank]||0)+1);
-    const top=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];
+    var c={};DB.forEach(function(r){c[r.bank]=(c[r.bank]||0)+1;});
+    var top=Object.entries(c).sort(function(a,b){return b[1]-a[1];})[0];
     document.getElementById('db-top').textContent=top[0];
   }
   renderBankDist();
-  fillSels();
+  fillBankSels();
+  renderDashHist();
 }
 
+// ═══════════════════════════════════════════
+// BANK DISTRIBUTION
+// ═══════════════════════════════════════════
 function renderBankDist(){
-  const c={};DB.forEach(r=>c[r.bank]=(c[r.bank]||0)+1);
-  const sorted=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,8);
-  const mx=sorted[0]?.[1]||1;
-  document.getElementById('bank-dist').innerHTML=sorted.length
-    ?sorted.map(([b,n])=>`<div class="brow"><div class="blbl"><span class="bbadge ${bc(b)}">${b}</span></div><div class="bbar-bg"><div class="bbar" style="width:${Math.round(n/mx*100)}%"></div></div><div class="bcnt">${n}</div></div>`).join('')
-    :'<div style="color:var(--text3);font-size:12px;text-align:center;padding:16px">Tidak ada data</div>';
+  var c={};DB.forEach(function(r){c[r.bank]=(c[r.bank]||0)+1;});
+  var sorted=Object.entries(c).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
+  var mx=sorted.length?sorted[0][1]:1;
+  document.getElementById('bkdist').innerHTML=sorted.length
+    ?sorted.map(function(e){return '<div class="brow"><div class="blbl">'+bkBadge(e[0])+'</div><div class="bbg"><div class="bb" style="width:'+Math.round(e[1]/mx*100)+'%"></div></div><div class="bcnt">'+e[1]+'</div></div>';}).join('')
+    :'<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Tidak ada data</div>';
 }
 
-function fillSels(){
-  const banks=[...new Set(DB.map(r=>r.bank))].sort();
-  ['bank-sel','db-bsel'].forEach(id=>{
-    const s=document.getElementById(id),v=s.value;
-    s.innerHTML='<option value="">Semua Bank</option>'+banks.map(b=>`<option${b===v?' selected':''}>${b}</option>`).join('');
+// ═══════════════════════════════════════════
+// FILL BANK SELECTS
+// ═══════════════════════════════════════════
+function fillBankSels(){
+  var banks=[...new Set(DB.map(function(r){return r.bank;}))].sort();
+  ['cek-bs','db-bs'].forEach(function(id){
+    var s=document.getElementById(id),v=s.value;
+    s.innerHTML='<option value="">Semua Bank</option>'+banks.map(function(b){return '<option'+(b===v?' selected':'')+'>'+b+'</option>';}).join('');
   });
 }
 
-function renderDB(){
-  const q=(document.getElementById('db-search').value||'').toLowerCase();
-  const bf=document.getElementById('db-bsel').value;
-  let r=DB;
-  if(bf)r=r.filter(x=>x.bank===bf);
-  if(q)r=r.filter(x=>x.name.toLowerCase().includes(q)||x.norek.toLowerCase().includes(q)||x.bank.toLowerCase().includes(q));
-  document.getElementById('db-info').textContent=`Menampilkan ${r.length} dari ${DB.length} rekening`;
-  document.getElementById('db-body').innerHTML=r.length
-    ?r.map((x,i)=>`<tr><td style="color:var(--text3);font-size:11px;font-family:var(--mono)">${i+1}</td><td><span class="bbadge ${bc(x.bank)}">${x.bank}</span></td><td style="font-weight:500">${x.name}</td><td class="norek">${x.norek}</td></tr>`).join('')
-    :'<tr><td colspan="4" class="tbl-empty">Tidak ada data ditemukan</td></tr>';
-}
-
-function setFilter(f){
-  filt=f;
-  ['all','yes','no'].forEach(id=>{
-    const el=document.getElementById('fc-'+id);
-    const cls={all:'fchip fa',yes:'fchip fy',no:'fchip fn'};
-    el.className=id===f?cls[id]:'fchip';
-  });
-  renderTable();
-}
-
-function renderTable(){
-  const q=(document.getElementById('search-box').value||'').toLowerCase();
-  const bf=document.getElementById('bank-sel').value;
-  let r=results;
-  if(filt==='yes')r=r.filter(x=>x.found);
-  if(filt==='no')r=r.filter(x=>!x.found);
-  if(bf)r=r.filter(x=>x.bank===bf);
-  if(q)r=r.filter(x=>x.name.toLowerCase().includes(q)||x.norek.toLowerCase().includes(q)||x.bank.toLowerCase().includes(q));
-  document.getElementById('fc-ac').textContent=results.length;
-  document.getElementById('fc-yc').textContent=results.filter(x=>x.found).length;
-  document.getElementById('fc-nc').textContent=results.filter(x=>!x.found).length;
-  document.getElementById('tbl-info').textContent=`Menampilkan ${r.length} dari ${results.length} data`;
-  document.getElementById('tbl-body').innerHTML=r.length
-    ?r.map((x,i)=>`<tr>
-      <td style="color:var(--text3);font-size:11px;font-family:var(--mono)">${i+1}</td>
-      <td><span class="bbadge ${bc(x.bank)}">${x.bank}</span></td>
-      <td style="font-weight:500">${x.name}</td>
-      <td class="norek">${x.norek}</td>
-      <td><span class="sbadge ${x.found?'sy':'sn'}"><span class="sdot ${x.found?'sdot-g':'sdot-r'}"></span>${x.found?'Tersedia':'Tidak Ada'}</span></td>
-    </tr>`).join('')
-    :'<tr><td colspan="5" class="tbl-empty">Tidak ada data ditemukan</td></tr>';
-}
-
-function runCheck(){
-  const val=document.getElementById('check-input').value.trim();
-  if(!val){showA('check-alert','⚠️ Masukkan data rekening terlebih dahulu.','alert-warn');return}
-  const toCheck=parse(val);
-  if(!toCheck.length){showA('check-alert','⚠️ Format tidak valid. Gunakan Tab sebagai pemisah.','alert-warn');return}
-  const dbKeys=new Set(DB.map(key));
-  results=toCheck.map(r=>({...r,found:dbKeys.has(key(r))}));
-  const m=results.filter(x=>x.found).length;
-  totalChecked+=results.length;
-  totalMatch+=m;
-  totalNoMatch+=(results.length-m);
+// ═══════════════════════════════════════════
+// CEK REKENING
+// ═══════════════════════════════════════════
+function runCek(){
+  var val=document.getElementById('inp-cek').value.trim();
+  if(!val){showAl('al-cek','⚠️ Masukkan data rekening terlebih dahulu.','al-w');return;}
+  var toChk=parse(val);
+  if(!toChk.length){showAl('al-cek','⚠️ Format tidak valid. Gunakan Tab sebagai pemisah kolom.','al-w');return;}
+  var dbKeys=new Set(DB.map(rkey));
+  hasil=toChk.map(function(r){return Object.assign({},r,{found:dbKeys.has(rkey(r))});});
+  var m=hasil.filter(function(x){return x.found;}).length;
+  totChk+=hasil.length;totMtch+=m;totNm+=(hasil.length-m);
   saveStats();
-  hist.unshift({
-    time:new Date().toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}),
-    count:results.length,match:m,data:[...results]
-  });
-  saveHist();
-  refreshStats();
-  renderDash();renderHistPage();
-  document.getElementById('result-section').style.display='block';
-  fillSels();
-  setFilter('all');
-  showA('check-alert',`✅ Selesai! ${m} dari ${toCheck.length} rekening tersedia di database kami.`,'alert-success');
+  riwayat.unshift({t:now2(),cnt:hasil.length,mtch:m,data:hasil.slice()});
+  saveRiwayat();
+  refreshAll();
+  fillBankSels();
+  document.getElementById('cek-hasil').style.display='block';
+  setF('a');
+  showAl('al-cek','✅ Selesai! <strong>'+m+'</strong> dari <strong>'+toChk.length+'</strong> rekening tersedia di database kami.','al-s');
+}
+function clearCek(){
+  document.getElementById('inp-cek').value='';
+  document.getElementById('cek-hasil').style.display='none';
+  hasil=[];
+  document.getElementById('al-cek').className='al';
+}
+function pasteContoh(){
+  document.getElementById('inp-cek').value='CIMB\tYENI YUSTIANA\t708707460800\nCIMB\tHALAWANI\t708720033200\nCIMB\tYUDA SYAHPUTRA\t708556371200\nBCA\tParmanto\t0771373541\nBRI\tTestUser\t999999999999';
+}
+function setF(f){
+  filt=f;
+  document.getElementById('fc-a').className='fc'+(f==='a'?' fa':'');
+  document.getElementById('fc-y').className='fc'+(f==='y'?' fy':'');
+  document.getElementById('fc-n').className='fc'+(f==='n'?' fn':'');
+  renderCekTbl();
+}
+function renderCekTbl(){
+  var q=(document.getElementById('cek-q').value||'').toLowerCase();
+  var bf=document.getElementById('cek-bs').value;
+  var r=hasil.slice();
+  if(filt==='y') r=r.filter(function(x){return x.found;});
+  if(filt==='n') r=r.filter(function(x){return !x.found;});
+  if(bf) r=r.filter(function(x){return x.bank===bf;});
+  if(q) r=r.filter(function(x){return x.name.toLowerCase().includes(q)||x.norek.includes(q)||x.bank.toLowerCase().includes(q);});
+  document.getElementById('fc-ac').textContent=hasil.length;
+  document.getElementById('fc-yc').textContent=hasil.filter(function(x){return x.found;}).length;
+  document.getElementById('fc-nc').textContent=hasil.filter(function(x){return !x.found;}).length;
+  document.getElementById('cek-info').textContent='Menampilkan '+r.length+' dari '+hasil.length+' data';
+  document.getElementById('cek-body').innerHTML=r.length
+    ?r.map(function(x,i){return '<tr><td style="color:var(--txt3);font-size:10px;font-family:var(--fm)">'+(i+1)+'</td><td>'+bkBadge(x.bank)+'</td><td style="font-weight:500">'+esc(x.name)+'</td><td class="nr">'+esc(x.norek)+'</td><td><span class="sb2 '+(x.found?'sy':'sn')+'"><span class="sdot '+(x.found?'sdg':'sdr')+'"></span>'+(x.found?'Tersedia':'Tidak Ada')+'</span></td></tr>';}).join('')
+    :'<tr><td colspan="5" class="te">Tidak ada data ditemukan</td></tr>';
 }
 
-function showA(id,msg,cls){
-  const el=document.getElementById(id);
-  el.className='alert show '+cls;
-  el.innerHTML=msg;
-  clearTimeout(el._t);
-  el._t=setTimeout(()=>el.className='alert',6000);
+// ═══════════════════════════════════════════
+// DATABASE
+// ═══════════════════════════════════════════
+function renderDB(){
+  var q=(document.getElementById('db-q').value||'').toLowerCase();
+  var bf=document.getElementById('db-bs').value;
+  var r=DB.slice();
+  if(bf) r=r.filter(function(x){return x.bank===bf;});
+  if(q) r=r.filter(function(x){return x.name.toLowerCase().includes(q)||x.norek.includes(q)||x.bank.toLowerCase().includes(q);});
+  document.getElementById('db-info').textContent='Menampilkan '+r.length+' dari '+DB.length+' rekening';
+  document.getElementById('db-body').innerHTML=r.length
+    ?r.map(function(x,i){
+        var origIdx=DB.findIndex(function(d){return rkey(d)===rkey(x);});
+        return '<tr><td style="color:var(--txt3);font-size:10px;font-family:var(--fm)">'+(i+1)+'</td><td>'+bkBadge(x.bank)+'</td><td style="font-weight:500">'+esc(x.name)+'</td><td class="nr">'+esc(x.norek)+'</td><td><button class="del-btn" onclick="hapusRek('+origIdx+')" title="Hapus">✕</button></td></tr>';
+      }).join('')
+    :'<tr><td colspan="5" class="te">Tidak ada data ditemukan</td></tr>';
+}
+function hapusRek(idx){
+  if(!confirm('Hapus rekening "'+DB[idx].name+'" ('+DB[idx].bank+' - '+DB[idx].norek+')?')) return;
+  DB.splice(idx,1);
+  saveDB();refreshAll();renderDB();
 }
 
-function renderDash(){
-  const el=document.getElementById('dash-hist');
-  if(!hist.length){el.innerHTML='<div style="color:var(--text3);font-size:12px;text-align:center;padding:16px">Belum ada riwayat pengecekan</div>';return}
-  el.innerHTML='<div class="hist-list">'+hist.slice(0,4).map((h,i)=>`
-    <div class="hist-item" onclick="loadHist(${i});showPage('check')">
-      <span class="hist-ico">◷</span>
-      <div class="hist-info"><div class="hist-title">${h.count} rekening dicek</div><div class="hist-meta">${h.time}</div></div>
-      <div class="hist-badges">
-        <span class="sbadge sy"><span class="sdot sdot-g"></span>${h.match} tersedia</span>
-        <span class="sbadge sn"><span class="sdot sdot-r"></span>${h.count-h.match} tidak ada</span>
-      </div>
-    </div>`).join('')+'</div>';
+// ═══════════════════════════════════════════
+// RIWAYAT
+// ═══════════════════════════════════════════
+function renderDashHist(){
+  var el=document.getElementById('dash-hist');
+  if(!riwayat.length){el.innerHTML='<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada riwayat pengecekan</div>';return;}
+  el.innerHTML='<div class="hl">'+riwayat.slice(0,4).map(function(h,i){return '<div class="hi" onclick="loadRiwayat('+i+');go(\'cek\')"><span class="hi-ico">◷</span><div class="hi-info"><div class="hi-t">'+h.cnt+' rekening dicek</div><div class="hi-m">'+h.t+'</div></div><div class="hi-b"><span class="sb2 sy"><span class="sdot sdg"></span>'+h.mtch+' tersedia</span><span class="sb2 sn"><span class="sdot sdr"></span>'+(h.cnt-h.mtch)+' tidak ada</span></div></div>';}).join('')+'</div>';
+}
+function renderRiwayat(){
+  var el=document.getElementById('riwayat-list');
+  if(!riwayat.length){el.innerHTML='<div style="color:var(--txt3);font-size:13px;text-align:center;padding:60px">Belum ada riwayat pengecekan</div>';return;}
+  el.innerHTML='<div class="hl">'+riwayat.map(function(h,i){return '<div class="hi" onclick="loadRiwayat('+i+');go(\'cek\')"><span class="hi-ico">◷</span><div class="hi-info"><div class="hi-t">'+h.cnt+' rekening dicek</div><div class="hi-m">'+h.t+'</div></div><div class="hi-b"><span class="sb2 sy"><span class="sdot sdg"></span>'+h.mtch+' tersedia</span><span class="sb2 sn"><span class="sdot sdr"></span>'+(h.cnt-h.mtch)+' tidak ada</span></div></div>';}).join('')+'</div>';
+}
+function loadRiwayat(i){hasil=riwayat[i].data.slice();document.getElementById('cek-hasil').style.display='block';fillBankSels();setF('a');}
+function clearRiwayat(){if(!confirm('Hapus semua riwayat pengecekan?'))return;riwayat=[];saveRiwayat();renderRiwayat();renderDashHist();}
+
+// ═══════════════════════════════════════════
+// TAMBAH REKENING
+// ═══════════════════════════════════════════
+function tambahSatu(){
+  var bank=document.getElementById('add-bank').value.trim();
+  var name=document.getElementById('add-nama').value.trim();
+  var norek=document.getElementById('add-norek').value.trim().replace(/\s+/g,'');
+  if(!bank){showAl('al-add','⚠️ Pilih nama bank terlebih dahulu.','al-w');return;}
+  if(!name){showAl('al-add','⚠️ Nama pemilik tidak boleh kosong.','al-w');return;}
+  if(!norek){showAl('al-add','⚠️ Nomor rekening tidak boleh kosong.','al-w');return;}
+  if(!/^\d+$/.test(norek)){showAl('al-add','⚠️ Nomor rekening hanya boleh berisi angka.','al-w');return;}
+  var rec={bank:bank,name:name,norek:norek};
+  if(DB.some(function(r){return rkey(r)===rkey(rec);})){showAl('al-add','⚠️ Rekening ini sudah ada di database (duplikat).','al-w');return;}
+  DB.unshift(rec);
+  recentAdded.unshift(Object.assign({},rec,{at:now2()}));
+  saveDB();refreshAll();renderRecentTbl();
+  showAl('al-add','✅ Rekening <strong>'+esc(name)+'</strong> ('+bank+') berhasil disimpan!','al-s');
+  resetForm();
+}
+function tambahBatch(){
+  var val=document.getElementById('inp-batch').value.trim();
+  if(!val){showAl('al-batch','⚠️ Masukkan data rekening terlebih dahulu.','al-w');return;}
+  var parsed=parse(val);
+  if(!parsed.length){showAl('al-batch','⚠️ Format tidak valid. Gunakan Tab sebagai pemisah.','al-w');return;}
+  var ex=new Set(DB.map(rkey));
+  var added=parsed.filter(function(r){return !ex.has(rkey(r));});
+  var skip=parsed.length-added.length;
+  if(!added.length){showAl('al-batch','⚠️ Semua rekening sudah ada di database (semua duplikat).','al-w');return;}
+  added.forEach(function(r){DB.unshift(r);recentAdded.unshift(Object.assign({},r,{at:now2()}));});
+  saveDB();refreshAll();renderRecentTbl();
+  showAl('al-batch','✅ <strong>'+added.length+' rekening</strong> berhasil ditambahkan.'+(skip?' '+skip+' duplikat dilewati.':''),'al-s');
+  document.getElementById('inp-batch').value='';
+}
+function resetForm(){
+  document.getElementById('add-bank').value='';
+  document.getElementById('add-nama').value='';
+  document.getElementById('add-norek').value='';
+}
+function renderRecentTbl(){
+  var el=document.getElementById('recent-tbl');
+  if(!recentAdded.length){el.innerHTML='<div style="color:var(--txt3);font-size:12px;text-align:center;padding:14px">Belum ada rekening ditambahkan di sesi ini</div>';return;}
+  el.innerHTML='<div class="tw"><table><thead><tr><th style="width:88px">Bank</th><th>Nama</th><th>No. Rekening</th><th style="width:155px">Waktu Tambah</th></tr></thead><tbody>'+recentAdded.slice(0,15).map(function(r){return '<tr><td>'+bkBadge(r.bank)+'</td><td style="font-weight:500">'+esc(r.name)+'</td><td class="nr">'+esc(r.norek)+'</td><td style="font-size:11px;color:var(--txt3)">'+r.at+'</td></tr>';}).join('')+'</tbody></table></div>';
 }
 
-function renderHistPage(){
-  const el=document.getElementById('hist-page');
-  if(!hist.length){el.innerHTML='<div style="color:var(--text3);font-size:13px;text-align:center;padding:60px">Belum ada riwayat pengecekan</div>';return}
-  el.innerHTML='<div class="hist-list">'+hist.map((h,i)=>`
-    <div class="hist-item" onclick="loadHist(${i});showPage('check')">
-      <span class="hist-ico">◷</span>
-      <div class="hist-info"><div class="hist-title">${h.count} rekening dicek</div><div class="hist-meta">${h.time}</div></div>
-      <div class="hist-badges">
-        <span class="sbadge sy"><span class="sdot sdot-g"></span>${h.match} tersedia</span>
-        <span class="sbadge sn"><span class="sdot sdot-r"></span>${h.count-h.match} tidak ada</span>
-      </div>
-    </div>`).join('')+'</div>';
-}
-
-function loadHist(i){results=[...hist[i].data];document.getElementById('result-section').style.display='block';setFilter('all')}
-function clearHist(){if(!confirm('Hapus semua riwayat?'))return;hist=[];saveHist();renderDash();renderHistPage()}
-function clearCheck(){document.getElementById('check-input').value='';document.getElementById('result-section').style.display='none';results=[]}
-function pasteEx(){document.getElementById('check-input').value='CIMB\tYENI YUSTIANA\t708707460800\nCIMB\tHALAWANI\t708720033200\nCIMB\tYUDA SYAHPUTRA\t708556371200\nBCA\tParmanto\t0771373541\nBRI\tTestUser\t999999999999'}
-
-function exportCSV(){
-  if(!results.length){alert('Tidak ada data hasil pengecekan untuk diekspor.');return}
-  const rows=[['Bank','Nama','No. Rekening','Status'],...results.map(r=>[r.bank,r.name,r.norek,r.found?'Tersedia':'Tidak Tersedia'])];
-  dl('hasil_cek_'+new Date().toLocaleDateString('id-ID').replace(/\//g,'-')+'.csv',rows.map(r=>r.join(',')).join('\n'));
-}
-function exportDBCSV(){
-  const rows=[['Bank','Nama','No. Rekening'],...DB.map(r=>[r.bank,r.name,r.norek])];
-  dl('database_rekening_premium.csv',rows.map(r=>r.join(',')).join('\n'));
-}
-function dl(fn,c){const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(c);a.download=fn;a.click()}
-
-function openImport(){document.getElementById('import-modal').classList.add('open');document.getElementById('import-ta').value='';document.getElementById('import-alert').className='alert'}
-function closeImport(){document.getElementById('import-modal').classList.remove('open')}
+// ═══════════════════════════════════════════
+// IMPORT MASSAL
+// ═══════════════════════════════════════════
+function openImport(){document.getElementById('imp-ta').value='';document.getElementById('al-imp').className='al';document.getElementById('m-import').classList.add('on');}
+function closeImport(){document.getElementById('m-import').classList.remove('on');}
 function doImport(replace){
-  const val=document.getElementById('import-ta').value.trim();
+  var val=document.getElementById('imp-ta').value.trim();
   if(!val)return;
-  const newR=parse(val);if(!newR.length)return;
-  const al=document.getElementById('import-alert');
+  var parsed=parse(val);
+  if(!parsed.length)return;
   if(replace){
-    DB=newR;
-    al.className='alert show alert-success';al.innerHTML=`✅ Database diganti dengan ${newR.length} rekening baru.`;
+    if(!confirm('Ganti semua '+DB.length+' rekening dengan '+parsed.length+' rekening baru?'))return;
+    DB=parsed;
+    showAl('al-imp','✅ Database diganti dengan '+parsed.length+' rekening baru.','al-s');
   }else{
-    const ex=new Set(DB.map(key));
-    const added=newR.filter(r=>!ex.has(key(r)));
-    DB=[...DB,...added];
-    al.className='alert show alert-success';al.innerHTML=`✅ ${added.length} rekening ditambahkan. ${newR.length-added.length} duplikat dilewati.`;
+    var ex=new Set(DB.map(rkey));
+    var added=parsed.filter(function(r){return !ex.has(rkey(r));});
+    var skip=parsed.length-added.length;
+    DB=DB.concat(added);
+    showAl('al-imp','✅ '+added.length+' ditambahkan. '+skip+' duplikat dilewati.','al-s');
   }
-  saveDB();refreshStats();renderDB();
+  saveDB();refreshAll();
   setTimeout(closeImport,2200);
 }
 
-function showPage(n){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+n).classList.add('active');
-  const map={dashboard:0,check:1,database:2,history:3};
-  document.querySelectorAll('.nav-btn')[map[n]]?.classList.add('active');
-  if(n==='database')renderDB();
+// ═══════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════
+function exportHasil(){
+  if(!hasil.length){alert('Tidak ada data hasil pengecekan.');return;}
+  var rows=[['Bank','Nama','No. Rekening','Status']].concat(hasil.map(function(r){return [r.bank,r.name,r.norek,r.found?'Tersedia':'Tidak Tersedia'];}));
+  dl('hasil_cek_'+new Date().toLocaleDateString('id-ID').replace(/\//g,'-')+'.csv',rows.map(function(r){return r.join(',');}).join('\n'));
+}
+function exportDB(){
+  var rows=[['Bank','Nama','No. Rekening']].concat(DB.map(function(r){return [r.bank,r.name,r.norek];}));
+  dl('database_rekening.csv',rows.map(function(r){return r.join(',');}).join('\n'));
+}
+function doExportCSV(){if(hasil.length){exportHasil();}else{exportDB();}}
+function dl(fn,c){var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(c);a.download=fn;a.click();}
+
+// ═══════════════════════════════════════════
+// RESET
+// ═══════════════════════════════════════════
+function konfirmReset(){
+  if(!confirm('Reset database ke data default? Semua data tambahan akan hilang.'))return;
+  DB=parse(DEF);saveDB();refreshAll();renderDB();
+  alert('Database berhasil direset ke data default.');
+  go('dash');
 }
 
-// ══════════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════════
-loadDB();
-loadStats();
-loadHist();
-refreshStats();
-renderDash();
-renderHistPage();
+// ═══════════════════════════════════════════
+// ALERT HELPER
+// ═══════════════════════════════════════════
+function showAl(id,msg,cls){
+  var el=document.getElementById(id);
+  if(!el)return;
+  el.className='al on '+cls;
+  el.innerHTML=msg;
+  clearTimeout(el._t);
+  el._t=setTimeout(function(){el.className='al';},5500);
+}
 
-// ══════════════════════════════════════════════
-//  PROTEKSI KODE
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+loadDB();loadStats();loadRiwayat();
+refreshAll();
+renderRiwayat();
+
+// ═══════════════════════════════════════════
+// PROTEKSI PREMIUM — KUNCI PENUH
+// ═══════════════════════════════════════════
 (function(){
-  // Blokir klik kanan
-  document.addEventListener('contextmenu', function(e){
+  // ── Buat overlay shield ──
+  var sh=document.createElement('div');
+  sh.id='__shield__';
+  sh.style.cssText='display:none;position:fixed;inset:0;z-index:2147483647;background:linear-gradient(135deg,#060809 0%,#0d1117 60%,#060809 100%);align-items:center;justify-content:center;flex-direction:column;font-family:Outfit,sans-serif;cursor:default;user-select:none;';
+  sh.innerHTML='<div style="text-align:center;padding:40px;max-width:420px">'
+    +'<div style="font-size:64px;margin-bottom:20px;filter:drop-shadow(0 0 32px rgba(201,168,76,.6));animation:shk .5s ease">🔒</div>'
+    +'<div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#e8c97a;margin-bottom:10px;letter-spacing:.02em">Akses Ditolak</div>'
+    +'<div style="font-size:13px;color:#4a5a78;line-height:1.9;margin-bottom:28px">Tindakan ini tidak diizinkan.<br>Sistem telah dikunci untuk melindungi<br>kerahasiaan data rekening.</div>'
+    +'<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:20px;font-size:10px;color:#c9a84c;letter-spacing:.12em;text-transform:uppercase">'
+    +'<span style="width:6px;height:6px;border-radius:50%;background:#c9a84c;box-shadow:0 0 6px #c9a84c;display:inline-block;animation:pl 2s infinite"></span>'
+    +'RekeningCheck Premium</div>'
+    +'</div>'
+    +'<style>'
+    +'@keyframes shk{0%{transform:scale(1.3)}100%{transform:scale(1)}}'
+    +'@keyframes pl{0%,100%{opacity:1}50%{opacity:.3}}'
+    +'</style>';
+  document.body.appendChild(sh);
+
+  var devOpen=false, shTimer=null;
+
+  function showShield(auto){
+    sh.style.display='flex';
+    clearTimeout(shTimer);
+    // Jika bukan karena devtools, tutup otomatis setelah 2.5 detik
+    if(!auto) shTimer=setTimeout(function(){if(!devOpen)hideShield();},2500);
+  }
+  function hideShield(){if(!devOpen){sh.style.display='none';}}
+
+  // ── Blokir KLIK KANAN ──
+  document.addEventListener('contextmenu',function(e){
     e.preventDefault();
-    showShield();
+    e.stopPropagation();
+    showShield(false);
     return false;
-  });
+  },true);
 
-  // Blokir F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U, Ctrl+S
-  document.addEventListener('keydown', function(e){
-    const key = e.key || e.keyCode;
+  // ── Blokir KEYBOARD ──
+  document.addEventListener('keydown',function(e){
+    var k=e.keyCode;
     // F12
-    if(e.keyCode === 123){ e.preventDefault(); showShield(); return false; }
-    // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
-    if(e.ctrlKey && e.shiftKey && (e.keyCode===73||e.keyCode===74||e.keyCode===67)){
-      e.preventDefault(); showShield(); return false;
+    if(k===123){e.preventDefault();e.stopPropagation();showShield(false);return false;}
+    // Ctrl+Shift+I (DevTools)
+    if(e.ctrlKey&&e.shiftKey&&k===73){e.preventDefault();e.stopPropagation();showShield(false);return false;}
+    // Ctrl+Shift+J (Console)
+    if(e.ctrlKey&&e.shiftKey&&k===74){e.preventDefault();e.stopPropagation();showShield(false);return false;}
+    // Ctrl+Shift+C (Inspect Element)
+    if(e.ctrlKey&&e.shiftKey&&k===67){e.preventDefault();e.stopPropagation();showShield(false);return false;}
+    // Ctrl+Shift+K (Firefox Console)
+    if(e.ctrlKey&&e.shiftKey&&k===75){e.preventDefault();e.stopPropagation();showShield(false);return false;}
+    // Ctrl+U (View Source)
+    if(e.ctrlKey&&k===85){e.preventDefault();e.stopPropagation();showShield(false);return false;}
+    // Ctrl+S (Save Page)
+    if(e.ctrlKey&&k===83){e.preventDefault();e.stopPropagation();return false;}
+    // Ctrl+A (Select All) - nonaktifkan di luar input
+    if(e.ctrlKey&&k===65&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){
+      e.preventDefault();return false;
     }
-    // Ctrl+U (view source)
-    if(e.ctrlKey && e.keyCode===85){ e.preventDefault(); showShield(); return false; }
-    // Ctrl+S (save page)
-    if(e.ctrlKey && e.keyCode===83){ e.preventDefault(); return false; }
-  });
+  },true);
 
-  // Deteksi DevTools terbuka via ukuran window
-  let devOpen = false;
-  const threshold = 160;
+  // ── Deteksi DevTools via ukuran window ──
+  function checkDevTools(){
+    var wDiff=window.outerWidth-window.innerWidth>160;
+    var hDiff=window.outerHeight-window.innerHeight>160;
+    if(wDiff||hDiff){
+      if(!devOpen){devOpen=true;showShield(true);}
+    } else {
+      if(devOpen){devOpen=false;hideShield();}
+    }
+  }
+  setInterval(checkDevTools,700);
+
+  // ── Deteksi DevTools via debugger timing ──
   setInterval(function(){
-    const widthDiff = window.outerWidth - window.innerWidth > threshold;
-    const heightDiff = window.outerHeight - window.innerHeight > threshold;
-    if((widthDiff || heightDiff) && !devOpen){
-      devOpen = true;
-      showShield();
-    } else if(!widthDiff && !heightDiff){
-      devOpen = false;
-      hideShield();
-    }
-  }, 800);
+    var t=new Date();
+    (function(){})['constructor']('debugger')();
+    if(new Date()-t>100){devOpen=true;showShield(true);}
+  },3000);
 
-  // Buat overlay shield
-  const shield = document.createElement('div');
-  shield.id = 'devtools-shield';
-  shield.style.cssText = `
-    display:none; position:fixed; inset:0; z-index:99999;
-    background:linear-gradient(135deg,#060809 0%,#0d1117 100%);
-    align-items:center; justify-content:center; flex-direction:column;
-    font-family:'Outfit',sans-serif;
-  `;
-  shield.innerHTML = `
-    <div style="text-align:center;padding:40px;max-width:420px;">
-      <div style="font-size:64px;margin-bottom:24px;filter:drop-shadow(0 0 30px rgba(201,168,76,0.5))">🔒</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#e8c97a;margin-bottom:12px;letter-spacing:0.02em">Akses Ditolak</div>
-      <div style="font-size:13px;color:#3d4d68;line-height:1.8;margin-bottom:28px">
-        Tindakan ini tidak diizinkan.<br>
-        Sistem telah dikunci untuk melindungi data dan kode.
-      </div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:20px;font-size:11px;color:#c9a84c;letter-spacing:0.1em;text-transform:uppercase">
-        <span style="width:6px;height:6px;border-radius:50%;background:#c9a84c;display:inline-block"></span>
-        RekeningCheck Premium
-      </div>
-    </div>
-  `;
-  document.body.appendChild(shield);
-
-  function showShield(){
-    shield.style.display = 'flex';
-    // Auto sembunyikan setelah 3 detik untuk klik kanan (bukan devtools)
-    clearTimeout(shield._t);
-    if(!devOpen){
-      shield._t = setTimeout(hideShield, 2500);
-    }
-  }
-
-  function hideShield(){
-    if(!devOpen) shield.style.display = 'none';
-  }
-
-  // Disable text selection pada elemen non-input
-  document.addEventListener('selectstart', function(e){
+  // ── Nonaktifkan seleksi teks ──
+  document.addEventListener('selectstart',function(e){
     if(!['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){
-      e.preventDefault();
+      e.preventDefault();return false;
+    }
+  },true);
+
+  // ── Nonaktifkan drag ──
+  document.addEventListener('dragstart',function(e){e.preventDefault();return false;},true);
+
+  // ── Nonaktifkan print screen tidak bisa dicegah sepenuhnya di browser,
+  //    tapi kita bisa blur konten jika window kehilangan fokus ──
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='hidden'){
+      document.body.style.filter='blur(10px)';
+    } else {
+      setTimeout(function(){document.body.style.filter='';},200);
     }
   });
 
-  // Disable drag
-  document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+  // ── Cegah pembukaan via iframe ──
+  if(window.top!==window.self){
+    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#060809;color:#c9a84c;font-family:Outfit,sans-serif;font-size:16px">🔒 Akses tidak diizinkan</div>';
+  }
 
 })();
 </script>
