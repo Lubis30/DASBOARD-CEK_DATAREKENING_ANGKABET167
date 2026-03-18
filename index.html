@@ -761,111 +761,68 @@ refreshAll();
 renderRiwayat();
 
 // ═══════════════════════════════════════════
-// PROTEKSI PREMIUM — KUNCI PENUH
+// PROTEKSI - KLIK KANAN, F12, CTRL+SHIFT+C
 // ═══════════════════════════════════════════
 (function(){
-  // ── Buat overlay shield ──
-  var sh=document.createElement('div');
-  sh.id='__shield__';
-  sh.style.cssText='display:none;position:fixed;inset:0;z-index:2147483647;background:linear-gradient(135deg,#060809 0%,#0d1117 60%,#060809 100%);align-items:center;justify-content:center;flex-direction:column;font-family:Outfit,sans-serif;cursor:default;user-select:none;';
-  sh.innerHTML='<div style="text-align:center;padding:40px;max-width:420px">'
-    +'<div style="font-size:64px;margin-bottom:20px;filter:drop-shadow(0 0 32px rgba(201,168,76,.6));animation:shk .5s ease">🔒</div>'
-    +'<div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#e8c97a;margin-bottom:10px;letter-spacing:.02em">Akses Ditolak</div>'
-    +'<div style="font-size:13px;color:#4a5a78;line-height:1.9;margin-bottom:28px">Tindakan ini tidak diizinkan.<br>Sistem telah dikunci untuk melindungi<br>kerahasiaan data rekening.</div>'
-    +'<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:20px;font-size:10px;color:#c9a84c;letter-spacing:.12em;text-transform:uppercase">'
-    +'<span style="width:6px;height:6px;border-radius:50%;background:#c9a84c;box-shadow:0 0 6px #c9a84c;display:inline-block;animation:pl 2s infinite"></span>'
-    +'RekeningCheck Premium</div>'
-    +'</div>'
-    +'<style>'
-    +'@keyframes shk{0%{transform:scale(1.3)}100%{transform:scale(1)}}'
-    +'@keyframes pl{0%,100%{opacity:1}50%{opacity:.3}}'
-    +'</style>';
+  // Buat overlay shield
+  var sh = document.createElement('div');
+  sh.style.cssText = 'display:none;position:fixed;inset:0;z-index:2147483647;background:linear-gradient(135deg,#060809,#0d1117);align-items:center;justify-content:center;flex-direction:column;font-family:Outfit,sans-serif;';
+  sh.innerHTML = '<div style="text-align:center;padding:40px;max-width:420px">'
+    + '<div style="font-size:64px;margin-bottom:20px;filter:drop-shadow(0 0 32px rgba(201,168,76,.6))">&#x1F512;</div>'
+    + '<div style="font-family:Cormorant Garamond,serif;font-size:28px;font-weight:700;color:#e8c97a;margin-bottom:10px">Akses Ditolak</div>'
+    + '<div style="font-size:13px;color:#4a5a78;line-height:1.9;margin-bottom:28px">Tindakan ini tidak diizinkan.<br>Sistem dikunci untuk melindungi data.</div>'
+    + '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:20px;font-size:10px;color:#c9a84c;letter-spacing:.1em;text-transform:uppercase">'
+    + '<span style="width:6px;height:6px;border-radius:50%;background:#c9a84c;display:inline-block"></span>RekeningCheck Premium</div>'
+    + '</div>';
   document.body.appendChild(sh);
 
-  var devOpen=false, shTimer=null;
+  var devOpen = false, shTimer = null;
 
-  function showShield(auto){
-    sh.style.display='flex';
+  function showShield(permanent) {
+    sh.style.display = 'flex';
     clearTimeout(shTimer);
-    // Jika bukan karena devtools, tutup otomatis setelah 2.5 detik
-    if(!auto) shTimer=setTimeout(function(){if(!devOpen)hideShield();},2500);
+    if (!permanent) {
+      shTimer = setTimeout(function(){ if (!devOpen) hideShield(); }, 2500);
+    }
   }
-  function hideShield(){if(!devOpen){sh.style.display='none';}}
+  function hideShield() {
+    if (!devOpen) sh.style.display = 'none';
+  }
 
-  // ── Blokir KLIK KANAN ──
-  document.addEventListener('contextmenu',function(e){
+  // Blokir klik kanan
+  document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
-    e.stopPropagation();
     showShield(false);
     return false;
-  },true);
-
-  // ── Blokir KEYBOARD ──
-  document.addEventListener('keydown',function(e){
-    var k=e.keyCode;
-    // F12
-    if(k===123){e.preventDefault();e.stopPropagation();showShield(false);return false;}
-    // Ctrl+Shift+I (DevTools)
-    if(e.ctrlKey&&e.shiftKey&&k===73){e.preventDefault();e.stopPropagation();showShield(false);return false;}
-    // Ctrl+Shift+J (Console)
-    if(e.ctrlKey&&e.shiftKey&&k===74){e.preventDefault();e.stopPropagation();showShield(false);return false;}
-    // Ctrl+Shift+C (Inspect Element)
-    if(e.ctrlKey&&e.shiftKey&&k===67){e.preventDefault();e.stopPropagation();showShield(false);return false;}
-    // Ctrl+Shift+K (Firefox Console)
-    if(e.ctrlKey&&e.shiftKey&&k===75){e.preventDefault();e.stopPropagation();showShield(false);return false;}
-    // Ctrl+U (View Source)
-    if(e.ctrlKey&&k===85){e.preventDefault();e.stopPropagation();showShield(false);return false;}
-    // Ctrl+S (Save Page)
-    if(e.ctrlKey&&k===83){e.preventDefault();e.stopPropagation();return false;}
-    // Ctrl+A (Select All) - nonaktifkan di luar input
-    if(e.ctrlKey&&k===65&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){
-      e.preventDefault();return false;
-    }
-  },true);
-
-  // ── Deteksi DevTools via ukuran window ──
-  function checkDevTools(){
-    var wDiff=window.outerWidth-window.innerWidth>160;
-    var hDiff=window.outerHeight-window.innerHeight>160;
-    if(wDiff||hDiff){
-      if(!devOpen){devOpen=true;showShield(true);}
-    } else {
-      if(devOpen){devOpen=false;hideShield();}
-    }
-  }
-  setInterval(checkDevTools,700);
-
-  // ── Deteksi DevTools via debugger timing ──
-  setInterval(function(){
-    var t=new Date();
-    (function(){})['constructor']('debugger')();
-    if(new Date()-t>100){devOpen=true;showShield(true);}
-  },3000);
-
-  // ── Nonaktifkan seleksi teks ──
-  document.addEventListener('selectstart',function(e){
-    if(!['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){
-      e.preventDefault();return false;
-    }
-  },true);
-
-  // ── Nonaktifkan drag ──
-  document.addEventListener('dragstart',function(e){e.preventDefault();return false;},true);
-
-  // ── Nonaktifkan print screen tidak bisa dicegah sepenuhnya di browser,
-  //    tapi kita bisa blur konten jika window kehilangan fokus ──
-  document.addEventListener('visibilitychange',function(){
-    if(document.visibilityState==='hidden'){
-      document.body.style.filter='blur(10px)';
-    } else {
-      setTimeout(function(){document.body.style.filter='';},200);
-    }
   });
 
-  // ── Cegah pembukaan via iframe ──
-  if(window.top!==window.self){
-    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#060809;color:#c9a84c;font-family:Outfit,sans-serif;font-size:16px">🔒 Akses tidak diizinkan</div>';
-  }
+  // Blokir tombol keyboard berbahaya SAJA (bukan semua tombol)
+  document.addEventListener('keydown', function(e) {
+    var k = e.keyCode;
+    // F12
+    if (k === 123) { e.preventDefault(); showShield(false); return false; }
+    // Ctrl+Shift+I
+    if (e.ctrlKey && e.shiftKey && k === 73) { e.preventDefault(); showShield(false); return false; }
+    // Ctrl+Shift+J
+    if (e.ctrlKey && e.shiftKey && k === 74) { e.preventDefault(); showShield(false); return false; }
+    // Ctrl+Shift+C
+    if (e.ctrlKey && e.shiftKey && k === 67) { e.preventDefault(); showShield(false); return false; }
+    // Ctrl+U
+    if (e.ctrlKey && k === 85) { e.preventDefault(); showShield(false); return false; }
+    // Ctrl+S
+    if (e.ctrlKey && k === 83) { e.preventDefault(); return false; }
+  });
+
+  // Deteksi DevTools via ukuran window
+  setInterval(function() {
+    var w = window.outerWidth - window.innerWidth > 160;
+    var h = window.outerHeight - window.innerHeight > 160;
+    if (w || h) {
+      if (!devOpen) { devOpen = true; showShield(true); }
+    } else {
+      if (devOpen) { devOpen = false; hideShield(); }
+    }
+  }, 800);
 
 })();
 </script>
