@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RekeningCheck — Premium Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060809;
+  --bg2:#0a0c0f;
+  --s1:#0d1117;
+  --s2:#111620;
+  --s3:#161c28;
+  --s4:#1c2436;
+  --gold:#c9a84c;
+  --gold2:#e8c97a;
+  --gold3:#f5e0a0;
+  --gold-dim:rgba(201,168,76,0.12);
+  --gold-glow:rgba(201,168,76,0.25);
+  --silver:#8a9ab5;
+  --border:rgba(201,168,76,0.1);
+  --border2:rgba(201,168,76,0.22);
+  --border3:rgba(255,255,255,0.05);
+  --green:#2dd4a0;
+  --green-bg:rgba(45,212,160,0.08);
+  --green-border:rgba(45,212,160,0.2);
+  --red:#f05a5a;
+  --red-bg:rgba(240,90,90,0.08);
+  --red-border:rgba(240,90,90,0.2);
+  --blue:#4da8f0;
+  --blue-bg:rgba(77,168,240,0.08);
+  --amber:#f0b84d;
+  --amber-bg:rgba(240,184,77,0.08);
+  --text:#e8eaf0;
+  --text2:#7a8aa8;
+  --text3:#3d4d68;
+  --font:'Outfit',sans-serif;
+  --serif:'Cormorant Garamond',serif;
+  --mono:'JetBrains Mono',monospace;
+  --r:10px;--r2:14px;--r3:18px;
+  --shadow-gold:0 0 40px rgba(201,168,76,0.08);
+  --shadow-card:0 8px 32px rgba(0,0,0,0.6),0 2px 8px rgba(0,0,0,0.4);
+  --shadow-inset:inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+html{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh}
+body{min-height:100vh;background:var(--bg);position:relative;overflow-x:hidden}
+
+/* ANIMATED BG */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(201,168,76,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 80%, rgba(77,168,240,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 50% 50%, rgba(0,0,0,0.8) 0%, transparent 100%);
+  pointer-events:none;
+}
+
+/* GRID TEXTURE */
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.015) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+.app{display:flex;min-height:100vh;position:relative;z-index:1}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar{
+  width:260px;min-height:100vh;
+  background:linear-gradient(180deg, var(--s1) 0%, var(--bg2) 100%);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;z-index:100;
+  box-shadow:4px 0 40px rgba(0,0,0,0.8), inset -1px 0 0 rgba(201,168,76,0.06);
+}
+
+.logo-area{
+  padding:28px 22px 22px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg, rgba(201,168,76,0.05) 0%, transparent 60%);
+  position:relative;overflow:hidden;
+}
+.logo-area::after{
+  content:'';position:absolute;top:-20px;right:-20px;
+  width:80px;height:80px;
+  background:radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+}
+.logo-mark{display:flex;align-items:center;gap:13px}
+.logo-gem{
+  width:42px;height:42px;
+  background:linear-gradient(135deg, #c9a84c 0%, #e8c97a 50%, #c9a84c 100%);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+  box-shadow:0 4px 20px rgba(201,168,76,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  transform:perspective(100px) rotateX(5deg) rotateY(-5deg);
+  transition:transform 0.3s;
+}
+.logo-gem:hover{transform:perspective(100px) rotateX(-2deg) rotateY(2deg) scale(1.05)}
+.logo-name{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--gold2);letter-spacing:0.02em;line-height:1}
+.logo-tagline{font-size:10px;color:var(--text3);margin-top:3px;letter-spacing:0.12em;text-transform:uppercase}
+
+.nav-wrap{padding:16px 12px;flex:1;overflow-y:auto}
+.nav-section-lbl{font-size:9px;font-weight:600;color:var(--text3);letter-spacing:0.15em;text-transform:uppercase;padding:10px 10px 6px}
+.nav-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:9px;
+  cursor:pointer;font-size:13px;font-weight:500;
+  color:var(--text2);transition:all 0.2s;
+  margin-bottom:2px;border:none;background:none;
+  width:100%;text-align:left;font-family:var(--font);
+  position:relative;overflow:hidden;
+}
+.nav-btn::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;border-radius:0 2px 2px 0;
+  background:var(--gold);opacity:0;transition:opacity 0.2s;
+}
+.nav-btn:hover{background:rgba(255,255,255,0.03);color:var(--text)}
+.nav-btn.active{
+  background:linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.05) 100%);
+  color:var(--gold2);font-weight:600;
+  border:1px solid rgba(201,168,76,0.15);
+  box-shadow:0 2px 12px rgba(201,168,76,0.1), var(--shadow-inset);
+}
+.nav-btn.active::before{opacity:1}
+.nav-ico{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+
+.sidebar-bottom{padding:16px;border-top:1px solid var(--border)}
+.vault-card{
+  background:linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.03) 100%);
+  border:1px solid var(--border2);border-radius:var(--r2);
+  padding:14px 16px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4), var(--shadow-inset), inset 0 0 30px rgba(201,168,76,0.03);
+  position:relative;overflow:hidden;
+}
+.vault-card::after{
+  content:'◈';position:absolute;right:12px;top:8px;
+  font-size:32px;color:rgba(201,168,76,0.06);line-height:1;
+}
+.vault-lbl{font-size:9px;font-weight:600;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px}
+.vault-num{font-size:32px;font-weight:700;font-family:var(--mono);color:var(--gold2);letter-spacing:-0.02em;line-height:1;text-shadow:0 0 20px rgba(201,168,76,0.3)}
+.vault-sub{font-size:10px;color:var(--text3);margin-top:5px;letter-spacing:0.04em}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:260px;flex:1;padding:32px 36px;min-height:100vh}
+.page{display:none}
+.page.active{display:block;animation:luxFadeIn 0.35s cubic-bezier(.23,1,.32,1)}
+@keyframes luxFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;gap:16px}
+.page-eyebrow{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px}
+.page-title{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--text);letter-spacing:-0.01em;line-height:1}
+.page-sub{font-size:13px;color:var(--text2);margin-top:6px}
+.topbar-right{display:flex;gap:10px;align-items:center;flex-shrink:0;padding-top:6px}
+
+.live-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 15px;
+  background:linear-gradient(135deg, rgba(45,212,160,0.1), rgba(45,212,160,0.05));
+  border:1px solid rgba(45,212,160,0.2);border-radius:20px;
+  font-size:11px;font-weight:600;color:var(--green);
+  box-shadow:0 2px 12px rgba(45,212,160,0.1);
+  letter-spacing:0.04em;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;box-shadow:0 0 6px var(--green)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+
+/* ═══ STAT CARDS 3D ═══ */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.scard{
+  background:linear-gradient(145deg, var(--s2) 0%, var(--s1) 100%);
+  border-radius:var(--r3);
+  padding:22px 22px 18px;
+  position:relative;overflow:hidden;
+  box-shadow:var(--shadow-card), var(--shadow-inset);
+  transform:perspective(800px) rotateX(2deg);
+  transition:transform 0.3s cubic-bezier(.23,1,.32,1), box-shadow 0.3s;
+  cursor:default;
+}
+.scard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+.scard::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;top:0;
+  border-radius:var(--r3);
+  border:1px solid rgba(255,255,255,0.05);
+  pointer-events:none;
+}
+.scard:hover{transform:perspective(800px) rotateX(0deg) translateY(-3px) scale(1.01);box-shadow:0 16px 48px rgba(0,0,0,0.7),0 4px 12px rgba(0,0,0,0.4),var(--shadow-inset)}
+.scard-top-line{position:absolute;top:0;left:20px;right:20px;height:2px;border-radius:0 0 2px 2px}
+.s-gold .scard-top-line{background:linear-gradient(90deg, transparent, var(--gold), transparent)}
+.s-green .scard-top-line{background:linear-gradient(90deg, transparent, var(--green), transparent)}
+.s-red .scard-top-line{background:linear-gradient(90deg, transparent, var(--red), transparent)}
+.s-blue .scard-top-line{background:linear-gradient(90deg, transparent, var(--blue), transparent)}
+.scard-ico{font-size:24px;margin-bottom:12px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5))}
+.scard-lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px}
+.s-gold .scard-lbl{color:var(--gold)}
+.s-green .scard-lbl{color:var(--green)}
+.s-red .scard-lbl{color:var(--red)}
+.s-blue .scard-lbl{color:var(--blue)}
+.scard-val{font-size:36px;font-weight:700;font-family:var(--mono);line-height:1;letter-spacing:-0.03em}
+.s-gold .scard-val{color:var(--gold2);text-shadow:0 0 30px rgba(201,168,76,0.4)}
+.s-green .scard-val{color:var(--green);text-shadow:0 0 30px rgba(45,212,160,0.3)}
+.s-red .scard-val{color:var(--red);text-shadow:0 0 30px rgba(240,90,90,0.3)}
+.s-blue .scard-val{color:var(--blue);text-shadow:0 0 30px rgba(77,168,240,0.3)}
+.scard-meta{font-size:11px;color:var(--text3);margin-top:10px;display:flex;align-items:center;gap:7px}
+.pct{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;font-family:var(--mono)}
+.pct-g{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.pct-r{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.scard-glow{
+  position:absolute;bottom:-20px;right:-20px;
+  width:100px;height:100px;border-radius:50%;
+  opacity:0.06;pointer-events:none;
+}
+.s-gold .scard-glow{background:var(--gold)}
+.s-green .scard-glow{background:var(--green)}
+.s-red .scard-glow{background:var(--red)}
+.s-blue .scard-glow{background:var(--blue)}
+
+/* ═══ GLASS CARDS ═══ */
+.glass-card{
+  background:linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border:1px solid var(--border);border-radius:var(--r3);
+  box-shadow:var(--shadow-card), var(--shadow-inset);
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(4px);
+}
+.glass-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(201,168,76,0.15), transparent);
+  pointer-events:none;
+}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.card-title{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;letter-spacing:0.01em}
+.card-title-gold{font-family:var(--serif);font-size:15px;color:var(--gold2);font-weight:600}
+.card-body{padding:20px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+.mb22{margin-bottom:22px}
+
+/* BANK DISTRIBUTION */
+.brow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.brow:last-child{margin-bottom:0}
+.blbl{font-size:10px;font-weight:700;letter-spacing:0.06em;width:70px;flex-shrink:0}
+.bbar-bg{flex:1;height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,0.5)}
+.bbar{height:100%;border-radius:3px;background:linear-gradient(90deg, var(--gold), var(--gold3));box-shadow:0 0 8px rgba(201,168,76,0.4);transition:width 0.8s cubic-bezier(.23,1,.32,1)}
+.bcnt{font-size:11px;color:var(--text3);min-width:26px;text-align:right;font-family:var(--mono)}
+
+/* QUICK ACTIONS */
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qa-btn{
+  display:flex;align-items:center;gap:9px;
+  padding:12px 14px;border-radius:var(--r);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.02);
+  cursor:pointer;font-family:var(--font);font-size:12px;font-weight:500;
+  color:var(--text2);transition:all 0.2s;text-align:left;
+  box-shadow:var(--shadow-inset);
+}
+.qa-btn:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.06);color:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,0.4),var(--shadow-inset)}
+.qa-btn.gold{background:linear-gradient(135deg, rgba(201,168,76,0.15),rgba(201,168,76,0.05));border-color:var(--border2);color:var(--gold2)}
+.qa-btn.gold:hover{background:linear-gradient(135deg, rgba(201,168,76,0.25),rgba(201,168,76,0.1));box-shadow:0 4px 20px rgba(201,168,76,0.2)}
+.qa-btn.em{background:linear-gradient(135deg, rgba(45,212,160,0.12),rgba(45,212,160,0.04));border-color:var(--green-border);color:var(--green)}
+.qa-btn.em:hover{background:linear-gradient(135deg, rgba(45,212,160,0.2),rgba(45,212,160,0.08));box-shadow:0 4px 20px rgba(45,212,160,0.15)}
+.qa-ico{font-size:18px;flex-shrink:0}
+
+/* ═══ FORM ═══ */
+textarea{
+  width:100%;
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);border-radius:var(--r);
+  color:var(--text);font-family:var(--mono);font-size:12px;
+  padding:14px 16px;resize:vertical;min-height:150px;line-height:1.7;
+  outline:none;transition:all 0.2s;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,0.4);
+}
+textarea:focus{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.02);box-shadow:inset 0 2px 8px rgba(0,0,0,0.4),0 0 0 3px rgba(201,168,76,0.06)}
+textarea::placeholder{color:var(--text3)}
+.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:10px 20px;border-radius:var(--r);
+  font-size:13px;font-weight:600;cursor:pointer;
+  transition:all 0.2s;border:1px solid transparent;
+  font-family:var(--font);line-height:1;position:relative;overflow:hidden;
+}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);pointer-events:none}
+.btn-gold{
+  background:linear-gradient(135deg, #c9a84c, #a8873a);
+  color:#0a0c0f;border-color:rgba(201,168,76,0.3);
+  box-shadow:0 4px 16px rgba(201,168,76,0.3),var(--shadow-inset);
+  font-weight:700;
+}
+.btn-gold:hover{background:linear-gradient(135deg, #e8c97a, #c9a84c);box-shadow:0 6px 24px rgba(201,168,76,0.45),var(--shadow-inset);transform:translateY(-1px)}
+.btn-ghost{background:rgba(255,255,255,0.03);color:var(--text2);border-color:var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,0.06);color:var(--text);border-color:var(--border2);transform:translateY(-1px)}
+.btn-green{background:linear-gradient(135deg,rgba(45,212,160,0.2),rgba(45,212,160,0.1));color:var(--green);border-color:var(--green-border)}
+.btn-green:hover{background:linear-gradient(135deg,rgba(45,212,160,0.3),rgba(45,212,160,0.15));box-shadow:0 4px 16px rgba(45,212,160,0.15)}
+.btn-sm{padding:6px 14px;font-size:11px}
+
+/* ═══ FILTERS ═══ */
+.filters-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;background:rgba(0,0,0,0.2)}
+.fchip{
+  padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;
+  cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,0.02);
+  color:var(--text2);font-family:var(--font);transition:all 0.15s;letter-spacing:0.02em;
+}
+.fchip:hover{border-color:var(--border2);color:var(--text)}
+.fchip.fa{background:var(--gold-dim);border-color:var(--border2);color:var(--gold2)}
+.fchip.fy{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+.fchip.fn{background:var(--red-bg);border-color:var(--red-border);color:var(--red)}
+.vsep{width:1px;height:24px;background:var(--border);flex-shrink:0}
+.search-wrap{flex:1;min-width:180px;position:relative}
+.search-wrap input{
+  width:100%;background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);border-radius:8px;
+  padding:8px 12px 8px 34px;font-size:12px;color:var(--text);
+  font-family:var(--font);outline:none;transition:all 0.15s;
+}
+.search-wrap input:focus{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.02)}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:12px;pointer-events:none}
+.sel{
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text2);
+  font-family:var(--font);outline:none;cursor:pointer;
+}
+.sel:focus{border-color:rgba(201,168,76,0.3)}
+.sel option{background:var(--s2);color:var(--text)}
+
+/* ═══ TABLE ═══ */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead{background:rgba(0,0,0,0.3)}
+thead th{
+  padding:11px 16px;font-size:10px;font-weight:700;
+  color:var(--gold);text-transform:uppercase;letter-spacing:0.12em;
+  text-align:left;border-bottom:1px solid var(--border);
+}
+tbody tr{border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(201,168,76,0.04)}
+td{padding:11px 16px;font-size:13px;color:var(--text)}
+.norek{font-family:var(--mono);font-size:11px;color:var(--text2)}
+.tbl-empty{text-align:center;padding:50px;color:var(--text3);font-size:13px}
+.tbl-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text3);background:rgba(0,0,0,0.2)}
+
+/* BANK BADGES */
+.bbadge{display:inline-block;padding:3px 9px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+.bca{background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.2)}
+.bni{background:rgba(249,115,22,0.1);color:#fb923c;border:1px solid rgba(249,115,22,0.2)}
+.bri{background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2)}
+.mandiri{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2)}
+.cimb{background:rgba(168,85,247,0.1);color:#c084fc;border:1px solid rgba(168,85,247,0.2)}
+.maybank{background:rgba(234,179,8,0.1);color:#facc15;border:1px solid rgba(234,179,8,0.2)}
+.danamon{background:rgba(6,182,212,0.1);color:#22d3ee;border:1px solid rgba(6,182,212,0.2)}
+.permata{background:rgba(20,184,166,0.1);color:#2dd4bf;border:1px solid rgba(20,184,166,0.2)}
+.sinarmas{background:rgba(236,72,153,0.1);color:#f472b6;border:1px solid rgba(236,72,153,0.2)}
+.ocbc{background:rgba(132,204,22,0.1);color:#a3e635;border:1px solid rgba(132,204,22,0.2)}
+.dbank{background:rgba(255,255,255,0.05);color:var(--text2);border:1px solid var(--border)}
+
+/* STATUS BADGES */
+.sbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.03em}
+.sy{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);box-shadow:0 0 8px rgba(45,212,160,0.1)}
+.sn{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.sdot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.sdot-g{background:var(--green);box-shadow:0 0 4px var(--green)}
+.sdot-r{background:var(--red);box-shadow:0 0 4px var(--red)}
+
+/* ALERT */
+.alert{display:none;padding:12px 16px;border-radius:var(--r);font-size:13px;margin-bottom:16px;border:1px solid;align-items:center;gap:9px}
+.alert.show{display:flex}
+.alert-info{background:rgba(77,168,240,0.08);border-color:rgba(77,168,240,0.25);color:var(--blue)}
+.alert-success{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+.alert-warn{background:var(--amber-bg);border-color:rgba(240,184,77,0.3);color:var(--amber)}
+
+/* HISTORY */
+.hist-list{display:flex;flex-direction:column;gap:10px}
+.hist-item{
+  display:flex;align-items:center;gap:14px;padding:14px 18px;
+  background:rgba(255,255,255,0.02);
+  border-radius:var(--r);border:1px solid var(--border);
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:var(--shadow-inset);
+}
+.hist-item:hover{background:rgba(201,168,76,0.05);border-color:rgba(201,168,76,0.2);transform:translateX(3px);box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+.hist-ico{font-size:20px;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5))}
+.hist-info{flex:1}
+.hist-title{font-size:13px;font-weight:600;color:var(--text)}
+.hist-meta{font-size:11px;color:var(--text3);margin-top:2px;letter-spacing:0.02em}
+.hist-badges{display:flex;gap:7px;flex-shrink:0}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.modal-bg.open{display:flex}
+.modal{
+  background:linear-gradient(145deg, var(--s2) 0%, var(--s1) 100%);
+  border:1px solid var(--border2);border-radius:var(--r3);
+  padding:28px;width:520px;max-width:95vw;
+  box-shadow:0 24px 80px rgba(0,0,0,0.8),0 4px 16px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.04),inset 0 1px 0 rgba(201,168,76,0.1);
+  animation:luxFadeIn 0.25s ease;
+  position:relative;overflow:hidden;
+}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--gold2)}
+.modal-x{cursor:pointer;color:var(--text3);font-size:22px;line-height:1;background:none;border:none;font-family:var(--font);padding:0;transition:color 0.15s}
+.modal-x:hover{color:var(--text)}
+
+/* FORMAT HINT */
+.fmt-hint{font-size:11px;color:var(--text3);margin-bottom:14px;line-height:1.7;padding:10px 14px;background:rgba(201,168,76,0.04);border-left:2px solid var(--gold);border-radius:0 6px 6px 0}
+code{font-family:var(--mono);font-size:11px;color:var(--gold2);background:rgba(201,168,76,0.1);padding:1px 7px;border-radius:4px}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:20px 0}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.15);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(201,168,76,0.3)}
+
+/* SAVE INDICATOR */
+.save-ind{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:0.05em;
+  background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);
+  color:var(--gold);opacity:0;transition:opacity 0.3s;
+}
+.save-ind.show{opacity:1}
+.save-ind .sdot-g{box-shadow:0 0 4px var(--gold);background:var(--gold)}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="logo-area">
+    <div class="logo-mark">
+      <div class="logo-gem">🏦</div>
+      <div>
+        <div class="logo-name">RekeningCheck</div>
+        <div class="logo-tagline">Premium Verification System</div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-wrap">
+    <div class="nav-section-lbl">Navigasi</div>
+    <button class="nav-btn active" onclick="showPage('dashboard')"><span class="nav-ico">◈</span>Dashboard</button>
+    <button class="nav-btn" onclick="showPage('check')"><span class="nav-ico">⬡</span>Cek Rekening</button>
+    <button class="nav-btn" onclick="showPage('database')"><span class="nav-ico">◫</span>Database Kami</button>
+    <button class="nav-btn" onclick="showPage('history')"><span class="nav-ico">◷</span>Riwayat</button>
+    <div class="nav-section-lbl">Tools</div>
+    <button class="nav-btn" onclick="openImport()"><span class="nav-ico">⇪</span>Import Data</button>
+    <button class="nav-btn" onclick="exportCSV()"><span class="nav-ico">⇩</span>Export CSV</button>
+    <button class="nav-btn" onclick="resetDB()"><span class="nav-ico">↺</span>Reset ke Default</button>
+  </div>
+  <div class="sidebar-bottom">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <span class="save-ind" id="save-ind"><span class="sdot sdot-g"></span>TERSIMPAN</span>
+      <span style="font-size:9px;color:var(--text3);letter-spacing:0.08em">AUTO-SAVE ✓</span>
+    </div>
+    <div class="vault-card">
+      <div class="vault-lbl">◈ Vault Database</div>
+      <div class="vault-num" id="sb-total">0</div>
+      <div class="vault-sub">rekening tersimpan permanen</div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+    <div class="topbar">
+      <div>
+        <div class="page-eyebrow">◈ Overview</div>
+        <div class="page-title">Dashboard</div>
+        <div class="page-sub">Sistem verifikasi rekening bank premium</div>
+      </div>
+      <div class="topbar-right">
+        <div class="live-pill"><span class="live-dot"></span>Sistem Aktif</div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="scard s-gold">
+        <div class="scard-top-line"></div>
+        <div class="scard-glow"></div>
+        <span class="scard-ico">🗄️</span>
+        <div class="scard-lbl">Database</div>
+        <div class="scard-val" id="d-total">0</div>
+        <div class="scard-meta">rekening tersimpan</div>
+      </div>
+      <div class="scard s-blue">
+        <div class="scard-top-line"></div>
+        <div class="scard-glow"></div>
+        <span class="scard-ico">🔍</span>
+        <div class="scard-lbl">Total Dicek</div>
+        <div class="scard-val" id="d-checked">0</div>
+        <div class="scard-meta">semua sesi</div>
+      </div>
+      <div class="scard s-green">
+        <div class="scard-top-line"></div>
+        <div class="scard-glow"></div>
+        <span class="scard-ico">✅</span>
+        <div class="scard-lbl">Tersedia</div>
+        <div class="scard-val" id="d-match">0</div>
+        <div class="scard-meta"><span class="pct pct-g" id="d-pct-m">0%</span> dari dicek</div>
+      </div>
+      <div class="scard s-red">
+        <div class="scard-top-line"></div>
+        <div class="scard-glow"></div>
+        <span class="scard-ico">❌</span>
+        <div class="scard-lbl">Tidak Ada</div>
+        <div class="scard-val" id="d-nomatch">0</div>
+        <div class="scard-meta"><span class="pct pct-r" id="d-pct-n">0%</span> dari dicek</div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="glass-card">
+        <div class="card-head">
+          <div class="card-title"><span>◈</span><span class="card-title-gold">Distribusi Bank</span></div>
+        </div>
+        <div class="card-body"><div id="bank-dist"><div style="color:var(--text3);font-size:12px;text-align:center;padding:16px">Memuat...</div></div></div>
+      </div>
+      <div class="glass-card">
+        <div class="card-head"><div class="card-title"><span>⚡</span><span class="card-title-gold">Aksi Cepat</span></div></div>
+        <div class="card-body">
+          <div class="qa-grid">
+            <button class="qa-btn em" onclick="showPage('check')"><span class="qa-ico">🔍</span>Cek Rekening</button>
+            <button class="qa-btn gold" onclick="showPage('database')"><span class="qa-ico">🗄️</span>Database</button>
+            <button class="qa-btn" onclick="exportCSV()"><span class="qa-ico">📥</span>Export CSV</button>
+            <button class="qa-btn" onclick="openImport()"><span class="qa-ico">📤</span>Import Data</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card mb22">
+      <div class="card-head">
+        <div class="card-title"><span>◷</span><span class="card-title-gold">Riwayat Terbaru</span></div>
+        <button class="btn btn-ghost btn-sm" onclick="showPage('history')">Lihat Semua →</button>
+      </div>
+      <div id="dash-hist" style="padding:14px 18px"></div>
+    </div>
+  </div>
+
+  <!-- CEK REKENING -->
+  <div class="page" id="page-check">
+    <div class="topbar">
+      <div>
+        <div class="page-eyebrow">⬡ Verifikasi</div>
+        <div class="page-title">Cek Rekening</div>
+        <div class="page-sub">Masukkan data rekening untuk diverifikasi dengan database</div>
+      </div>
+    </div>
+
+    <div class="glass-card mb22">
+      <div class="card-head">
+        <div class="card-title"><span>📝</span><span class="card-title-gold">Input Data Rekening</span></div>
+        <code style="font-size:10px;padding:4px 10px">BANK [Tab] NAMA [Tab] NO.REKENING</code>
+      </div>
+      <div class="card-body">
+        <div class="alert" id="check-alert"><span id="check-alert-msg"></span></div>
+        <textarea id="check-input" placeholder="Contoh:
+CIMB	YENI YUSTIANA	708707460800
+BCA	Budi Santoso	1234567890
+BNI	Siti Rahayu	9876543210
+
+Setiap kolom dipisahkan dengan tombol Tab"></textarea>
+        <div class="btn-row">
+          <button class="btn btn-gold" onclick="runCheck()">🔍 Cek Sekarang</button>
+          <button class="btn btn-ghost" onclick="pasteEx()">📋 Contoh Data</button>
+          <button class="btn btn-ghost" onclick="clearCheck()">✕ Bersihkan</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result-section" style="display:none">
+      <div class="glass-card mb22">
+        <div class="filters-bar">
+          <button class="fchip fa" id="fc-all" onclick="setFilter('all')">Semua &nbsp;<span id="fc-ac" style="opacity:0.6">0</span></button>
+          <button class="fchip" id="fc-yes" onclick="setFilter('yes')">✅ Tersedia &nbsp;<span id="fc-yc" style="opacity:0.6">0</span></button>
+          <button class="fchip" id="fc-no" onclick="setFilter('no')">❌ Tidak Ada &nbsp;<span id="fc-nc" style="opacity:0.6">0</span></button>
+          <div class="vsep"></div>
+          <div class="search-wrap"><span class="search-ico">🔎</span><input type="text" id="search-box" placeholder="Cari nama, nomor, atau bank..." oninput="renderTable()"></div>
+          <select class="sel" id="bank-sel" onchange="renderTable()"><option value="">Semua Bank</option></select>
+          <button class="btn btn-gold btn-sm" onclick="exportCSV()">📥 Export</button>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th style="width:42px">#</th>
+              <th style="width:95px">Bank</th>
+              <th>Nama</th>
+              <th>No. Rekening</th>
+              <th style="width:118px">Status</th>
+            </tr></thead>
+            <tbody id="tbl-body"><tr><td colspan="5" class="tbl-empty">Belum ada data</td></tr></tbody>
+          </table>
+        </div>
+        <div class="tbl-foot"><span id="tbl-info">—</span><button class="btn btn-ghost btn-sm" onclick="exportCSV()">📥 Unduh Hasil</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATABASE -->
+  <div class="page" id="page-database">
+    <div class="topbar">
+      <div>
+        <div class="page-eyebrow">◫ Vault</div>
+        <div class="page-title">Database Kami</div>
+        <div class="page-sub">Semua rekening tersimpan permanen di browser Anda</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-ghost" onclick="openImport()">📤 Import</button>
+        <button class="btn btn-gold" onclick="exportDBCSV()">📥 Export DB</button>
+      </div>
+    </div>
+
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="scard s-gold">
+        <div class="scard-top-line"></div>
+        <div class="scard-glow"></div>
+        <span class="scard-ico">📦</span>
+        <div class="scard-lbl">Total Rekening</div>
+        <div class="scard-val" id="db-tot">0</div>
+        <div class="scard-meta">tersimpan permanen</div>
+      </div>
+      <div class="scard s-green">
+        <div class="scard-top-line"></div>
+        <div class="scard-glow"></div>
+        <span class="scard-ico">🏦</span>
+        <div class="scard-lbl">Jumlah Bank</div>
+        <div class="scard-val" id="db-banks">0</div>
+        <div class="scard-meta">bank berbeda</div>
+      </div>
+      <div class="scard s-blue">
+        <div class="scard-top-line"></div>
+        <div class="scard-glow"></div>
+        <span class="scard-ico">🏆</span>
+        <div class="scard-lbl">Bank Terbanyak</div>
+        <div class="scard-val" id="db-top" style="font-size:20px">—</div>
+        <div class="scard-meta">rekening terbanyak</div>
+      </div>
+    </div>
+
+    <div class="glass-card mb22">
+      <div class="filters-bar">
+        <div class="search-wrap"><span class="search-ico">🔎</span><input type="text" id="db-search" placeholder="Cari di database..." oninput="renderDB()"></div>
+        <select class="sel" id="db-bsel" onchange="renderDB()"><option value="">Semua Bank</option></select>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th style="width:42px">#</th>
+            <th style="width:95px">Bank</th>
+            <th>Nama</th>
+            <th>No. Rekening</th>
+          </tr></thead>
+          <tbody id="db-body"><tr><td colspan="4" class="tbl-empty">Memuat...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="tbl-foot"><span id="db-info">—</span></div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="page" id="page-history">
+    <div class="topbar">
+      <div>
+        <div class="page-eyebrow">◷ Log</div>
+        <div class="page-title">Riwayat Pengecekan</div>
+        <div class="page-sub">Semua sesi verifikasi yang pernah dilakukan</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-ghost" onclick="clearHist()">✕ Hapus Semua</button>
+      </div>
+    </div>
+    <div id="hist-page"></div>
+  </div>
+
+</main>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-bg" id="import-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">📤 Import Data Rekening</div>
+      <button class="modal-x" onclick="closeImport()">×</button>
+    </div>
+    <div class="fmt-hint">
+      Format per baris: <code>BANK</code> → <code>Tab</code> → <code>NAMA</code> → <code>Tab</code> → <code>NO.REKENING</code><br>
+      Data akan disimpan permanen dan tersedia di semua browser/perangkat yang menggunakan file ini.
+    </div>
+    <textarea id="import-ta" style="min-height:160px" placeholder="BCA	Budi Santoso	1234567890
+BNI	Siti Dewi	9876543210
+MANDIRI	Ahmad Fauzi	0987654321"></textarea>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="doImport(false)">⊕ Tambahkan ke Database</button>
+      <button class="btn btn-ghost" onclick="doImport(true)">↺ Ganti Semua Data</button>
+      <button class="btn btn-ghost" onclick="closeImport()">✕ Batal</button>
+    </div>
+    <div class="alert" id="import-alert" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  DATA DEFAULT
+// ══════════════════════════════════════════════
+const DEFAULT_RAW=`BCA\tParmanto\t0771373541
+BCA\tKristina Natalia S\t7635717050
+BCA\tSane Ah\t2770826155
+BCA\tSIN KIONG\t1082948087
+BCA\tNursinah\t8841031130
+BCA\tAlfira Chika Ramadhani\t5810718210
+BCA\tReynaldi Tuwo\t6920311529
+BCA\tRosa Nur Amalilah\t5990423573
+BCA\tSinta Septiani\t2750780922
+BCA\tHasbybullah\t6920312614
+BCA\tRani Wahyuni\t2120460792
+BCA\tMuhammad Ferdinand\t7235654971
+BCA\tAdnan Fauzan\t8288146962
+BNI\tRuslan\t1927387250
+BNI\tEnjet Bin Mursin\t1992663198
+BNI\tYonna Sembiring\t1976857707
+BNI\tYuliyanti\t1981695146
+BNI\tDeni\t1993880178
+BNI\tAhmad Mubarak\t1982754248
+BRI\tSUKAESIH\t224801007030501
+BRI\tADIH PRAHYUDA ADRIANSYAH\t081901034309506
+BRI\tMUHAMAD FAISAL FERLIANDY\t179001006845501
+BRI\tDewi murni\t006301084456504
+BRI\tMohamad Muhdi\t078901002786507
+BRI\tRoni Supriadi\t112901037120507
+BRI\tSiti\t001901190849505
+MANDIRI\tMuhammad Zidan Darmawan\t078801002301507
+DANAMON\tMUHAMMAD I RAMADHAN\t3693723607
+MAYBANK\tREYVALDE SELGI REZKY\t8040905697
+CIMB\tYoel Julianus Partahian\t763793351500
+CIMB\tRONI KRISTIANTO P. SINAGA\t764100039400
+BCA\tM ALVIN NUGRAHA\t8832212937
+BCA\tNieska Nur Aini\t3860240628
+BCA\tM. Nur Diansyah\t3700109886
+BCA\tTaufiq Alhakim\t7391956140
+BCA\tRAMONA RAMADIANI\t7350334534
+BCA\tMUHAMMAD RAVI KURNIAWAN\t0941998649
+BCA\tYogi Saputra\t3120985883
+BCA\tNelvi Deswita\t0322737911
+BCA\tKartika Rahayu\t3120982221
+BCA\tAde Chandra\t8565342238
+BCA\tJASMINE TAMARA DESPUTRI\t1652827939
+BCA\tALBIANSYAH PUTRA\t2610291778
+BCA\tREZA PAHLEVI\t3110139186
+BCA\tDEA PUTRI CAHYANTI\t1980401053
+BCA\tMUHAMAD PERDIANSYAH\t7655625275
+BCA\tTri Hartanto\t7571159884
+BCA\tRahayu Prihatini\t4871055810
+BCA\tJa'far Shidiq\t0020321563
+BCA\tRafa Gilang Pratama\t1610169500
+BCA\tSiti Julaeha\t0690657619
+BCA\tAhmad Lemi\t2290700909
+BCA\tKarsini\t5411604234
+BCA\tSUNARNI\t7560500496
+BCA\tCLARITA PANYONGANG\t6485676566
+BCA\tGUSTI TRI HARDIANTO\t7726007640
+BCA\tI DEWA KADEK SUCI ADITAMA\t7703160087
+BCA\tJalaludin\t1751292606
+BCA\tUlina\t1751291952
+BCA\tEndang Sulastri\t1751292070
+BCA\tMita Astuti\t8040325230
+BCA\tMAHER ZAINI\t7726008662
+BCA\tDwi Rangga Darmawan\t8780529599
+BCA\tNurul Syadad\t2453715698
+BCA\tRISKI. A\t2770826643
+BCA\tSonny Turniawan\t1790401812
+BCA\tTaopik Ramdani\t5805135091
+BCA\tsalamiah\t1751293670
+BCA\tEdy Marlon Kakisina\t6430344747
+BCA\tputri handayani\t1751293611
+BCA\tSaniman\t8670958575
+BCA\tzuwandi\t1751295087
+BCA\tROSIDAH\t8660509217
+BNI\tJoni\t1924750060
+BNI\tDEDE IQBAL\t1913489189
+BNI\tIndah Sri Purnama S\t1919231406
+BNI\tWanda Juliana\t1919455766
+BNI\tRisma Riyanti\t1921642785
+BNI\tDian\t1924747864
+BNI\tDewi Anggita Nurnabilla\t1982711555
+BNI\tAhmad Rifki Fauzan\t1990965112
+BNI\tDanuar Yitsurani\t1993052155
+BNI\tMasilah rohimah\t1986092981
+BNI\tMUHAMMAD SULHANUDIN\t1988564976
+MANDIRI\tHayumi\t1630011585554
+MANDIRI\tSiti Rohani\t1340032182999
+MANDIRI\tJa'far Shidiq\t1190012292890
+MANDIRI\tSiti Wahyuni\t1150011293828
+MANDIRI\tMohamad Aji Saputra\t1680004359814
+MANDIRI\tDwi Apriyanto\t1680004404628
+BRI\tMARWATI\t112801014100532
+BRI\tATTHORIQ DWI FALLAH\t179001006822503
+BRI\tFerdiansyah\t033801064820508
+BRI\tAgus Salim\t324101003979508
+BRI\tAnwar Nata Kusuma\t385401006244507
+BRI\tAgus Ahad\t385401006221509
+BRI\tDeni\t481601019269507
+BRI\tAgustiatie Ateng\t041801027028503
+BRI\tMuhamad Faiz Ar Raffi\t748701001947505
+BRI\tElla Saphita\t082701047735505
+BRI\tRafli Fadillah\t050501021315507
+BRI\tAndrian Wahyu Prastyo\t041501044653507
+BRI\tNovita Sari\t332201005071506
+BRI\tMuhammad Patriya Pamungkas\t112901038935507
+BRI\tYOPI PIRMANSYAH\t112901038945502
+CIMB\tRomy Pryanto\t707050842000
+CIMB\tCINDY CLAUDIA\t708656165500
+CIMB\tYENI YUSTIANA\t708707460800
+CIMB\tHALAWANI\t708720033200
+CIMB\tDarmawan Hakim\t708651855400
+MAYBANK\tPutri Anggawati\t8285914084
+MAYBANK\tAhmad Agustiar Harja\t8039911220
+MAYBANK\tMuhamad Fiekry Adzahaby\t8107925422
+DANAMON\tAdin\t903692976867
+DANAMON\tMuhamad Enur\t903704328123
+PERMATA\tERIN SUHARI\t09940511752
+PERMATA\tROBI SEPTIAN\t9942427457
+PERMATA\tBAGUS HARTONO\t9947155722
+PERMATA\tAmatul Firdausiah\t9944432377
+PERMATA\tMulyadi\t9950617079
+PERMATA\tMuslina Fajri\t9949430305
+BCA\tATEP SUTISNA\t5805108735
+BCA\tRimba Reinnes\t6035061481
+BCA\tAndjar\t5810705428
+BCA\tShenna Budiyasih\t2850162002
+BCA\tENDANG M\t7120779731
+BCA\tULFAH\t7126141768
+BCA\tSUDARIAH\t8681467912
+BCA\tHeri Susanto\t2440507762
+BCA\tTakkas Poltak Sinambela\t5380349266
+BCA\tFIKRI DARMAWAN\t5850428826
+BCA\tAFRIYANTO\t2760234110
+MANDIRI\tMARIANDA\t1110024392447
+MANDIRI\tAINI NUSFATIROH\t1630011896837
+MANDIRI\tMeysha Khalisa Humaira\t1110024401107
+MANDIRI\tSAMSU RIZAL\t1230012530368
+MANDIRI\tYopi Pirmansyah\t1550015576898
+BRI\tDeanika.M.Prahuda\t008401289601506
+BRI\tMulyatini\t033801066452505
+BNI\tSupriana\t1919133588
+BNI\tRokmini\t1918958465
+BNI\tSri Prihatin Ningsih\t1925097391
+BNI\tFAISAL BASRI\t1983956695
+BNI\tRakhmat Azis\t1924992124
+DANAMON\tAryanah\t903688519838
+DANAMON\tJohny Jeffrison\t003692040516
+DANAMON\tRUKMINAH\t3693220497
+DANAMON\tYUNIARTO ADINUGROHO\t003700943289
+DANAMON\tAGUSTINA\t903703452866
+SINARMAS\tAryanah\t0018445433
+SINARMAS\tJohny Jeffrison\t0059647318
+SINARMAS\tMUHAMAD SAIFULLOH\t0018431807
+OCBC\tMUHAMAD SAIFULLOH\t693818148597
+BNI\tGUSMAN ANDRI SAPUTRA\t1927940897
+BCA\tEKA DWI NURIANDA\t0420773056
+BCA\tNOVIANA\t6801685843
+BRI\tNurul Juwita\t036801011724532
+BRI\tMuhammad Zidan Darmawan\t078801002301507
+BRI\tFitriyana\t161601006069505
+BCA\tRehan Nurjaman\t7772903807
+BCA\tDAMAN MULYANA\t1832267109
+BCA\tUjang Iskandar\t0280370371
+BCA\tYUSRAN\t7611383081
+BCA\tNURALIAH\t5860526877
+BCA\tANITA\t7571086852
+BCA\tRina Mutiara\t5195126469
+BRI\tPADLI\t223501013715500
+BRI\tTeguh Bagus Dwi Cahyo\t098401039559537
+BRI\tIntan Novianti\t34501045251503
+BRI\tViana Febriani\t034501045257509
+BRI\tLianna\t117101021928504
+PERMATA\tENENG TATI\t9923180289
+PERMATA\tSAHYU WANDIRA\t9930156512
+PERMATA\tImas Kurnia\t009936092397
+BCA\tTika nursafitri\t8660440829
+BCA\tRATIH\t5785366503
+BCA\tIrgi Ahmad Alfarzy\t4960523861
+BCA\tBagus Bayu Ardianta Sutjipta\t0499838877
+BCA\tELVIRA MAYASOFA SIMBOLON\t7580881054
+BCA\tFEBRINA TRIYAS ANDINI\t5677032915
+BNI\tFEBRINA TRIYAS ANDINI\t1848504246
+BRI\tAli Wijaya\t084001013397503
+BRI\tANISA SAILENDRA PUTRI\t720801003583505
+MANDIRI\tLIEM SILVIA\t1290014354464
+DANAMON\tReinhart Reynaldo Lukman\t903687103337`;
+
+// ══════════════════════════════════════════════
+//  STATE & PERSISTENCE
+// ══════════════════════════════════════════════
+const STORAGE_KEY='rekening_db_v2';
+const STATS_KEY='rekening_stats_v2';
+const HIST_KEY='rekening_hist_v2';
+
+let DB=[],results=[],hist=[],filt='all';
+let totalChecked=0,totalMatch=0,totalNoMatch=0;
+
+const parse=t=>t.trim().split('\n').map(l=>{const p=l.split('\t');return p.length>=3?{bank:p[0].trim().toUpperCase(),name:p[1].trim(),norek:p[2].trim().replace(/\s+/g,'')}:null}).filter(Boolean);
+const key=r=>r.bank+'|'+r.norek.toLowerCase();
+const bc=b=>({BCA:'bca',BNI:'bni',BRI:'bri',MANDIRI:'mandiri',CIMB:'cimb',MAYBANK:'maybank',DANAMON:'danamon',PERMATA:'permata',SINARMAS:'sinarmas',OCBC:'ocbc'}[b]||'dbank');
+
+function saveDB(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(DB));
+    flashSave();
+  }catch(e){console.warn('LocalStorage full',e)}
+}
+
+function loadDB(){
+  try{
+    const saved=localStorage.getItem(STORAGE_KEY);
+    if(saved){DB=JSON.parse(saved);}
+    else{DB=parse(DEFAULT_RAW);saveDB();}
+  }catch(e){DB=parse(DEFAULT_RAW)}
+}
+
+function saveStats(){
+  try{localStorage.setItem(STATS_KEY,JSON.stringify({totalChecked,totalMatch,totalNoMatch}))}catch(e){}
+}
+function loadStats(){
+  try{const s=localStorage.getItem(STATS_KEY);if(s){const d=JSON.parse(s);totalChecked=d.totalChecked||0;totalMatch=d.totalMatch||0;totalNoMatch=d.totalNoMatch||0}}catch(e){}
+}
+
+function saveHist(){
+  try{localStorage.setItem(HIST_KEY,JSON.stringify(hist.slice(0,50)))}catch(e){}
+}
+function loadHist(){
+  try{const h=localStorage.getItem(HIST_KEY);if(h)hist=JSON.parse(h)}catch(e){}
+}
+
+function flashSave(){
+  const el=document.getElementById('save-ind');
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),2000);
+}
+
+function resetDB(){
+  if(!confirm('Reset database ke data default? Semua tambahan data akan hilang.'))return;
+  DB=parse(DEFAULT_RAW);saveDB();
+  refreshStats();renderDB();
+  alert('Database berhasil direset ke data default.');
+}
+
+// ══════════════════════════════════════════════
+//  UI
+// ══════════════════════════════════════════════
+function refreshStats(){
+  document.getElementById('sb-total').textContent=DB.length;
+  document.getElementById('d-total').textContent=DB.length;
+  document.getElementById('db-tot').textContent=DB.length;
+  document.getElementById('d-checked').textContent=totalChecked;
+  document.getElementById('d-match').textContent=totalMatch;
+  document.getElementById('d-nomatch').textContent=totalNoMatch;
+  document.getElementById('d-pct-m').textContent=totalChecked?Math.round(totalMatch/totalChecked*100)+'%':'0%';
+  document.getElementById('d-pct-n').textContent=totalChecked?Math.round(totalNoMatch/totalChecked*100)+'%':'0%';
+  const banks=[...new Set(DB.map(r=>r.bank))];
+  document.getElementById('db-banks').textContent=banks.length;
+  if(banks.length){
+    const c={};DB.forEach(r=>c[r.bank]=(c[r.bank]||0)+1);
+    const top=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];
+    document.getElementById('db-top').textContent=top[0];
+  }
+  renderBankDist();
+  fillSels();
+}
+
+function renderBankDist(){
+  const c={};DB.forEach(r=>c[r.bank]=(c[r.bank]||0)+1);
+  const sorted=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const mx=sorted[0]?.[1]||1;
+  document.getElementById('bank-dist').innerHTML=sorted.length
+    ?sorted.map(([b,n])=>`<div class="brow"><div class="blbl"><span class="bbadge ${bc(b)}">${b}</span></div><div class="bbar-bg"><div class="bbar" style="width:${Math.round(n/mx*100)}%"></div></div><div class="bcnt">${n}</div></div>`).join('')
+    :'<div style="color:var(--text3);font-size:12px;text-align:center;padding:16px">Tidak ada data</div>';
+}
+
+function fillSels(){
+  const banks=[...new Set(DB.map(r=>r.bank))].sort();
+  ['bank-sel','db-bsel'].forEach(id=>{
+    const s=document.getElementById(id),v=s.value;
+    s.innerHTML='<option value="">Semua Bank</option>'+banks.map(b=>`<option${b===v?' selected':''}>${b}</option>`).join('');
+  });
+}
+
+function renderDB(){
+  const q=(document.getElementById('db-search').value||'').toLowerCase();
+  const bf=document.getElementById('db-bsel').value;
+  let r=DB;
+  if(bf)r=r.filter(x=>x.bank===bf);
+  if(q)r=r.filter(x=>x.name.toLowerCase().includes(q)||x.norek.toLowerCase().includes(q)||x.bank.toLowerCase().includes(q));
+  document.getElementById('db-info').textContent=`Menampilkan ${r.length} dari ${DB.length} rekening`;
+  document.getElementById('db-body').innerHTML=r.length
+    ?r.map((x,i)=>`<tr><td style="color:var(--text3);font-size:11px;font-family:var(--mono)">${i+1}</td><td><span class="bbadge ${bc(x.bank)}">${x.bank}</span></td><td style="font-weight:500">${x.name}</td><td class="norek">${x.norek}</td></tr>`).join('')
+    :'<tr><td colspan="4" class="tbl-empty">Tidak ada data ditemukan</td></tr>';
+}
+
+function setFilter(f){
+  filt=f;
+  ['all','yes','no'].forEach(id=>{
+    const el=document.getElementById('fc-'+id);
+    const cls={all:'fchip fa',yes:'fchip fy',no:'fchip fn'};
+    el.className=id===f?cls[id]:'fchip';
+  });
+  renderTable();
+}
+
+function renderTable(){
+  const q=(document.getElementById('search-box').value||'').toLowerCase();
+  const bf=document.getElementById('bank-sel').value;
+  let r=results;
+  if(filt==='yes')r=r.filter(x=>x.found);
+  if(filt==='no')r=r.filter(x=>!x.found);
+  if(bf)r=r.filter(x=>x.bank===bf);
+  if(q)r=r.filter(x=>x.name.toLowerCase().includes(q)||x.norek.toLowerCase().includes(q)||x.bank.toLowerCase().includes(q));
+  document.getElementById('fc-ac').textContent=results.length;
+  document.getElementById('fc-yc').textContent=results.filter(x=>x.found).length;
+  document.getElementById('fc-nc').textContent=results.filter(x=>!x.found).length;
+  document.getElementById('tbl-info').textContent=`Menampilkan ${r.length} dari ${results.length} data`;
+  document.getElementById('tbl-body').innerHTML=r.length
+    ?r.map((x,i)=>`<tr>
+      <td style="color:var(--text3);font-size:11px;font-family:var(--mono)">${i+1}</td>
+      <td><span class="bbadge ${bc(x.bank)}">${x.bank}</span></td>
+      <td style="font-weight:500">${x.name}</td>
+      <td class="norek">${x.norek}</td>
+      <td><span class="sbadge ${x.found?'sy':'sn'}"><span class="sdot ${x.found?'sdot-g':'sdot-r'}"></span>${x.found?'Tersedia':'Tidak Ada'}</span></td>
+    </tr>`).join('')
+    :'<tr><td colspan="5" class="tbl-empty">Tidak ada data ditemukan</td></tr>';
+}
+
+function runCheck(){
+  const val=document.getElementById('check-input').value.trim();
+  if(!val){showA('check-alert','⚠️ Masukkan data rekening terlebih dahulu.','alert-warn');return}
+  const toCheck=parse(val);
+  if(!toCheck.length){showA('check-alert','⚠️ Format tidak valid. Gunakan Tab sebagai pemisah.','alert-warn');return}
+  const dbKeys=new Set(DB.map(key));
+  results=toCheck.map(r=>({...r,found:dbKeys.has(key(r))}));
+  const m=results.filter(x=>x.found).length;
+  totalChecked+=results.length;
+  totalMatch+=m;
+  totalNoMatch+=(results.length-m);
+  saveStats();
+  hist.unshift({
+    time:new Date().toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    count:results.length,match:m,data:[...results]
+  });
+  saveHist();
+  refreshStats();
+  renderDash();renderHistPage();
+  document.getElementById('result-section').style.display='block';
+  fillSels();
+  setFilter('all');
+  showA('check-alert',`✅ Selesai! ${m} dari ${toCheck.length} rekening tersedia di database kami.`,'alert-success');
+}
+
+function showA(id,msg,cls){
+  const el=document.getElementById(id);
+  el.className='alert show '+cls;
+  el.innerHTML=msg;
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.className='alert',6000);
+}
+
+function renderDash(){
+  const el=document.getElementById('dash-hist');
+  if(!hist.length){el.innerHTML='<div style="color:var(--text3);font-size:12px;text-align:center;padding:16px">Belum ada riwayat pengecekan</div>';return}
+  el.innerHTML='<div class="hist-list">'+hist.slice(0,4).map((h,i)=>`
+    <div class="hist-item" onclick="loadHist(${i});showPage('check')">
+      <span class="hist-ico">◷</span>
+      <div class="hist-info"><div class="hist-title">${h.count} rekening dicek</div><div class="hist-meta">${h.time}</div></div>
+      <div class="hist-badges">
+        <span class="sbadge sy"><span class="sdot sdot-g"></span>${h.match} tersedia</span>
+        <span class="sbadge sn"><span class="sdot sdot-r"></span>${h.count-h.match} tidak ada</span>
+      </div>
+    </div>`).join('')+'</div>';
+}
+
+function renderHistPage(){
+  const el=document.getElementById('hist-page');
+  if(!hist.length){el.innerHTML='<div style="color:var(--text3);font-size:13px;text-align:center;padding:60px">Belum ada riwayat pengecekan</div>';return}
+  el.innerHTML='<div class="hist-list">'+hist.map((h,i)=>`
+    <div class="hist-item" onclick="loadHist(${i});showPage('check')">
+      <span class="hist-ico">◷</span>
+      <div class="hist-info"><div class="hist-title">${h.count} rekening dicek</div><div class="hist-meta">${h.time}</div></div>
+      <div class="hist-badges">
+        <span class="sbadge sy"><span class="sdot sdot-g"></span>${h.match} tersedia</span>
+        <span class="sbadge sn"><span class="sdot sdot-r"></span>${h.count-h.match} tidak ada</span>
+      </div>
+    </div>`).join('')+'</div>';
+}
+
+function loadHist(i){results=[...hist[i].data];document.getElementById('result-section').style.display='block';setFilter('all')}
+function clearHist(){if(!confirm('Hapus semua riwayat?'))return;hist=[];saveHist();renderDash();renderHistPage()}
+function clearCheck(){document.getElementById('check-input').value='';document.getElementById('result-section').style.display='none';results=[]}
+function pasteEx(){document.getElementById('check-input').value='CIMB\tYENI YUSTIANA\t708707460800\nCIMB\tHALAWANI\t708720033200\nCIMB\tYUDA SYAHPUTRA\t708556371200\nBCA\tParmanto\t0771373541\nBRI\tTestUser\t999999999999'}
+
+function exportCSV(){
+  if(!results.length){alert('Tidak ada data hasil pengecekan untuk diekspor.');return}
+  const rows=[['Bank','Nama','No. Rekening','Status'],...results.map(r=>[r.bank,r.name,r.norek,r.found?'Tersedia':'Tidak Tersedia'])];
+  dl('hasil_cek_'+new Date().toLocaleDateString('id-ID').replace(/\//g,'-')+'.csv',rows.map(r=>r.join(',')).join('\n'));
+}
+function exportDBCSV(){
+  const rows=[['Bank','Nama','No. Rekening'],...DB.map(r=>[r.bank,r.name,r.norek])];
+  dl('database_rekening_premium.csv',rows.map(r=>r.join(',')).join('\n'));
+}
+function dl(fn,c){const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(c);a.download=fn;a.click()}
+
+function openImport(){document.getElementById('import-modal').classList.add('open');document.getElementById('import-ta').value='';document.getElementById('import-alert').className='alert'}
+function closeImport(){document.getElementById('import-modal').classList.remove('open')}
+function doImport(replace){
+  const val=document.getElementById('import-ta').value.trim();
+  if(!val)return;
+  const newR=parse(val);if(!newR.length)return;
+  const al=document.getElementById('import-alert');
+  if(replace){
+    DB=newR;
+    al.className='alert show alert-success';al.innerHTML=`✅ Database diganti dengan ${newR.length} rekening baru.`;
+  }else{
+    const ex=new Set(DB.map(key));
+    const added=newR.filter(r=>!ex.has(key(r)));
+    DB=[...DB,...added];
+    al.className='alert show alert-success';al.innerHTML=`✅ ${added.length} rekening ditambahkan. ${newR.length-added.length} duplikat dilewati.`;
+  }
+  saveDB();refreshStats();renderDB();
+  setTimeout(closeImport,2200);
+}
+
+function showPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+n).classList.add('active');
+  const map={dashboard:0,check:1,database:2,history:3};
+  document.querySelectorAll('.nav-btn')[map[n]]?.classList.add('active');
+  if(n==='database')renderDB();
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+loadDB();
+loadStats();
+loadHist();
+refreshStats();
+renderDash();
+renderHistPage();
+</script>
+</body>
+</html>
